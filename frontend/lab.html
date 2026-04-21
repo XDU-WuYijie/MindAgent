@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge 管理员联调页</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111d35;
+      --paper: #ffffff;
+      --line: #d7dfef;
+      --text: #14213d;
+      --muted: #64748b;
+      --brand: #1f66e5;
+      --brand-2: #1549b6;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #067647;
+      --radius: 16px;
+      --shadow: 0 20px 44px rgba(15, 23, 42, .22);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: #e6edf8;
+      font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(900px 500px at -10% -15%, rgba(31,102,229,.2), transparent 56%),
+        radial-gradient(900px 500px at 110% -15%, rgba(7,118,71,.22), transparent 56%),
+        linear-gradient(180deg, var(--bg-soft), var(--bg));
+      min-height: 100vh;
+    }
+
+    .shell {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 20px 18px 28px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+      animation: fadeUp .45s ease-out both;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: .4px;
+    }
+
+    .hero p {
+      margin: 6px 0 0;
+      color: #c6d4ee;
+      font-size: 14px;
+      max-width: 760px;
+      line-height: 1.56;
+    }
+
+    .pill {
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #d6e2fa;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    .gate, .layout {
+      animation: fadeUp .55s ease-out both;
+      animation-delay: .04s;
+    }
+
+    .layout {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 380px 1fr;
+      align-items: start;
+    }
+
+    @media (max-width: 1020px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; }
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      padding: 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      background: #f7f9ff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+    }
+
+    .row { display: grid; gap: 8px; margin-bottom: 10px; }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 10px 12px;
+      outline: none;
+      color: var(--text);
+      font-size: 14px;
+      background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: rgba(31,102,229,.45);
+      box-shadow: 0 0 0 4px rgba(31,102,229,.12);
+    }
+
+    textarea { min-height: 94px; resize: vertical; }
+    .mono { font-family: Consolas, "Courier New", monospace; }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 8px 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform .16s, box-shadow .16s, filter .16s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(17, 24, 39, 0.08);
+      filter: brightness(0.99);
+    }
+
+    button.primary {
+      color: #fff;
+      border-color: var(--brand);
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+
+    .status { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .danger { color: var(--danger); }
+
+    pre {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f8fbff;
+      padding: 10px;
+      max-height: 310px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.54;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .chat-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 1120px) {
+      .chat-grid { grid-template-columns: 1fr; }
+    }
+
+    .sub-title {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .answer-box {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: linear-gradient(180deg, #fcfeff, #f7fbff);
+      padding: 10px;
+    }
+
+    .chat-bubbles {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f9fbff;
+      padding: 10px;
+      max-height: 320px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 9px 11px;
+      border-radius: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 13px;
+      border: 1px solid transparent;
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #2f73ea, #1f66e5);
+      color: #fff;
+      border-color: #2b67d0;
+    }
+
+    .bubble.assistant {
+      align-self: flex-start;
+      background: #ffffff;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .hidden { display: none; }
+
+    .gate {
+      max-width: 760px;
+      margin: 16px auto 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <h1>MindBridge 管理员联调页</h1>
+        <p>仅管理员可进入，用于联调管理接口、知识库上传和 SSE 事件链。这里保留接口方法英文（GET/POST），其余采用中文展示。</p>
+      </div>
+      <div class="pill" id="llmIndicator">LLM: loading...</div>
+    </header>
+
+    <section id="gateBox" class="gate card hidden">
+      <h2>访问受限 <span class="badge">Gate</span></h2>
+      <p class="status warn">当前没有管理员会话。请先用管理员账号登录后进入联调模式。</p>
+      <div class="row">
+        <input id="gateUser" placeholder="管理员用户名" value="admin" />
+        <input id="gatePass" type="password" placeholder="管理员密码" value="admin123" />
+      </div>
+      <div class="btns">
+        <button class="primary" id="btnGateLogin">管理员登录并进入</button>
+        <button id="btnBack">返回展示页</button>
+      </div>
+      <pre id="gateOutput"></pre>
+    </section>
+
+    <main id="labMain" class="layout hidden">
+      <section class="card">
+        <h2>会话与管理接口 <span class="badge">Control</span></h2>
+        <div class="btns">
+          <button id="btnRefresh">刷新令牌</button>
+          <button id="btnLogout">退出</button>
+          <button id="btnToIndex">返回展示页</button>
+        </div>
+        <div id="authStatus" class="status"></div>
+        <pre id="leftOutput"></pre>
+
+        <h2 style="margin-top:12px;">管理员接口 <span class="badge">Admin APIs</span></h2>
+        <div class="btns">
+          <button id="btnAdminReports">GET /api/admin/reports</button>
+          <button id="btnAdminMcp">GET /api/admin/mcp-logs</button>
+        </div>
+        <div class="row">
+          <input id="kbFile" type="file" />
+        </div>
+        <div class="btns">
+          <button id="btnKbUpload">POST /api/kb/upload</button>
+          <button id="btnKbReload">POST /api/kb/reload</button>
+        </div>
+        <div class="row">
+          <input id="repoUrl" placeholder="Git 仓库 URL (https://...)" />
+          <input id="repoBranch" placeholder="分支（默认 main）" value="main" />
+          <input id="repoSubPath" placeholder="子目录（可选，如 docs）" />
+        </div>
+        <div class="btns">
+          <button id="btnKbPullRepo">POST /api/kb/pull-repo</button>
+        </div>
+        <pre id="adminOutput"></pre>
+      </section>
+
+      <section class="card">
+        <h2>聊天联调（SSE） <span class="badge">Stream</span></h2>
+        <div class="row">
+          <input id="model" class="mono" value="deepseek-chat" />
+          <textarea id="query">我最近压力很大，总是睡不着怎么办</textarea>
+        </div>
+        <div class="btns">
+          <button class="primary" id="btnChat">发送（POST /api/chat/stream）</button>
+          <button id="btnClear">清空结果</button>
+        </div>
+        <div id="chatStatus" class="status">准备就绪</div>
+
+        <div class="chat-grid">
+          <div>
+            <p class="sub-title">SSE 实时事件（intent / rag / token / done）</p>
+            <pre id="sseOutput"></pre>
+          </div>
+          <div>
+            <p class="sub-title">完整回复（token 自动拼接）</p>
+            <div class="answer-box">
+              <textarea id="fullAnswer" readonly></textarea>
+            </div>
+          </div>
+        </div>
+        <p class="sub-title" style="margin-top:10px;">聊天气泡视图（联调时更直观看到上下文）</p>
+        <div id="bubbleList" class="chat-bubbles"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const ACCESS_KEY = "mb_access_token";
+    const REFRESH_KEY = "mb_refresh_token";
+    const ROLE_KEY = "mb_role";
+
+    const el = (id) => document.getElementById(id);
+    const gateBox = el("gateBox");
+    const gateOutput = el("gateOutput");
+    const labMain = el("labMain");
+    const authStatus = el("authStatus");
+    const leftOutput = el("leftOutput");
+    const adminOutput = el("adminOutput");
+    const sseOutput = el("sseOutput");
+    const fullAnswer = el("fullAnswer");
+    const chatStatus = el("chatStatus");
+    const bubbleList = el("bubbleList");
+    const llmIndicator = el("llmIndicator");
+
+    function getConversationId() {
+      const fromQuery = new URLSearchParams(location.search).get("c");
+      const raw = (fromQuery || "default").trim();
+      return raw.length > 64 ? raw.slice(0, 64) : raw || "default";
+    }
+
+    function getAccessToken() { return localStorage.getItem(ACCESS_KEY) || ""; }
+    function getRefreshToken() { return localStorage.getItem(REFRESH_KEY) || ""; }
+    function getRole() { return localStorage.getItem(ROLE_KEY) || ""; }
+
+    function clearSession() {
+      localStorage.removeItem(ACCESS_KEY);
+      localStorage.removeItem(REFRESH_KEY);
+      localStorage.removeItem(ROLE_KEY);
+    }
+
+    function setSession(accessToken, refreshToken, role) {
+      if (accessToken) localStorage.setItem(ACCESS_KEY, accessToken);
+      if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
+      if (role) localStorage.setItem(ROLE_KEY, role);
+    }
+
+    function isAdminSession() {
+      return getRole() === "ADMIN" && !!getAccessToken();
+    }
+
+    function renderGate() {
+      if (isAdminSession()) {
+        gateBox.classList.add("hidden");
+        labMain.classList.remove("hidden");
+        authStatus.textContent = "管理员会话已就绪";
+        authStatus.className = "status ok";
+      } else {
+        labMain.classList.add("hidden");
+        gateBox.classList.remove("hidden");
+      }
+    }
+
+    async function refreshToken() {
+      const rt = getRefreshToken();
+      if (!rt) return false;
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken: rt })
+      });
+      if (!res.ok) {
+        clearSession();
+        renderGate();
+        return false;
+      }
+      const data = await res.json();
+      setSession(data.accessToken || data.token, data.refreshToken, data.role || getRole());
+      leftOutput.textContent = JSON.stringify(data, null, 2);
+      return true;
+    }
+
+    async function api(path, options = {}, allowRetry = true) {
+      const headers = Object.assign({}, options.headers || {});
+      const token = getAccessToken();
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+      const res = await fetch(path, Object.assign({}, options, { headers }));
+      if (res.status === 401 && allowRetry && getRefreshToken()) {
+        const ok = await refreshToken();
+        if (ok) return api(path, options, false);
+      }
+      return res;
+    }
+
+    async function gateLogin() {
+      const username = el("gateUser").value.trim();
+      const password = el("gatePass").value;
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json().catch(() => ({}));
+      gateOutput.textContent = JSON.stringify(data, null, 2);
+      if (!res.ok) return;
+      if (data.role !== "ADMIN") {
+        clearSession();
+        gateOutput.textContent += "\n\n当前账号不是 ADMIN，禁止进入联调页。";
+        return;
+      }
+      setSession(data.accessToken || data.token, data.refreshToken, data.role || "ADMIN");
+      renderGate();
+    }
+
+    async function callJson(path, target, options = {}) {
+      const res = await api(path, options);
+      target.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
+    }
+
+    function appendSseLine(line) {
+      sseOutput.textContent += line + "\n";
+      sseOutput.scrollTop = sseOutput.scrollHeight;
+    }
+
+    function appendBubble(role, text) {
+      const div = document.createElement("div");
+      div.className = `bubble ${role}`;
+      div.textContent = text || "";
+      bubbleList.appendChild(div);
+      bubbleList.scrollTop = bubbleList.scrollHeight;
+      return div;
+    }
+
+    function updateBubbleText(node, text) {
+      if (!node) return;
+      node.textContent = text || "";
+      bubbleList.scrollTop = bubbleList.scrollHeight;
+    }
+
+    function parseSseBlock(block) {
+      const lines = block.split(/\r?\n/);
+      let eventName = "message";
+      const data = [];
+      for (const line of lines) {
+        if (line.startsWith("event:")) eventName = line.slice(6).trim();
+        if (line.startsWith("data:")) data.push(line.slice(5).trimStart());
+      }
+      return { eventName, data: data.join("\n") };
+    }
+
+    function shortBaseUrl(baseUrl) {
+      if (!baseUrl) return "-";
+      try {
+        const u = new URL(baseUrl);
+        return `${u.protocol}//${u.host}`;
+      } catch (_) {
+        return baseUrl;
+      }
+    }
+
+    async function refreshLlmIndicator() {
+      if (!llmIndicator) return;
+      llmIndicator.textContent = "LLM: loading...";
+      try {
+        const res = await fetch("/api/health/llm");
+        if (!res.ok) {
+          llmIndicator.textContent = `LLM: status ${res.status}`;
+          return;
+        }
+        const data = await res.json();
+        const active = data.activeProvider || data.configuredProvider || "-";
+        const model = data.model || "-";
+        const base = shortBaseUrl(data.baseUrl || "");
+        llmIndicator.textContent = `LLM: ${active} | ${model} | ${base}`;
+      } catch (_) {
+        llmIndicator.textContent = "LLM: unavailable";
+      }
+    }
+
+    async function sendChat() {
+      sseOutput.textContent = "";
+      fullAnswer.value = "";
+      chatStatus.textContent = "发送中...";
+      chatStatus.className = "status warn";
+      const payload = {
+        query: el("query").value,
+        model: el("model").value.trim(),
+        conversationId: getConversationId()
+      };
+      appendBubble("user", payload.query);
+      const assistantBubble = appendBubble("assistant", "思考中...");
+
+      const run = async (allowRetry) => {
+        const headers = { "Content-Type": "application/json" };
+        const token = getAccessToken();
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/chat/stream", {
+          method: "POST",
+          headers,
+          body: JSON.stringify(payload)
+        });
+
+        if (res.status === 401 && allowRetry && getRefreshToken()) {
+          const ok = await refreshToken();
+          if (ok) return run(false);
+        }
+
+        if (!res.ok || !res.body) {
+          chatStatus.textContent = `请求失败：HTTP ${res.status}`;
+          chatStatus.className = "status danger";
+          const msg = await res.text();
+          appendSseLine(msg);
+          updateBubbleText(assistantBubble, `请求失败：HTTP ${res.status}\n${msg}`);
+          return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const blocks = buffer.split(/\r?\n\r?\n/);
+          buffer = blocks.pop() || "";
+          for (const raw of blocks) {
+            const block = raw.trim();
+            if (!block) continue;
+            const evt = parseSseBlock(block);
+            appendSseLine(`[event:${evt.eventName}] data:${evt.data}`);
+            if (evt.eventName === "token") {
+              fullAnswer.value += evt.data;
+              updateBubbleText(assistantBubble, fullAnswer.value);
+            }
+            if (evt.eventName === "done") {
+              chatStatus.textContent = "完成";
+              chatStatus.className = "status ok";
+              if (!fullAnswer.value.trim()) {
+                updateBubbleText(assistantBubble, "（无文本输出）");
+              }
+            }
+            if (evt.eventName === "error") {
+              chatStatus.textContent = "流式异常";
+              chatStatus.className = "status danger";
+              updateBubbleText(assistantBubble, `流式异常：${evt.data || "unknown error"}`);
+            }
+          }
+        }
+        if (chatStatus.textContent === "发送中...") {
+          chatStatus.textContent = "完成";
+          chatStatus.className = "status ok";
+        }
+      };
+      await run(true);
+    }
+
+    async function uploadKb() {
+      const fileInput = el("kbFile");
+      if (!fileInput.files || fileInput.files.length === 0) {
+        adminOutput.textContent = "请先选择一个 .md 或 .txt 文件。";
+        return;
+      }
+      const form = new FormData();
+      form.append("file", fileInput.files[0]);
+      const res = await api("/api/kb/upload", { method: "POST", body: form });
+      adminOutput.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
+    }
+
+    async function pullRepoKb() {
+      const repoUrl = (el("repoUrl").value || "").trim();
+      const branch = (el("repoBranch").value || "main").trim();
+      const subPath = (el("repoSubPath").value || "").trim();
+      if (!repoUrl) {
+        adminOutput.textContent = "Please input repo URL first.";
+        return;
+      }
+      const payload = { repoUrl, branch, subPath };
+      const res = await api("/api/kb/pull-repo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      adminOutput.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
+    }
+
+    el("btnGateLogin").addEventListener("click", gateLogin);
+    el("btnBack").addEventListener("click", () => location.href = "/");
+
+    el("btnRefresh").addEventListener("click", async () => {
+      const ok = await refreshToken();
+      authStatus.textContent = ok ? "令牌刷新成功" : "令牌刷新失败";
+      authStatus.className = ok ? "status ok" : "status danger";
+      if (!ok) renderGate();
+    });
+    el("btnLogout").addEventListener("click", () => {
+      clearSession();
+      renderGate();
+      leftOutput.textContent = "";
+      adminOutput.textContent = "";
+    });
+    el("btnToIndex").addEventListener("click", () => location.href = "/");
+
+    el("btnAdminReports").addEventListener("click", () => callJson("/api/admin/reports", adminOutput));
+    el("btnAdminMcp").addEventListener("click", () => callJson("/api/admin/mcp-logs", adminOutput));
+    el("btnKbUpload").addEventListener("click", uploadKb);
+    el("btnKbReload").addEventListener("click", () => callJson("/api/kb/reload", adminOutput, { method: "POST" }));
+    el("btnKbPullRepo").addEventListener("click", pullRepoKb);
+
+    el("btnChat").addEventListener("click", sendChat);
+    el("btnClear").addEventListener("click", () => {
+      sseOutput.textContent = "";
+      fullAnswer.value = "";
+      bubbleList.innerHTML = "";
+      chatStatus.textContent = "已清空";
+      chatStatus.className = "status";
+    });
+
+    renderGate();
+    refreshLlmIndicator();
+  </script>
+</body>
+</html>

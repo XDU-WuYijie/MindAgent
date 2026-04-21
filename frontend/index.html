@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridge 展示页</title>
+  <style>
+    :root {
+      --bg: #eef3fb;
+      --paper: #ffffff;
+      --text: #14213d;
+      --muted: #62708c;
+      --line: #d7dfef;
+      --brand: #1f66e5;
+      --brand-2: #1549b6;
+      --accent: #00a88e;
+      --ok: #067647;
+      --warn: #b54708;
+      --danger: #b42318;
+      --shadow: 0 18px 40px rgba(24, 73, 182, 0.1);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(900px 500px at -10% -15%, rgba(31,102,229,0.14), transparent 56%),
+        radial-gradient(800px 420px at 110% -5%, rgba(0,168,142,0.14), transparent 56%),
+        var(--bg);
+    }
+
+    .shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 20px 18px 28px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+      animation: fadeUp .45s ease-out both;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: .4px;
+    }
+
+    .hero p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 760px;
+      line-height: 1.55;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    .layout {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 360px 1fr;
+      align-items: start;
+      animation: fadeUp .55s ease-out both;
+      animation-delay: .05s;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; }
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      background: #f7f9ff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+    }
+
+    .row { display: grid; gap: 8px; margin-bottom: 10px; }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 10px 12px;
+      outline: none;
+      color: var(--text);
+      font-size: 14px;
+      background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: rgba(31,102,229,.48);
+      box-shadow: 0 0 0 4px rgba(31,102,229,.12);
+    }
+
+    textarea {
+      min-height: 94px;
+      resize: vertical;
+    }
+
+    .mono { font-family: Consolas, "Courier New", monospace; }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 8px 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform .16s, box-shadow .16s, filter .16s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(17, 24, 39, 0.08);
+      filter: brightness(0.99);
+    }
+
+    button.primary {
+      color: #fff;
+      border-color: var(--brand);
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .danger { color: var(--danger); }
+
+    pre {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f8fbff;
+      padding: 10px;
+      max-height: 310px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.54;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .chat-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 1100px) {
+      .chat-grid { grid-template-columns: 1fr; }
+    }
+
+    .sub-title {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .answer-box {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: linear-gradient(180deg, #fcfeff, #f7fbff);
+      padding: 10px;
+    }
+
+    .chat-bubbles {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f9fbff;
+      padding: 10px;
+      max-height: 320px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 9px 11px;
+      border-radius: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 13px;
+      border: 1px solid transparent;
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #2f73ea, #1f66e5);
+      color: #fff;
+      border-color: #2b67d0;
+    }
+
+    .bubble.assistant {
+      align-self: flex-start;
+      background: #ffffff;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .hidden { display: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <h1>MindBridge 展示页</h1>
+        <p>用于日常体验：登录、聊天、我的记录。管理员账号会显示“进入联调页”按钮。聊天区域同时展示 SSE 实时事件与完整回复。</p>
+      </div>
+      <div class="pill" id="llmIndicator">LLM: loading...</div>
+    </header>
+
+    <main class="layout">
+      <section class="card">
+        <h2>登录与会话 <span class="badge">Auth</span></h2>
+        <div class="row">
+          <input id="username" placeholder="用户名（user/admin）" value="user" />
+          <input id="password" type="password" placeholder="密码" value="user123" />
+        </div>
+        <div class="btns">
+          <button class="primary" id="btnLogin">登录</button>
+          <button id="btnRefresh">刷新令牌</button>
+          <button id="btnLogout">退出</button>
+        </div>
+        <div id="authStatus" class="status warn">未登录</div>
+
+        <div class="btns">
+          <button id="btnMyMessages">GET /api/me/messages</button>
+          <button id="btnMyReports">GET /api/me/reports</button>
+        </div>
+
+        <div id="labEntryBox" class="btns hidden">
+          <button id="btnGoLab">进入管理员联调页</button>
+        </div>
+        <pre id="leftOutput"></pre>
+      </section>
+
+      <section class="card">
+        <h2>聊天（SSE） <span class="badge">Chat</span></h2>
+        <div class="row">
+          <input id="model" class="mono" value="deepseek-chat" />
+          <textarea id="query">我最近压力很大，总是睡不着怎么办</textarea>
+        </div>
+        <div class="btns">
+          <button class="primary" id="btnChat">发送（POST /api/chat/stream）</button>
+          <button id="btnClear">清空结果</button>
+        </div>
+        <div id="chatStatus" class="status">准备就绪</div>
+
+        <div class="chat-grid">
+          <div>
+            <p class="sub-title">SSE 实时事件（intent / rag / token / done）</p>
+            <pre id="sseOutput"></pre>
+          </div>
+          <div>
+            <p class="sub-title">完整回复（token 自动拼接）</p>
+            <div class="answer-box">
+              <textarea id="fullAnswer" readonly></textarea>
+            </div>
+          </div>
+        </div>
+        <p class="sub-title" style="margin-top:10px;">聊天气泡视图（更接近真实聊天界面）</p>
+        <div id="bubbleList" class="chat-bubbles"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const ACCESS_KEY = "mb_access_token";
+    const REFRESH_KEY = "mb_refresh_token";
+    const ROLE_KEY = "mb_role";
+
+    const el = (id) => document.getElementById(id);
+    const authStatus = el("authStatus");
+    const leftOutput = el("leftOutput");
+    const sseOutput = el("sseOutput");
+    const fullAnswer = el("fullAnswer");
+    const chatStatus = el("chatStatus");
+    const labEntryBox = el("labEntryBox");
+    const bubbleList = el("bubbleList");
+    const llmIndicator = el("llmIndicator");
+
+    function getConversationId() {
+      const fromQuery = new URLSearchParams(location.search).get("c");
+      const raw = (fromQuery || "default").trim();
+      return raw.length > 64 ? raw.slice(0, 64) : raw || "default";
+    }
+
+    function getAccessToken() { return localStorage.getItem(ACCESS_KEY) || ""; }
+    function getRefreshToken() { return localStorage.getItem(REFRESH_KEY) || ""; }
+    function getRole() { return localStorage.getItem(ROLE_KEY) || ""; }
+
+    function setSession(accessToken, refreshToken, role) {
+      if (accessToken) localStorage.setItem(ACCESS_KEY, accessToken);
+      if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
+      if (role) localStorage.setItem(ROLE_KEY, role);
+      renderAuth();
+    }
+
+    function clearSession() {
+      localStorage.removeItem(ACCESS_KEY);
+      localStorage.removeItem(REFRESH_KEY);
+      localStorage.removeItem(ROLE_KEY);
+      renderAuth();
+    }
+
+    function renderAuth() {
+      const at = getAccessToken();
+      const role = getRole();
+      if (!at) {
+        authStatus.textContent = "未登录";
+        authStatus.className = "status warn";
+        labEntryBox.classList.add("hidden");
+        return;
+      }
+      authStatus.textContent = `已登录（角色: ${role || "unknown"}）`;
+      authStatus.className = "status ok";
+      if (role === "ADMIN") labEntryBox.classList.remove("hidden");
+      else labEntryBox.classList.add("hidden");
+    }
+
+    async function refreshToken() {
+      const rt = getRefreshToken();
+      if (!rt) return false;
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken: rt })
+      });
+      if (!res.ok) {
+        clearSession();
+        return false;
+      }
+      const data = await res.json();
+      setSession(data.accessToken || data.token, data.refreshToken, data.role || getRole());
+      leftOutput.textContent = JSON.stringify(data, null, 2);
+      return true;
+    }
+
+    async function api(path, options = {}, allowRetry = true) {
+      const headers = Object.assign({}, options.headers || {});
+      const token = getAccessToken();
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+      const res = await fetch(path, Object.assign({}, options, { headers }));
+      if (res.status === 401 && allowRetry && getRefreshToken()) {
+        const ok = await refreshToken();
+        if (ok) return api(path, options, false);
+      }
+      return res;
+    }
+
+    async function login() {
+      const username = el("username").value.trim();
+      const password = el("password").value;
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json().catch(() => ({}));
+      leftOutput.textContent = JSON.stringify(data, null, 2);
+      if (!res.ok) {
+        authStatus.textContent = "登录失败";
+        authStatus.className = "status danger";
+        return;
+      }
+      setSession(data.accessToken || data.token, data.refreshToken, data.role || "");
+    }
+
+    async function callJson(path) {
+      const res = await api(path);
+      leftOutput.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
+    }
+
+    function appendSseLine(line) {
+      sseOutput.textContent += line + "\n";
+      sseOutput.scrollTop = sseOutput.scrollHeight;
+    }
+
+    function appendBubble(role, text) {
+      const div = document.createElement("div");
+      div.className = `bubble ${role}`;
+      div.textContent = text || "";
+      bubbleList.appendChild(div);
+      bubbleList.scrollTop = bubbleList.scrollHeight;
+      return div;
+    }
+
+    function updateBubbleText(node, text) {
+      if (!node) return;
+      node.textContent = text || "";
+      bubbleList.scrollTop = bubbleList.scrollHeight;
+    }
+
+    function parseSseBlock(block) {
+      const lines = block.split(/\r?\n/);
+      let eventName = "message";
+      const data = [];
+      for (const line of lines) {
+        if (line.startsWith("event:")) eventName = line.slice(6).trim();
+        if (line.startsWith("data:")) data.push(line.slice(5).trimStart());
+      }
+      return { eventName, data: data.join("\n") };
+    }
+
+    function shortBaseUrl(baseUrl) {
+      if (!baseUrl) return "-";
+      try {
+        const u = new URL(baseUrl);
+        return `${u.protocol}//${u.host}`;
+      } catch (_) {
+        return baseUrl;
+      }
+    }
+
+    async function refreshLlmIndicator() {
+      if (!llmIndicator) return;
+      llmIndicator.textContent = "LLM: loading...";
+      try {
+        const res = await fetch("/api/health/llm");
+        if (!res.ok) {
+          llmIndicator.textContent = `LLM: status ${res.status}`;
+          return;
+        }
+        const data = await res.json();
+        const active = data.activeProvider || data.configuredProvider || "-";
+        const model = data.model || "-";
+        const base = shortBaseUrl(data.baseUrl || "");
+        llmIndicator.textContent = `LLM: ${active} | ${model} | ${base}`;
+      } catch (_) {
+        llmIndicator.textContent = "LLM: unavailable";
+      }
+    }
+
+    async function sendChat() {
+      sseOutput.textContent = "";
+      fullAnswer.value = "";
+      chatStatus.textContent = "发送中...";
+      chatStatus.className = "status warn";
+      const payload = {
+        query: el("query").value,
+        model: el("model").value.trim(),
+        conversationId: getConversationId()
+      };
+      appendBubble("user", payload.query);
+      const assistantBubble = appendBubble("assistant", "思考中...");
+
+      const run = async (allowRetry) => {
+        const headers = { "Content-Type": "application/json" };
+        const token = getAccessToken();
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch("/api/chat/stream", {
+          method: "POST",
+          headers,
+          body: JSON.stringify(payload)
+        });
+
+        if (res.status === 401 && allowRetry && getRefreshToken()) {
+          const ok = await refreshToken();
+          if (ok) return run(false);
+        }
+
+        if (!res.ok || !res.body) {
+          chatStatus.textContent = `请求失败：HTTP ${res.status}`;
+          chatStatus.className = "status danger";
+          const msg = await res.text();
+          appendSseLine(msg);
+          updateBubbleText(assistantBubble, `请求失败：HTTP ${res.status}\n${msg}`);
+          return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const blocks = buffer.split(/\r?\n\r?\n/);
+          buffer = blocks.pop() || "";
+          for (const raw of blocks) {
+            const block = raw.trim();
+            if (!block) continue;
+            const evt = parseSseBlock(block);
+            appendSseLine(`[event:${evt.eventName}] data:${evt.data}`);
+            if (evt.eventName === "token") {
+              fullAnswer.value += evt.data;
+              updateBubbleText(assistantBubble, fullAnswer.value);
+            }
+            if (evt.eventName === "done") {
+              chatStatus.textContent = "完成";
+              chatStatus.className = "status ok";
+              if (!fullAnswer.value.trim()) {
+                updateBubbleText(assistantBubble, "（无文本输出）");
+              }
+            }
+            if (evt.eventName === "error") {
+              chatStatus.textContent = "流式异常";
+              chatStatus.className = "status danger";
+              updateBubbleText(assistantBubble, `流式异常：${evt.data || "unknown error"}`);
+            }
+          }
+        }
+        if (chatStatus.textContent === "发送中...") {
+          chatStatus.textContent = "完成";
+          chatStatus.className = "status ok";
+        }
+      };
+      await run(true);
+    }
+
+    el("btnLogin").addEventListener("click", login);
+    el("btnRefresh").addEventListener("click", async () => {
+      const ok = await refreshToken();
+      authStatus.textContent = ok ? "令牌刷新成功" : "令牌刷新失败";
+      authStatus.className = ok ? "status ok" : "status danger";
+    });
+    el("btnLogout").addEventListener("click", () => {
+      clearSession();
+      leftOutput.textContent = "";
+    });
+    el("btnMyMessages").addEventListener("click", () => callJson("/api/me/messages"));
+    el("btnMyReports").addEventListener("click", () => callJson("/api/me/reports"));
+    el("btnGoLab").addEventListener("click", () => location.href = "/lab.html");
+
+    el("btnChat").addEventListener("click", sendChat);
+    el("btnClear").addEventListener("click", () => {
+      sseOutput.textContent = "";
+      fullAnswer.value = "";
+      bubbleList.innerHTML = "";
+      chatStatus.textContent = "已清空";
+      chatStatus.className = "status";
+    });
+
+    renderAuth();
+    refreshLlmIndicator();
+  </script>
+</body>
+</html>

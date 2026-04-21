@@ -1,0 +1,3336 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x4e00;&#x3001;&#x1f95d;&#x4f7f;&#x7528;&#x987b;&#x77e5;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <blockquote>
+<p>🔗 原文链接：<a href="https://rcn7f86azrf6.feishu.cn/wiki/CqM0wLqSLi1K0TkKdVrc7Ysanm8">‌‍⁣⁢⁣‍⁣​‌⁡MindBridge智能体</a></p>
+</blockquote>
+<blockquote>
+<p>⏰ 剪存时间：2026-04-08 10:22:54</p>
+</blockquote>
+<blockquote>
+<p>✂️ 本文档由 <a href="https://pwwjpto7tva.feishu.cn/wiki/space/7517832277555544092">游侠飞书剪存</a> 一键生成</p>
+</blockquote>
+<blockquote>
+<p>💖 更多好物请访问<a href="https://uibot.cn">游侠创客</a> 微信：xuefuta</p>
+</blockquote>
+<h1 id="一使用须知">一、🥝使用须知</h1>
+<blockquote>
+<ul>
+<li><strong>此项目为我25年12月-26年3月初的这段时间找实习的时候，自己简历上的项目，所以面经非常丰富，在底下的“主包个人面经&amp;&amp;全解答”章节，有我面试过的公司名称部门和日期！！</strong></li>
+</ul>
+</blockquote>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\doze1shsfkmH2DLqOIkFYltCKQ3oNIKS.png" alt=""></p>
+<blockquote>
+<p>本项目为我25年12月-26年3月初找实习的这段时间简历上的agent项目，有很多相关面经，完全不用害怕学不会或者被面试官问住</p>
+</blockquote>
+<hr>
+<h1 id="二写在前面">二、🎨写在前面</h1>
+<blockquote>
+<ol>
+<li>
+<p>项目适合几天内速成，可以直接写在简历上，<strong>简历写法在项目内容那里，知识库里只给出示例代码，完整可运行代码已上线</strong>，但是确实有点贵，需要的直接私聊客服问价</p>
+</li>
+<li>
+<p>问你有没有上线？就说没上线就可以了，是自己学习过程重点练手项目。问你哪里学的？你就说基于github上的开源项目基础上自己改的</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\Fdd9mQLxy8YAYA9OBbEZvfbijaqT2dNt.png" alt=""></p>
+<h1 id="三项目亮点">三、🥝项目亮点</h1>
+<blockquote>
+<h2 id="亮点">亮点</h2>
+<ol>
+<li>
+<p><strong>SpringAI原生技术栈对接大模型（Java 后端 + AI，非常加分）</strong></p>
+</li>
+<li>
+<p><strong>RAG</strong></p>
+</li>
+<li>
+<p><strong>MCP集成外部服务</strong></p>
+</li>
+<li>
+<p><strong>LoRA 微调模型（领域适配优化）</strong></p>
+</li>
+<li>
+<p><strong>有数据、有指标（准确率 90%、送达率 98%）</strong></p>
+</li>
+<li>
+<p><strong>有向量库、权限、模型对接、外部服务集成、流式输出</strong></p>
+</li>
+<li>
+<p><strong>高风险自动预警（有业务价值）</strong></p>
+</li>
+<li>
+<p><strong>流式输出接口（AI 标配）</strong></p>
+</li>
+<li>
+<p><strong>（完整业务闭环）识别+咨询+预警+记录，具备真实落地价值</strong></p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h1 id="四️项目流程">四、❤️项目流程</h1>
+<pre><code class="language-Java">MindBridge智能体 后端开发/大模型应用 <span class="hljs-number">2026.01</span> - <span class="hljs-number">2026.03</span>
+
+用户输入（文本）
+    ↓
+【模型接入与会话管理层】
+    ↓
+============================================
+         大模型意图判断
+============================================
+    ↓ 
+┌───────────────────┬───────────────────────────┐
+│ 【非心理闲聊】     │ 【心理咨询/情绪倾诉】      │
+│ 直接流式返回回答  │ → 去 Chroma 向量库检索知识库 │
+│                   │ → 结合上下文精准生成回答   │
+└───────────────────┴───────────────────────────┘
+    ↓ (数据与预警处理)
+┌───────────────────┬───────────────────────────┐
+│ 【低/中风险】      │ 【高风险】                  │
+│ MCP：写入Excel记录│ MCP：写入Excel记录 + 发送预警邮件 │
+│ （对话/心理状态存档）│ （数据存档 + 安全干预，预警送达率<span class="hljs-number">98</span>%）│
+└───────────────────┴───────────────────────────┘
+============================================
+          最终返回流式回答
+</code></pre>
+<h2 id="总体流程图">总体流程图：</h2>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\shWBGyqAOKMxXLSuvhOmCMPlFGsNy3uc.png" alt=""></p>
+<p>普通RAG不是必须走知识库吗，为什么这里可以不查知识库，因为我们这里有意图判断，相当于一个路由RAG，那意图判断怎么实现的呢？</p>
+<p>我们给大模型一个专门的分类 Prompt ，强制它对用户输入意图理解后只输出3种结果</p>
+<pre><code class="language-Java">CHAT：日常闲聊天气、吃饭、问候、娱乐
+CONSULT：心理咨询、情绪问题、心理困扰
+RISK：高风险表述自杀、自残、绝望、伤人
+</code></pre>
+<p>然后后端根据结果走分支，CHAT 则直接回，不记录 Excel、不预警，Consult、Risk则进入RAG 检索，记录 Excel</p>
+<p>那Prompt怎么写的呢</p>
+<pre><code class="language-Java">你是一个用户意图分类器，只做意图识别，不回答问题。
+用户输入内容：{user_input}
+
+请将用户意图严格分为以下三类之一，只输出标签，不要其他任何内容：
+- CHAT：日常闲聊、问候、天气、娱乐、无关内容
+- CONSULT：心理咨询、情绪倾诉、压力、焦虑、低落、失眠、亲密关系、学习压力等心理相关
+- RISK：自杀、自残、绝望、自伤、伤人、严重抑郁等高危内容
+</code></pre>
+<p>大模型只会返回CHAT / CONSULT / RISK 三个词之一给java后端</p>
+<p>举个栗子子</p>
+<pre><code class="language-Java">今天天气怎么样？ → CHAT我最近好焦虑睡不着→ CONSULT我不想活了 → RISK你吃饭了吗 → CHAT我感觉很压抑怎么办 → CONSULT
+</code></pre>
+<p>学过算法的朋友应该就会觉得为什么这样比训练分类器更好呢？</p>
+<p>首先这样不用额外训模型，直接用现有大模型就能做，然后Prompt 可随时调整，很灵活，且复杂度会低很多啊</p>
+<p>项目是校园心理场景，意图类别固定，所以我采用大模型零样本分类实现意图判断，更简洁也更高效不是吗</p>
+<hr>
+<h1 id="五前置知识">五、🍿前置知识</h1>
+<h2 id="情绪标签情绪分数和风险等级">情绪标签、情绪分数和风险等级</h2>
+<blockquote>
+<p>本项目里情绪标签有这4类，正常、焦虑、低落和高风险</p>
+<p>情绪分数也有4类，放在下面了</p>
+<p>正常 0分</p>
+<p>焦虑 2分</p>
+<p>低落 3分</p>
+<p>高风险 4分</p>
+<p>风险等级3类，低中高，这里我把低中高风险等级怎么得到的给大家讲一下，因为这个项目只有单模态，如果情绪标签是正常or焦虑，情绪分数为0~2.9，则低风险，标签为低落，分数为3~3.9.标签为高风险，分数&gt;=4，则为高风险</p>
+</blockquote>
+<h2 id="sse流式会话">SSE流式会话</h2>
+<blockquote>
+<p>Server-Sent Events（服务器推送事件），是一种基于 HTTP 的实时通信协议。大模型生成文本通常是逐字逐句输出的，而不是一次性生成完毕。</p>
+<p>SSE 允许服务器将生成的内容像打字机一样源源不断地推送给前端浏览器或者App。这是实现类ChatGPT打字机效果的核心技术，相比 WebSocket 更轻量，适合单向流式传输。</p>
+</blockquote>
+<h2 id="mcp">MCP</h2>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\nstTDStMpZ1Iuxy0pOM67TsdNFMnbJ68.png" alt=""></p>
+<blockquote>
+<ul>
+<li>Model Context Protocol模型上下文协议，由 Anthropic，也就是Claude 团队推出。解决大模型与外部数据源、工具之间的连接标准问题。通过 MCP，一个 LLM 可以统一接入各种 MCP 服务器， GitHub、本地文件系统这些，实现更安全的上下文交互，避免开发者需要为每一个数据源写定制化的代码。</li>
+</ul>
+</blockquote>
+<h2 id="springai">SpringAI</h2>
+<blockquote>
+<p>Spring 社区推出的 AI 应用开发框架。它借鉴了 LangChain 的思维，但基于 Java/Spring 生态。它提供了统一的 API 来对接 OpenAI、Ollama、HuggingFace 等，封装了 Prompt 模板、RAG 流程、函数调用和 SSE 流式输出。</p>
+</blockquote>
+<h2 id="ollama和openai">Ollama和OpenAI</h2>
+<blockquote>
+<p>本地部署 与 云端 API 两种使用大模型的方式。</p>
+<ul>
+<li>
+<p>Ollama是一个极简的本地大模型运行工具。让你可以一条命令在本地运行 Llama 3、Qwen、Gemma 等开源模型。</p>
+</li>
+<li>
+<p>OpenAI提供闭源商用模型（GPT-4o, GPT-4o-mini 等）的云端 API。优势是性能强大、开箱即用，但需要网络访问且按 Token 计费。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="lora微调大模型">Lora微调大模型</h2>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\rdI6MaCEZDqnfbx7P1HXX6x0GeKmqHOY.png" alt=""></p>
+<blockquote>
+<ul>
+<li>
+<p>Low-Rank Adaptation低秩适应，一种轻量级大模型微调技术，不训练全量参数。</p>
+</li>
+<li>
+<p>Lora 通过在原始模型旁路添加少量的可训练参数（适配器），冻结原模型权重。只需训练原模型参数量 0.1%-1% 的参数，就能让模型学会特定风格、特定知识或特定格式的输出。</p>
+</li>
+<li>
+<p>在 Transformer 层插入小的低秩矩阵，只训练这部分。显存占用小、速度快、保存的模型文件极小（几 MB～百 MB）。</p>
+</li>
+<li>
+<p>作用是让通用模型变成“心理顾问”或学习特定语气风格</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="rag">RAG</h2>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\YCnbitnyA7ey4KLRphelq62xBSJyHqmU.png" alt=""></p>
+<blockquote>
+<ul>
+<li>
+<p>Retrieval-Augmented Generation。在让 LLM 回答问题前，先从外部知识库（向量库）中检索相关的文档片段，将这些片段作为参考资料连同问题一起发给 LLM。</p>
+</li>
+<li>
+<p>核心作用是解决 LLM 的“幻觉”问题和知识滞后性。让模型可以回答私有数据（公司内部文档等）相关的问题。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="动态路由rag">动态路由RAG</h2>
+<blockquote>
+<p>动态路由 RAG 的本质就是先做意图判断，再决定是否走 RAG 检索，而不是无脑全量检索。传统RAG是单向的流水线，无论问题简单复杂都要去查知识库</p>
+</blockquote>
+<h2 id="chroma向量库">Chroma向量库</h2>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\TIHuGcgvWrdHC74W99DKxBh9z8zERR1S.png" alt=""></p>
+<blockquote>
+<p>一个开源的嵌入式向量数据库。在 RAG 流程中，需要将文本转换成向量并存储起来以便检索，向量库还有 Milvus、Pinecone 或 PostgreSQL 的 pgvector 插件。</p>
+</blockquote>
+<h2 id="flux">Flux</h2>
+<blockquote>
+<ol>
+<li>
+<p>Facebook 提出的一种前端单向数据流架构，利用前端单向数据流架构来优雅地处理后端通过 SSE 持续推送的大模型生成内容。是实现了流式数据的接收与 UI 渲染解耦。</p>
+</li>
+<li>
+<p>复杂的多模型、多会话场景下状态清晰可控，用户体验上也实现流畅的打字机效果。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="spring-security">Spring Security</h2>
+<blockquote>
+<p>Java 生态Spring 框架中的 安全框架。在构建 AI 应用后端时，不能直接将大模型接口暴露给所有人。Spring Security 负责处理 认证你是谁和 授权你能调用哪个模型？能查哪些向量库？防止未授权访问、API 滥用和提示词注入攻击。</p>
+<p>本项目中Spring Security怎么做的？</p>
+<ul>
+<li>
+<p>我们有两种角色，普通用户学生和管理员</p>
+</li>
+<li>
+<p>我们要实现接口权限隔离，让普通用户只能聊天、提问、查看自己的记录，管理员才能上传知识库、拉取代码库、查看所有用户心理数据</p>
+</li>
+<li>
+<p>用户登录后，系统会校验账号密码并根据账号赋予角色，uesr还是admin，访问接口时，/chat/send 所有登录用户可访问，但是/knowledge/upload必须是管理员才能访问</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="六项目内容">六、🍭项目内容</h1>
+<p>大家可以自己取个名字，然后让稍微改一下项目描述</p>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\gPKYddq0mkTKU7f5U2vfI0UG9TrbxX20.png" alt=""></p>
+<p><strong>MindBridge智能体</strong></p>
+<p><strong>项目简介</strong>：基于<strong>SpringAI框架</strong>开发聊天与心理监控一体化智能助手，可对接管理员上传知识库及拉取代码库，实现针对性问答交互，并通过<strong>MCP协议</strong>集成外部服务，构建高效、合规的心理服务支撑体系。</p>
+<p><strong>技术栈</strong>：Java、Spring Boot、SpringAI、Spring Security、MySQL、Ollama、Lora、MCP、RAG</p>
+<p><strong>核心负责</strong>：</p>
+<ul>
+<li>
+<p>对接Ollama、OpenAI多大模型，基于<strong>Flux</strong>模式构建流式会话接口，结合<strong>Chroma向量数据库</strong>处理文本向量，完成自动知识库构建、会话上下文精准管理，保障问答的针对性与流畅性。</p>
+</li>
+<li>
+<p>基于<strong>Spring Security</strong>搭建完善的权限控制体系，实现管理员与普通用户角色精准隔离，<strong>严格管控知识库访问权限</strong>，满足心理服务相关内容合规要求。</p>
+</li>
+<li>
+<p>基于心理咨询对话对<strong>LoRA微调大模型</strong>，将心理状态识别准确率提升至<strong>90%</strong>，同时通过<strong>MCP服务</strong>，实现心理状态数据自动写入Excel，实现数据可视化管理。</p>
+</li>
+<li>
+<p>当识别到高风险学生时，通过MCP服务自动触发邮件通知，精准推送至相关负责人，保障预警信息送达率<strong>达98%</strong>，提升心理干预时效性。</p>
+</li>
+</ul>
+<h1 id="七项目技术点">七、🥝项目技术点</h1>
+<h2 id="后端框架">后端框架</h2>
+<ol>
+<li>
+<p>Java开发语言</p>
+</li>
+<li>
+<p>Spring Boot后端主体框架，启动项目、写接口、管理 Bean</p>
+</li>
+<li>
+<p>Spring Security权限控制（管理员用户隔离）</p>
+</li>
+<li>
+<p>SpringAI，Java 官方对接大模型的框架（对接 Ollama/OpenAI）</p>
+</li>
+</ol>
+<h2 id="ragchroma">RAG&amp;Chroma</h2>
+<ol>
+<li>
+<p>Ollama本地跑大模型</p>
+</li>
+<li>
+<p>OpenAI对接外部大模型 API</p>
+</li>
+<li>
+<p>Chroma作为向量数据库，存知识库 Embedding</p>
+</li>
+</ol>
+<h2 id="lora微调">LoRA微调</h2>
+<p>LoRA 微调，小参数进行微调就可以让模型更懂心理咨询</p>
+<h2 id="mcp-1">MCP</h2>
+<p>MCP，项目里的自定义服务调用模块，写 Excel、发邮件、推送风险预警</p>
+<h2 id="flux--sse">Flux + SSE</h2>
+<p>Flux + SSE实现服务端推送，打字机式 AI 回复</p>
+<h1 id="八业务背景与需求">八、🎨业务背景与需求</h1>
+<p>面向校园心理健康场景的 AI 智能体助手项目，纯 Java 后端技术栈，结合RAG+MCP+Lora微调，实现学生情绪识别、心理咨询、自动预警、数据记录的完整系统。</p>
+<p>目标：解决学生不敢咨询、老师顾不过来、风险无法及时发现的痛点</p>
+<h2 id="项目背景">项目背景</h2>
+<blockquote>
+<p>近年来学生心理问题增多，但学校心理老师资源不足，学生因隐私顾虑不愿面对面咨询，导致风险无法及时发现。传统咨询模式被动，无法提前识别情绪危机。因此开发这套 AI 辅助，实现匿名倾诉 + 多模态情绪识别 + 智能咨询 + 自动预警。</p>
+</blockquote>
+<h2 id="业务场景">业务场景</h2>
+<blockquote>
+<p>用于学校心理咨询场景，对高风险学生进行及时的干预</p>
+<ul>
+<li>
+<p>学生端可以匿名通过文本、语音、拍照，和 AI 智能体倾诉，不用面对人工的尴尬，随时随地获取心理疏导</p>
+</li>
+<li>
+<p>管理员端老师不用逐个排查学生状态，系统会自动识别高风险学生（抑郁、自杀倾向），触发邮件预警，还能查看所有学生的心理数据报表；</p>
+</li>
+<li>
+<p>这个项目呢主要是通过AI 辅助 + 人工兜底，减轻学校心理老师的工作量，实现 “全员覆盖、主动干预、隐私保护”。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="怎么想到这样的业务需求">怎么想到这样的业务需求</h2>
+<blockquote>
+<ul>
+<li>
+<p>身边同学有心理压力时，大多不好意思找老师倾诉，觉得 “尴尬、怕被议论”，需要一个匿名、无压力的倾诉渠道</p>
+</li>
+<li>
+<p>了解到很多学校心理老师数量严重不足，一个老师要管几百上千个学生，根本无法做到 “全员关注、及时响应</p>
+</li>
+<li>
+<p>刚好在学习 SpringAI、MCP、RAG 和大模型微调这些技术，想着把这些前沿技术和校园心理场景结合</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="九微调具体细节重点">九、🥛微调具体细节（重点）</h1>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\zi6JDFUrdgOTEcwGC0hJciYRCpmu73g7.png" alt=""></p>
+<blockquote>
+<p>前面我们已经讲了大致的原理，利用开源数据集离线微调Qwen2.5-7B模型并集成到Ollama里，供SpringAI调用</p>
+<p>现在我们来讲一些细节</p>
+</blockquote>
+<h2 id="项目里-lora-微调-qwen25-7b-具体怎么做">项目里 LoRA 微调 Qwen2.5-7B 具体怎么做？</h2>
+<blockquote>
+<ul>
+<li>
+<p>整个流程是离线微调，首先准备数据集，PsychQA 校园心理对话数据集，完全开源可商用，进行数据清洗、脱敏、格式化，让数据集变成微调格式。</p>
+</li>
+<li>
+<p>数据集弄好后，用 LoRA 脚本，冻结模型主干，只训练 Q/V 注意力层，这个在前置知识也有说。设置参数rank=8、alpha=16、学习率 2e-4，训练完以后呢，你会得到一个很小的LoRA 适配器文件，只有几十 MB。</p>
+</li>
+<li>
+<p>将基座模型也就是Qwen2.5-7B那个和我们得到的LoRA 适配器文件进行合并，并且导出为 GGUF 格式。然后把这个文件放到 Ollama 运行，供 SpringAI 调用</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="微调数据集是开源的吗具体是哪个">微调数据集是开源的吗？具体是哪个？</h2>
+<blockquote>
+<ul>
+<li>
+<p>用的PsychQA 校园心理对话数据集，纯开源，可商用</p>
+</li>
+<li>
+<p>这个数据集里有啥呢？心理咨询问答、情绪识别对话、焦虑、抑郁、压力疏导语料，这些都有，而且对于大家其实也知道心理对话其实有一定的版权和敏感性，这个数据集里的数据已经为我们做了脱敏、无隐私处理，那这些工作就不需要我们再去做了</p>
+</li>
+<li>
+<p>它大概有包含约 2000～3000 条高质量心理问答与情绪标注数据</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="离线微调要不要gpu">离线微调要不要GPU?</h2>
+<blockquote>
+<ul>
+<li>
+<p>那肯定要啊兄弟们，没有GPU谈什么大模型，虽然Qwen2.5-7B是个小大模型（doge）</p>
+</li>
+<li>
+<p>因为我们数据量不多，2000~3000条，总体时间15分钟左右即可完成，我们用的单卡NVIDIA 3090 ti 24GB显存。</p>
+</li>
+<li>
+<p>然后我们冻结了大部分权重，只微调QV对吧，所以很快，如果你没有GPU，那你可以租云GPU，我是用的成电计算机学院组里实验室的，因为研究方向就在这一块</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="微调后的模型怎么集成部署到-ollama">微调后的模型怎么集成、部署到 Ollama？</h2>
+<blockquote>
+<ul>
+<li>
+<p>前面讲了Qwen2.5-7B那个和我们得到的LoRA 适配器文件进行合并，并且导出为 GGUF 格式对吧，接着我们就写一个简单的modelfile，构建 Ollama 镜像，执行ollama create命令，生成自定义模型，部署到本地运行</p>
+</li>
+<li>
+<p>后面你就可以直接ollama run启动微调后的Qwen2.5-7B</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="那springai-如何调用微调后的-ollama-模型呢">那SpringAI 如何调用微调后的 Ollama 模型呢</h2>
+<blockquote>
+<p>SpringAI 官方原生支持 Ollama，那我们只需要配置Ollama 地址与模型名称，就能直接调用你微调后的模型。</p>
+</blockquote>
+<p>Spring Boot中application.yml文件直接加上就行</p>
+<pre><code class="language-Java">spring:
+  ai:
+    ollama:
+      base-url: http:<span class="hljs-comment">//localhost:11434</span>
+      model: mental-ai   # 你微调后的模型名
+</code></pre>
+<p>Java调用咋整？这样</p>
+<pre><code class="language-Java"><span class="hljs-meta">@Autowired</span>
+<span class="hljs-keyword">private</span> OllamaChatClient chatClient;
+
+<span class="hljs-comment">// 直接调用微调后的心理模型</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">reply</span> <span class="hljs-operator">=</span> chatClient.call(<span class="hljs-string">&quot;用户倾诉内容&quot;</span>);
+</code></pre>
+<h2 id="微调的提升至90是什么指标测试集有多大">微调的提升至90%是什么指标，测试集有多大</h2>
+<blockquote>
+<ul>
+<li>
+<p>测试集是我们自己标注的，这个是我实验室的项目，不便过多讲述。标注的对话对约1000条，标签为4个情绪标签，正常焦虑低落和高风险。在微调前我们对没有微调过的qwen2.5-7B模型先用测试集进行测试，得到准确率60%，微调后我们再用这1000条测试集测试，准确率90%</p>
+</li>
+<li>
+<p>微调数据集为开源的，测试集为我们自己标注的，这两个数据集不能有重叠，必须保证不重叠，保证公平</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="微调的数据集训练集和验证集比例是多少">微调的数据集，训练集和验证集比例是多少</h2>
+<blockquote>
+<p>训练集：验证机=9：1，这里9：1的数据集全来自开源的psy，微调的时候我们需要对模型进行训练，并用验证集进行评估，保留表现最好的参数</p>
+<p>这里和我们自己标注的1000条数据集的作用要区分开来，这1000条数据使用来测试微调前官方qwen2.5的效果，和我们微调以后的qwen2.5模型的效果。微调前用这1000条测是60%，微调后是90%</p>
+</blockquote>
+<h2 id="微调数据集最终jsonl格式以及语料中4个label怎么从psyqa中得到的">微调数据集最终JSONL格式，以及语料中4个label怎么从psyQA中得到的</h2>
+<blockquote>
+<p>{&quot;instruction&quot;: &quot;分析用户文本情绪，只能输出：正常、焦虑、低落、高风险&quot;, &quot;input&quot;: &quot;最近学习压力很大，经常睡不着，心里很慌&quot;, &quot;output&quot;: &quot;焦虑&quot;}</p>
+<p>{&quot;instruction&quot;: &quot;分析用户文本情绪，只能输出：正常、焦虑、低落、高风险&quot;, &quot;input&quot;: &quot;我每天都很开心，生活很充实&quot;, &quot;output&quot;: &quot;正常&quot;}</p>
+<p>{&quot;instruction&quot;: &quot;分析用户文本情绪，只能输出：正常、焦虑、低落、高风险&quot;, &quot;input&quot;: &quot;我觉得生活没有希望，不想继续了&quot;, &quot;output&quot;: &quot;高风险&quot;}</p>
+<p>弱监督自动标注</p>
+</blockquote>
+<h2 id="psyqa数据集的筛选原则是什么">psyQA数据集的筛选原则是什么？</h2>
+<blockquote>
+<p>原psyQA里面上万条数据大量是心理知识问答，和用户情绪表达无关，要先做数据去重，再通过关键词规则弱监督标，然后按照弱监督置信度过滤掉情绪模糊的样本，然后得到我们最后的2000~3000条数据</p>
+</blockquote>
+<h2 id="我不是把心理对话记录写excel了吗那我用里面的数据做微调数据集不行吗为啥用psychqa-校园心理对话数据集">我不是把心理对话记录写excel了吗？那我用里面的数据做微调数据集不行吗？为啥用PsychQA 校园心理对话数据集？</h2>
+<p>这个不是很重要，可以不看</p>
+<blockquote>
+<ul>
+<li>可以，但，没必要，你得自己做数据清洗、脱敏和隐私问题，搞不好要吃律师函hhh(doge)，做完这些，你得弄好数据格式吧？</li>
+</ul>
+<p>那具体怎么做呢？</p>
+<ul>
+<li>首先excel里的数据由系统自动写入的对吧，用户问 + AI 答 + 情绪标签，你首先就要做脱敏处理，去掉去掉用户 ID、隐私信息，然后把excel里的数据做标准化，整理成用户输入 + 助手输出 + 情绪标签，并且去重、过滤低质量对话</li>
+</ul>
+</blockquote>
+<h2 id="总体话术">总体话术</h2>
+<blockquote>
+<p>我在项目里使用的基座模型是 Qwen2.5-7B，采用 LoRA 轻量化微调，微调是离线完成的。数据集主要来源于开源的心理对话数据PsychQA 校园心理对话数据集</p>
+<p>微调时我冻结了模型主干，只微调 Transformer 的 Q、V 注意力层，使用 4bit 量化训练，在 24GB 显存的 GPU 环境下，整个训练过程大概 15 分钟左右就完成了。</p>
+<p>训练结束后，我把基座模型qwen2.5-7B和 LoRA 权重合并，导出为 GGUF 格式，然后通过编写 Modelfile，用 ollama create命令把微调后的模型导入到 Ollama 中启动服务。最后在项目里，通过 SpringAI 配置 Ollama 的地址和自定义模型名称，就直接可以调用这个经过我们微调的Qwen2.5-7B，最终让情绪识别准确率从60%提升到了 90%。</p>
+</blockquote>
+<hr>
+<h1 id="十rag细节重点">十、🍫RAG细节（重点）</h1>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\ltkJGezaYCWXmyACL4N0DxrNOkmmWIvG.png" alt=""></p>
+<h2 id="自动知识库构建怎么做的">自动知识库构建怎么做的？</h2>
+<blockquote>
+<ul>
+<li>
+<p>管理员通过后台上传知识文档，包括心理咨询规范、常见问题解答，同时支持拉取指定代码库中Markdown或文本文件作为补充知识源。</p>
+</li>
+<li>
+<p>使用 SpringAI 集成的文本分割器TokenTextSplitter将文档切分为语义完整的块（chunks），避免截断关键信息。同时通过语义切分规则来保证 chunk 完整性，控制 chunk 大小为512 ，并且优先在段落、句子结尾切分，同时在检索时返回相邻 2-3 个 chunk 拼接上下文，间接实现类似overlap的效果.</p>
+</li>
+<li>
+<p>然后将得到的文本块通过Ollama或者OpenAI的text-embedding-3-small 模型转成向量，将向量与元数据一起存入Chroma向量数据库</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="检索增强生成流程">检索增强生成流程</h2>
+<blockquote>
+<p>当用户发起对话时，首先将用户当前问题通过相同的text-embedding-3-small模型转为向量。然后在 Chroma 中执行 ANN（近似最近邻）搜索，返回最相关的top k个文本块。其中本项目中k=4</p>
+<p>将检索到的文本块与对话历史合并，构造增强prompt。将增强提示发送给 微调后端qwen2.5-7B，基于知识库内容与对话状态生成更精准、合规的回答。</p>
+</blockquote>
+<h2 id="会话上下文如何进行管理呢">会话上下文如何进行管理呢？</h2>
+<blockquote>
+<p>利用 Flux 流式会话接口，维护每个会话的最近 10 轮对话记录，避免超出模型上下文长度。</p>
+</blockquote>
+<h2 id="具体实现">具体实现</h2>
+<blockquote>
+<p>SpringAI 的 RAG 组件，利用 QuestionAnswerer 和 VectorStore 抽象，将 Chroma 作为 VectorStore 实现类。</p>
+<p>Flux 流式响应则是在 Controller 层返回 Flux<String>，实现逐 token 推送，同时可在流式过程中并行执行检索。</p>
+</blockquote>
+<h2 id="rag知识库所准备的知识文档需要清洗吗">RAG知识库所准备的知识文档需要清洗吗？</h2>
+<blockquote>
+<p>要的，除了Lora微调的数据集是Open access的，其他部分数据集都是我们自己这边私有的。我们当时有对数据也就是实验室这边的心理对话对做重复部分、格式乱码、空行等做文本清洗，然后按主题分块，在送入text-embedding-3-small。</p>
+</blockquote>
+<h2 id="rag怎么实现的">RAG怎么实现的？</h2>
+<blockquote>
+<p>chat、consult、risk前面讲过，不记得的可以回去看一下</p>
+<p>用户发送问题 → 判断意图</p>
+<p>闲聊Chat→ 直接返回，不检索</p>
+<p>咨询Consult/Risk→ 用户问题text-embedding-3-small向量化 → Chroma 检索知识库</p>
+<p>把知识库内容 + 最近 10 轮对话一起传给微调过的qwen2.5-7B回答</p>
+</blockquote>
+<hr>
+<h1 id="十一mcp具体细节重点">十一、🧀MCP具体细节（重点）</h1>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\mNRU08S1O1jwE3wYIgcro5YztogI0v8O.png" alt=""><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\20OmA7H4WAOh3buLhRkhCANRYDJ8O8qG.png" alt=""></p>
+<p>MCP其实就是让大模型（Agent）能够调用外部工具写 Excel、发邮件的标准协议</p>
+<pre><code class="language-Java">大模型（Qwen2<span class="hljs-number">.5</span>-7B）
+         ↓（通过 MCP 协议）
+外部工具服务（你写的Java服务）
+       ↙    ↘
+Excel写入服务   邮件预警服务
+</code></pre>
+<p>MCP 是协议规定模型怎么调用外部工具，Java 服务实现你写的发邮件、写 Excel</p>
+<h2 id="mcp在这个项目里怎么用的">MCP在这个项目里怎么用的</h2>
+<blockquote>
+<p>告诉大模型有哪些工具可用，也就是写 Excel、发邮件，让模型输出结构化调用指令（JSON），然后后端执行工具，并把结果返回给模型</p>
+</blockquote>
+<h2 id="mcp如何调用写excel">MCP如何调用写excel？</h2>
+<blockquote>
+<ul>
+<li>
+<p>闲聊不触发</p>
+</li>
+<li>
+<p>用户对话结束后，如果模型意图判断非Chat，那模型就会通过 MCP 协议 输出工具调用指令（JSON），也就是不管是低中高哪个风险都会写excel，Java 后端接收 MCP 指令后解析指令action=write_excel，然后执行 Excel 写入工具，返回结果给模型</p>
+</li>
+<li>
+<p>MCP 协议输出的工具调用指令，JSON格式</p>
+</li>
+</ul>
+</blockquote>
+<pre><code class="language-JSON"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;tool&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;excel_writer&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;userId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;U123&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;我很难过&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;emotion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;depression&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;riskLevel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HIGH&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="mcp-如何调用发预警邮件的呢">MCP 如何调用发预警邮件的呢</h2>
+<blockquote>
+<p>闲聊和中低风险不触发</p>
+<p>如果模型输出情绪标签or风险等级为高风险，Agent 立即决定触发预警，然后模型就通过 MCP 协议 输出邮件发送指令（JSON格式）。接着Java 后端会解析 MCP 指令，并调用邮件工具，发送邮件给管理员，并记录发送日志</p>
+<p>JSON格式指令</p>
+</blockquote>
+<pre><code class="language-JSON"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;tool&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;mail_alert&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;userId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;U123&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;emotion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;anxiety&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;riskLevel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HIGH_RISK&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="excel里是什么样子">excel里是什么样子？</h2>
+<p>列名：用户 ID、对话内容、情绪标签、情绪总分、风险等级、对话时间</p>
+<p>正常or焦虑，情绪分数为0~2.9，则低风险，标签为低落，分数为3~3.9.标签为高风险，分数&gt;=4，则为高风险</p>
+<blockquote>
+<p>举个栗子</p>
+</blockquote>
+<blockquote>
+<p>用户ID： S20250401</p>
+<p>对话内容： 最近总是睡不着，一闭眼就胡思乱想，心里特别慌</p>
+<p>情绪标签： 焦虑</p>
+<p>情绪分数： 2.00</p>
+<p>风险等级： LOW</p>
+<p>对话时间： 2026-03-13 21:15:22</p>
+</blockquote>
+<blockquote>
+<p>另一个栗子</p>
+</blockquote>
+<blockquote>
+<p>用户ID： S2025007</p>
+<p>对话内容： 我觉得活着没什么意思，每天都很痛苦</p>
+<p>情绪标签： 高风险</p>
+<p>情绪总分： 4.00</p>
+<p>风险等级： HIGH（高风险）</p>
+<p>对话时间： 2026-03-13 22:01:10</p>
+</blockquote>
+<h2 id="发送的预警邮件又是什么形式">发送的预警邮件又是什么形式</h2>
+<blockquote>
+<p>标题：【高危心理预警】学生用户 S2025007 存在自伤风险</p>
+<p>正文：</p>
+<p>系统在对话中监测到1名学生出现高风险心理状态，请及时关注并干预。</p>
+<p>【预警信息如下】</p>
+<p>用户ID：S2025007</p>
+<p>对话内容：我觉得活着没什么意思，每天都很痛苦</p>
+<p>情绪判定：高风险</p>
+<p>综合情绪得分：4.00</p>
+<p>风险等级：HIGH</p>
+<p>对话时间：2026-03-13 22:01:10</p>
+</blockquote>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\9cAaoXAWWm531RbSmcrepTR147KojFsK.gif" alt=""></p>
+<hr>
+<h1 id="十二️项目各流程耗时单次请求">十二、❤️项目各流程耗时（单次请求）</h1>
+<blockquote>
+<p>用户请求接入、权限校验约 10~20ms</p>
+<p>会话上下文加载20~30ms</p>
+<p>用户问题向量化约50ms</p>
+<p>构建 Prompt（上下文 + 召回知识 + 系统提示）10~20ms</p>
+<p>大模型推理600~1000ms，看回答长度</p>
+<p>MCP 工具调用发邮件、写 Excel，200ms~500ms</p>
+<p>耗时最长为大模型推理，1s左右</p>
+<p>上面已经聊完了运行耗时，现在我们来聊聊LoRA微调耗时</p>
+<p>前面我在Lora微调细节部分其实已经讲过了，单卡3090 ti 24GB，4bit量化训练，耗时15分钟</p>
+</blockquote>
+<h1 id="十三项目问答话术非常重要买了的同学分享的面经会更新在这里">十三、项目问答话术(非常重要！！！买了的同学分享的面经会更新在这里）</h1>
+<h2 id="给大家讲一下这个项目中的数据集">给大家讲一下这个项目中的数据集</h2>
+<blockquote>
+<ul>
+<li>
+<p>首先，Lora微调用的psy开源的，清洗改标签后2000~3000条，按9：1划分训练集和验证集。</p>
+</li>
+<li>
+<p>对于微调前和微调后模型的效果测试，用的我们自己标注的私有的1000条心理对话对</p>
+</li>
+<li>
+<p>对于agentic rag知识库chroma，来自心理科普知识、心理危机干预这些PDF、Markdown格式的专业资料</p>
+</li>
+<li>
+<p>这三个部分的数据，没有重合</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="你这个项目用的是普通rag吗还是什么rag">你这个项目用的是普通RAG吗？还是什么RAG?</h2>
+<blockquote>
+<p>不是普通RAG，准确来说本项目为动态路由RAG，这个其实可以写简历上</p>
+<p>给大家解释一下区别</p>
+<ul>
+<li>
+<p>普通rag是不管用户问什么，一律检索向量库 一律拼接知识生成回答，就是每次你问问题，管你问的啥，都必查向量库</p>
+</li>
+<li>
+<p>而我们是先让大模型做了意图判断，判断是闲聊还是心理问题or心理咨询，闲聊则直接回答，不走 RAG判断，是专业咨询才走 RAG 检索，这就是动态路由RAG。当然这和我另一个项目的agentic rag还是有差距，agentic rag可以多次检索多步推理，比动态路由rag强很多</p>
+</li>
+</ul>
+<p>说白了，动态路由rag就是在rag前面加了一个agent进行意图判断，这个怎么实现的我有讲过，通过prompt调教，强制让微调后的qwen2.5-7B给我输出Chat、Consult、Risk，大家可以结合上面的项目流程图看一下</p>
+</blockquote>
+<h2 id="这个项目你遇到的难点是什么怎么解决的">这个项目你遇到的难点是什么？怎么解决的</h2>
+<blockquote>
+<ol>
+<li>
+<p>两个异步 MCP 服务的数据一致性问题，qwen2.5模型通过流式对话分析出高风险状态后，需要同时通过MCP写Excel并发送邮件。但MCP服务是异步的外部调用，如果邮件发送成功但Excel写入失败，或者反之，就会导致数据不一致，比如说老师收到了邮件，但本地留档缺失。</p>
+</li>
+<li>
+<p>解决方法通过状态机和重试机制保证最终一致性。给每一条高风险记录增加状态字段，记录 Excel 和邮件的执行状态。然后先写 Excel，成功后更新状态，再发送邮件。任何一步失败，让系统可以自动重试 3 次，避免网络波动导致的异常。如果最终失败的话，就记录异常并触发告警，支持后台手动补偿。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="你的管理员邮箱有几个呢">你的管理员邮箱有几个呢？</h2>
+<blockquote>
+<p>2个，一个管理员一个导员，存在mysql里，字段id、管理员邮箱、管理员姓名、部门等</p>
+</blockquote>
+<h2 id="邮件送达率98那2没送达的是什么原因或者问你什么原因会导致邮件没送达">邮件送达率98%，那2%没送达的是什么原因（或者问你什么原因会导致邮件没送达）</h2>
+<blockquote>
+<ul>
+<li>
+<p>失败原因一个网络波动，网络环境不稳定网络延迟</p>
+</li>
+<li>
+<p>短时间内多次发送触发预警机制，邮件服务商会触发限流，邮件服务商反垃圾机制判断你是垃圾邮件</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="项目上线了吗">项目上线了吗</h2>
+<blockquote>
+<p>话术：没有上线，是我学习的时候的练手项目，其他项目也是一样，没上线直接说就可以了，反而没上线说上线了接下来就是一连串问题，压测过么？测了多少的QPS?压测怎么做的？压测数据还记得吗？</p>
+</blockquote>
+<h2 id="向我介绍一下psy这个数据集">向我介绍一下psy这个数据集？</h2>
+<blockquote>
+<ul>
+<li>
+<p>开源，可商用，约 22K 问题 + 56K 长文本回答，从中文心理健康平台抓取，由专业咨询师提供高质量回答，已提供标签，我们需要再此标签上进行改写为4类情绪标签</p>
+</li>
+<li>
+<p>我们在里面数据清洗出约2000~3000条心理对话对进行Lora微调，情绪标签4类（正常、焦虑、低落、高风险），对应的情绪分数前面有提到，这里不再赘述</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="怎么理解大模型的幻觉问题如何解决">怎么理解大模型的幻觉问题？如何解决？</h2>
+<blockquote>
+<p>大模型幻觉，就是模型没有依据真实知识或给定资料，编造出看似合理但错误虚构不存在的内容</p>
+<p>比如说瞎编数据、捏造案例、给出不存在的流程</p>
+</blockquote>
+<p>怎么解决？</p>
+<ol>
+<li>
+<p>使用RAG 检索增强生成</p>
+</li>
+<li>
+<p>加入严格 Prompt 约束，提示词直接严肃调教：</p>
+</li>
+</ol>
+<pre><code class="language-Java">只根据提供的知识回答
+不知道就说 “暂无相关信息”，不要给我编造
+不提供超出心理援助范围的内容
+</code></pre>
+<ol start="3">
+<li>
+<p>领域大模型微调（比如咱们的Lora微调就能减少幻觉）</p>
+</li>
+<li>
+<p>控制上下文长度，只保留最近 10 轮有效对话，防止上下文过长导致模型混淆逻辑错乱</p>
+</li>
+</ol>
+<h2 id="你的lora和全量微调qlora有什么区别为什么选用它">你的LoRA和全量微调，QLoRA有什么区别，为什么选用它</h2>
+<blockquote>
+<ul>
+<li>
+<p>全量微调是把模型所有参数都训练一遍，效果最好，但显存爆炸、速度极慢、成本极高，单卡根本跑不动。</p>
+</li>
+<li>
+<p>QLoRA是在 LoRA 基础上做4bit或8bit 量化，其实我们用的就是QLoRA，显存占用极低，很适合单卡低成本微调，但精度会轻微损失。</p>
+</li>
+<li>
+<p>为什么选LoRA，首先我们是心理场景垂直领域微调，不需要大改模型，只需要增强识别能力，其次LoRA 轻量化、部署简单，生成的权重只有几十MB，而全量微调太费卡，我们单卡3090 ti 24GB根本跑不了</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="你的具体微调是用什么方法sftdpo吗">你的具体微调是用什么方法，SFT+DPO吗</h2>
+<blockquote>
+<p>不是，只用了SFT，我们只使用了LoRA 微调，在 Qwen2.5-7B 基座上进行监督微调SFT，训练目标只有情绪分类、风险等级、意图识别这三个任务。没有做对话生成训练和DPO 偏好对齐</p>
+</blockquote>
+<h2 id="有没有对比过其他的基座模型为什么选这个">有没有对比过其他的基座模型，为什么选这个</h2>
+<blockquote>
+<p>对比过，主要对比的Qwen、ChatGLM、Llama2 三类主流开源模型</p>
+<p>LLama2效果强，但中文一般，许可证严格，也不适合校内心理场景私有化</p>
+<p>ChatGLM中文友好，推理快，但长上下文和情绪理解偏弱。</p>
+<p>Qwen中文理解强、上下文窗口大、且社区成熟，SpringAI、Ollama 无缝适配。且 LoRA 微调支持友好，训练稳定，收敛快</p>
+</blockquote>
+<h2 id="如果让你把这个助手和openclaw结合你会怎么做">如果让你把这个助手和openclaw结合，你会怎么做</h2>
+<blockquote>
+<ul>
+<li>
+<p>把 OpenClaw 作为安全网关与可观测层，放在用户和大模型之间，实现内容安全、风险预警、合规审计</p>
+</li>
+<li>
+<p>接入 OpenClaw 作为安全中间层，所有用户请求、模型输出先经过 OpenClaw 过滤，OpenClaw 识别高风险言论直接转发给 MCP 预警模块，同时把 OpenClaw 的日志、决策轨迹存入 MySQL实现对话可用于后续复盘。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="邮件发送通过什么实现的">邮件发送通过什么实现的</h2>
+<blockquote>
+<p>通过 MCP 协议集成外部服务，MCP 服务底层采用 JavaMail 实现邮件发送逻辑，完成预警邮件的发送。</p>
+</blockquote>
+<h2 id="你lora微调的是那些层">你Lora微调的是那些层</h2>
+<blockquote>
+<p>我们微调的是大模型的 Query 层 和 Value 层，也就是 Transformer 里的 Attention 矩阵。因为 Q/V 层对语义理解、情绪识别影响最大，而且只微调这两层，参数量最小、速度最快、显存占用最低，非常适合心理咨询场景的领域微调。</p>
+</blockquote>
+<h2 id="介绍一下这个项目具体做了什么然后用了什么技术框架">介绍一下这个项目具体做了什么？然后用了什么技术框架</h2>
+<blockquote>
+<p>具体做了什么大家可以看一下项目描述</p>
+<p>技术框架：Java、Spring Boot、SpringAI、Spring Security、MySQL、Ollama、LoRA、MCP、动态路由RAG、Chroma。</p>
+</blockquote>
+<h2 id="这个需求是从哪里来的">这个需求是从哪里来的？</h2>
+<blockquote>
+<p>说的过得去就行，与学校心理咨询中心的合作调研我们发现心理咨询师人力有限，无法及时响应所有学生的求助。许多学生有心理困扰但不愿主动开口，需要一个低门槛的倾诉渠道。现有的聊天机器人回答机械，无法识别高风险状态并主动干预。</p>
+<p>总之，抓住现有大模型可以回答or安抚or开导，但是无法进行干预</p>
+</blockquote>
+<h2 id="大模型调应用这一块mcp和skills的区别你了解吗">大模型调应用这一块MCP和Skills的区别你了解吗</h2>
+<blockquote>
+<p>MCP是大模型与外部工具之间的标准化通信协议，解决怎么安全、统一地连接外部能力的问题，而 Skills 是封装了特定任务流程、领域知识与执行逻辑的可复用能力模块，解决模型能做什么、该怎么做的问题。</p>
+<p>MCP 管打通连接，Skills 管提供能力，二者常配合使用。MCP 让模型能调用外部工具，Skills 则让模型按预设流程精准完成任务。</p>
+</blockquote>
+<h2 id="你觉得mcp这个机制有什么问题">你觉得MCP这个机制有什么问题？</h2>
+<blockquote>
+<ol>
+<li>
+<p>MCP 的通信是标准化的，但出错时错误信息不够友好，定位问题需要抓包分析。</p>
+</li>
+<li>
+<p>MCP 没有内置服务发现机制，需要手动配置 Server 地址，在 K8s 环境中需要配合 Service 注册。</p>
+</li>
+<li>
+<p>MCP 本身是无状态的，对于需要会话状态的操作，比如说 Excel 文件的持续写入，需要自己维护上下文。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="一个写excel一个发邮件这个你是怎么用的">一个写excel，一个发邮件，这个你是怎么用的？</h2>
+<blockquote>
+<p>通过MCP集成，当分数为高风险时，大模型会调用MCP协议生成写邮件命令（JSON格式）给java后端执行。</p>
+<p>当为中低风险时则调用MCP协议生成写excel命令（JSON格式）给java后端执行。</p>
+<p>JSON格式示例前面已经讲啦，这里就不写了朋友们</p>
+</blockquote>
+<h2 id="你的这两个交互他怎么配合mcp用的">你的这两个交互他怎么配合MCP用的。</h2>
+<blockquote>
+<p>用户输入后，大模型根据上下文判断是否需要调用工具。如果用户表达我最近很绝望之类的，模型分析出 high 风险，会生成一个工具调用请求（JSON 格式）。然后SpringAI 框架会去解析这个请求，调用对应的 Java 方法。Java 方法执行邮件发送，返回成功状态给模型。</p>
+</blockquote>
+<h2 id="你为什么想到会用mcp呢">你为什么想到会用MCP呢？</h2>
+<blockquote>
+<p>我们希望大模型能调用外部服务（邮件、Excel），相比自己定义一套工具调用协议，MCP 有规范的 JSON-RPC 接口，便于后续扩展其他工具。</p>
+</blockquote>
+<h2 id="微调数据集来源">微调数据集来源</h2>
+<blockquote>
+<p>主要来源是开源的心理咨询对话数据集psy，清洗出大约 2000～3000 条高质量对话，全部做了 脱敏、去重、清洗，训练集：验证集=9：1，专门用于训练模型识别青少年情绪、输出温和疏导话术，最终让情绪识别准确率从 60% 提升到 90%。</p>
+</blockquote>
+<h2 id="chroma-向量库作用是什么">Chroma 向量库作用是什么？</h2>
+<blockquote>
+<p>存储心理知识库的向量数据，支持快速语义相似度检索，为 RAG 提供资料。</p>
+</blockquote>
+<h2 id="lora-微调是什么为什么进行lora微调">LoRA 微调是什么？为什么进行Lora微调？</h2>
+<blockquote>
+<p>LoRA 是低成本轻量化微调。为什么？微调可以让模型在相关领域效果大幅度提升，注意微调是离线做的，微调完集成到ollma中，用springai调用。基于心理咨询对话数据微调，让模型更懂心理场景，情绪识别准确率从基础水平提升到 90%。</p>
+</blockquote>
+<h2 id="微调后的模型放在哪里">微调后的模型放在哪里</h2>
+<blockquote>
+<p>部署在 Ollama 中，由 SpringAI 统一调用。</p>
+</blockquote>
+<h2 id="flux-实现什么功能">Flux 实现什么功能？</h2>
+<blockquote>
+<p>实现服务器主动推送流式响应，让 AI 回答像 ChatGPT 一样一字一字输出（打字机效果）。</p>
+</blockquote>
+<h2 id="spring-security-做了什么">Spring Security 做了什么？</h2>
+<blockquote>
+<p>实现用户与管理员角色隔离，学生只能查看自己数据，管理员可以上传知识库、代码库，可查看全部记录与预警，保证心理数据合规与安全。</p>
+</blockquote>
+<h2 id="为什么用流式好处是什么">为什么用流式？好处是什么？</h2>
+<blockquote>
+<p>降低等待感，提升用户体验，同时避免接口长时间阻塞，适合大模型生成慢的场景。</p>
+</blockquote>
+<h2 id="高风险预警怎么做的">高风险预警怎么做的？</h2>
+<blockquote>
+<p>大模型如果识别到高风险，自动通过 MCP 发送邮件给管理员or老师，送达率 98%，并将记录写入excel。</p>
+</blockquote>
+<h2 id="为什么要自动写入-excel">为什么要自动写入 Excel？</h2>
+<blockquote>
+<p>实现心理状态、对话记录自动沉淀，方便后续统计、跟踪、复盘。</p>
+<p>这是第一点，第二点是我们可以基于这些记录数据清洗、打标、提炼出心理对话对数据集用于微调我们的模型</p>
+</blockquote>
+<h2 id="微调的是哪个模型呢">微调的是哪个模型呢</h2>
+<blockquote>
+<p>Qwen2.5-7B</p>
+</blockquote>
+<h2 id="你的指标是什么情绪识别准确率提升至-90高风险学生自动邮件预警送达率-98这两个指标具体是什么">你的指标是什么？情绪识别准确率提升至 90%。高风险学生自动邮件预警（送达率 98%），这两个指标具体是什么</h2>
+<blockquote>
+<p>90% 情绪识别准确率其实就是模型判断的情绪，10 次里有 9 次是对的。</p>
+<p>情绪识别准确率是指模型对用户文本、语音、图像的情绪判断结果，与人工标注的真实情绪一致的比例。我通过 LoRA 微调心理咨询领域数据，将情绪识别准确率从基础模型的 60% 提升到 90%，让系统能更精准判断学生心理状态。</p>
+<p>98% 送达率就是系统检测到高风险学生，比如发 100 封预警邮件，98 封能成功送到辅导员or导师手里。</p>
+<p>系统检测到学生出现抑郁、自杀倾向等高风险状态时，自动发送预警邮件的成功比例。我们通过异步发送、失败重试、日志监控等优化，将预警邮件送达率提升到 98%，确保高风险事件不会遗漏</p>
+</blockquote>
+<h2 id="准确率-90-你是怎么算出来的邮件送达率-98-怎么统计">准确率 90% 你是怎么算出来的？邮件送达率 98% 怎么统计？</h2>
+<blockquote>
+<p>我们准备了 1000 条人工标注好的心理对话数据，让微调后的qwen2.5-7B模型识别情绪，对比正确标签，正确 900多条，所以准确率 90%。</p>
+<p>邮件送达率98%是通过统计一个月内所有高风险预警发送记录，送达成功的占发送的比例</p>
+</blockquote>
+<h2 id="微调的心理对话对数据集哪来的开源的吗还是自己标的">微调的心理对话对数据集哪来的？开源的吗还是自己标的</h2>
+<blockquote>
+<p>开源，PsychQA 校园心理对话数据集。</p>
+<p>测试微调前和微调后模型效果的1000条心理对话对是我们自己标注的</p>
+<p>放入rag知识库的则是心理科普知识、情绪调节方法、校园心理援助政策、常见心理问题解答、心理危机干预指南这些PDF、Markdown格式的专业资料</p>
+</blockquote>
+<h2 id="lora微调识别准确率提升到90这个是怎么做的呢">Lora微调识别准确率提升到90%。这个是怎么做的呢？</h2>
+<blockquote>
+<p>在我们自己标注的1000条心理对话对数据集上，也就是测试集，在微调前我们先用qwen2.5对这1000条数据集进行了测试，输出为情绪标签+得分+风险等级，基于此与这1000条数据集的标签计算准确率，为60%</p>
+<p>然后我们进行用开源的psy进行Lora微调，得到微调后的qwen2.5-7B，把我们标注的这1000条数据放在微调后的qwen上进行测试，准确率达到90%</p>
+</blockquote>
+<h2 id="modelfile里面存的啥">modelfile里面存的啥？</h2>
+<blockquote>
+<p>Modelfile 是 Ollama 用来构建、打包、管理自定义大模型的配置文件，里面存了基础模型、系统提示词、模型参数、LoRA 权重路径，用来打包咱们微调后的qwen2.5-7B模型</p>
+</blockquote>
+<h2 id="mysql里面存了哪些表">mysql里面存了哪些表？</h2>
+<blockquote>
+<p>user用户表，账号、密码、角色USER还是ADMIN、姓名、学院</p>
+<p>session会话表，存会话 ID、用户 ID、创建时间和最近 10 轮对话上下文</p>
+<p>chat_record对话记录表,存用户问题、模型回答、意图类型</p>
+<p>risk心理风险表，存识别结果、风险等级、状态字段</p>
+<p>Config 预警配置表，存管理员和辅导员姓名、邮箱、部门</p>
+</blockquote>
+<h2 id="邮件发送失败是怎么得知的excel写入失败怎么得知的">邮件发送失败是怎么得知的？excel写入失败怎么得知的？</h2>
+<blockquote>
+<ol>
+<li>
+<p>两个 MCP 服务调用都会做异常捕获，失败后会记录错误日志，并更新 MySQL 里的状态字段，将风险表risk状态字段更新为发送失败，系统就能知道是邮件发失败了，还是 Excel 写失败了。</p>
+</li>
+<li>
+<p>具体异常捕获，MCP 调用 JavaMail 发送时，ConnectException、AuthenticationException异常会被捕获，邮件服务会返回状态码和失败信息，捕获后立即更新 MySQL 风险表状态为发送失败，同时记录日志，触发重试</p>
+</li>
+<li>
+<p>MCP 执行文件写入时，IO 异常会被捕获，捕获失败后更新 MySQL 状态 为写入失败，并记录错误日志，进入重试流程</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="普通rag动态路由ragagentic-rag的区别">普通RAG、动态路由RAG、Agentic RAG的区别</h2>
+<blockquote>
+<ul>
+<li>
+<p>普通 RAG ，是基础检索，每次问题都会统一走知识库查询。</p>
+</li>
+<li>
+<p>路由 RAG 会先做意图判断，动态分流：闲聊直接回答，专业问题才触发 RAG，效率更高。</p>
+</li>
+<li>
+<p>Agentic RAG 则具备自主规划能力，可以根据需求决定是否检索、检索几次、是否调用其他工具</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="多个同学进行并发交互时会出现写excel冲突吗">多个同学进行并发交互时，会出现写excel冲突吗</h2>
+<blockquote>
+<p>两种方式，都可以</p>
+<ol>
+<li>
+<p>第一种，你所有同学都用同一个excel文件，那我们可以用分布式锁或者队列来保证串行写入，不会冲突。</p>
+</li>
+<li>
+<p>第二种，从架构上，你可以每个用户独立生成一个 Excel 文件，不写同一个文件，文件名带上时间戳、用户 ID 和会话 ID，绝对唯一，不会发生争抢</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="关于隐私问题">关于隐私问题</h2>
+<blockquote>
+<p>学生直接在聊天界面进行交互，只有管理员能看到他们的信息学生id等，管理员不会对外发布信息（像电子科大的心理咨询中心一样，其他同学是无法看到你信息的）</p>
+</blockquote>
+<h2 id="介绍一下你的这个项目">介绍一下你的这个项目？</h2>
+<blockquote>
+<p>照着项目描述说就可以了</p>
+</blockquote>
+<h2 id="当多个学生同时进行流式对话时你的chatmemory是如何设计的">当多个学生同时进行流式对话时，你的ChatMemory是如何设计的？</h2>
+<blockquote>
+<ol>
+<li>
+<p>会话 ID 隔离，每个学生分配唯一sessionId，对话历史按sessionId分组存储</p>
+</li>
+<li>
+<p>用 SpringAI 的ChatMemory和MessageStore，限制上下文窗口，保留最近 10 轮对话，避免 token 溢出</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="如果使用内存存储在集群部署时会出现什么问题">如果使用内存存储，在集群部署时会出现什么问题？</h2>
+<blockquote>
+<p>内存存储是单机状态，集群部署会话信息不共享，用户请求负载均衡到不同节点会丢失上下文，高并发的情况下OOM风险也很高</p>
+</blockquote>
+<h2 id="你在进行rag时使用的是哪种embedding模型">你在进行RAG时，使用的是哪种Embedding模型</h2>
+<blockquote>
+<p>text-embedding-3-small</p>
+</blockquote>
+<h2 id="在将文本向量化存入chroma时如何处理长文本截断问题">在将文本向量化存入Chroma时，如何处理长文本截断问题？</h2>
+<blockquote>
+<p>先切块，进行语义截断，保留开头、核心中段和结尾，丢弃无意义冗余内容，再对每个 chunk 单独向量化</p>
+</blockquote>
+<h2 id="为什么选择chroma作为向量数据库相比于weaviate或milvus它在spring-ai生态中的集成度如何">为什么选择Chroma作为向量数据库？相比于Weaviate或Milvus，它在Spring AI生态中的集成度如何？</h2>
+<blockquote>
+<p>Chroma不用独立部署服务，并且配置简单，适配快速迭代，而且咱们的心理咨询知识库量级不大，Chroma 性能足够</p>
+</blockquote>
+<h2 id="chroma的数据持久化和备份策略你是如何做的">Chroma的数据持久化和备份策略你是如何做的？</h2>
+<blockquote>
+<p>关闭内存模式，启用文件持久化，数据存储到本地磁盘</p>
+<p>备份的化是采用全量备份Chroma数据目录，知识库更新后，自动触发增量快照备份，我们也设置了回滚方案，保留最近7天的备份，支持故障快速恢复</p>
+</blockquote>
+<h2 id="你是如何构建微调数据集的">你是如何构建微调数据集的？</h2>
+<blockquote>
+<p>开源的psy，做一下数据清洗和改标签成4类，前面讲过，这里我就不写了</p>
+</blockquote>
+<h2 id="在lora微调过程中你如何防止灾难性遗忘即模型记住了心理识别却忘了基础对话能力">在LoRA微调过程中，你如何防止灾难性遗忘，即模型记住了心理识别却忘了基础对话能力？</h2>
+<blockquote>
+<p>我们只微调小部分参数啊， 仅训练模型注意力层的低秩矩阵，冻结基座参数，基础对话能力肯定会保留</p>
+<p>同时学习率用的很小，不会破坏原有语义能力</p>
+</blockquote>
+<h2 id="你提到通过mcp实现数据写入excel和邮件通知如果mcp依赖的外部服务宕机你的系统是如何保证核心对话功能不受影响的">你提到通过MCP实现数据写入Excel和邮件通知。如果MCP依赖的外部服务宕机，你的系统是如何保证核心对话功能不受影响的？</h2>
+<blockquote>
+<p>对话的流程与和MCP 辅助服务解耦，Excel 写入、邮件通知全部用线程池或者消息队列异步执行，不阻塞流式对话</p>
+<p>MCP 调用添加超时 + 熔断，失败就直接跳过，不影响主接口</p>
+<p>我们也可以设置降级策略，宕机时，数据暂存 MySQL，任务重试</p>
+</blockquote>
+<h2 id="这个98的送达率是如何保障的如果邮件服务商限流或学生监护人邮箱无效你的重试策略和死信处理机制是怎样的">这个98%的送达率是如何保障的？如果邮件服务商限流或学生监护人邮箱无效，你的重试策略和死信处理机制是怎样的？</h2>
+<blockquote>
+<ol>
+<li>
+<p>阶梯重试机制（10s到30s到5min），并且最多重试 5 次</p>
+</li>
+<li>
+<p>限流，采用MQ 消息队列进行削峰，控制发送速率</p>
+</li>
+<li>
+<p>对于无效邮箱，重试失败后标记为死信，存入死信表，由管理员人工核查</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="对接openai或ollama时如何处理用户的敏感信息在发送给大模型之前有没有做敏感词过滤或匿名化处理">对接OpenAI或Ollama时，如何处理用户的敏感信息？在发送给大模型之前，有没有做敏感词过滤或匿名化处理</h2>
+<blockquote>
+<p>用户输入前自动识别并替换姓名、学号、电话为匿名标识</p>
+<p>同时敏感数据不上传公有云 OpenAI，只在本地 Ollama 处理</p>
+</blockquote>
+<h2 id="项目的流程判断为心理咨询后是先去rag搜索还是先对风险等级打分rag搜索输出对话风险等级打分三个步骤的先后关系具体怎么实现这个流程的来自买过本项目的xhs-no-problem美团面经">项目的流程，判断为心理咨询后是先去rag搜索还是先对风险等级打分？Rag搜索、输出对话、风险等级打分，三个步骤的先后关系，具体怎么实现这个流程的？（来自买过本项目的xhs no problem，美团面经）</h2>
+<blockquote>
+<p>我给大家再梳理一下这个流程，大模型意图判断后判断为心理咨询Consult或者Risk后就会走Consult、risk那条分支，这里的risk并不是对风险等级进行打分，只是意图判断的表述（这里要区分一下，意图判断其实意思就是让大模型判断一下这个用户想干嘛，风险等级则是判断用户的状态，这两个是不一样的）</p>
+<p>大家可以看一下下面的流程图，意图判断这里只是我让大模型判断用户想干啥，想聊天Chat还是想咨询心理方面的Consult还是他直接就说想紫砂Risk，输出对应的Chat、Consult、Risk（这个用Prompt即可实现）。在下面的Consult分支里才有对风险等级真正进行打分，得出低、中、高风险。</p>
+<p>所以，前后关系是RAG搜索--&gt;风险等级--&gt;输出对话--&gt;写excelor发邮件</p>
+</blockquote>
+<p><img src="file:///c:\Users\13115\Downloads\yx-files\MindBridge智能体_2026-04-08 10-22-55\images\CB6akOkKLLolrF8VqNITQEB2fL7uCJjn.png" alt=""></p>
+<h2 id="多名同学同时对话时线程池异步写入和队列削峰怎么配合的">多名同学同时对话时，线程池异步写入和队列削峰怎么配合的？</h2>
+<blockquote>
+<p>把要写入 MySQL、写 Excel、发邮件的任务，丢进队列排队，队列后面用线程池慢慢消费任务，控制同时执行的线程数量，避免服务器压力过大。</p>
+</blockquote>
+<h2 id="邮件预警和写excel分别需要一个线程池吗">邮件预警和写excel分别需要一个线程池吗</h2>
+<blockquote>
+<p>都可以，我项目里是一个，但是我觉得2个更好。发邮件是网络 IO，容易慢、容易超时，写 Excel 是磁盘 IO，也比较耗时，如果共用一个池，邮件卡住会把 Excel 也拖慢，互相影响</p>
+</blockquote>
+<h2 id="异步记录心理状态是在哪个步骤如何异步记录的">异步记录心理状态是在哪个步骤如何异步记录的</h2>
+<blockquote>
+<p>在模型识别出风险等级、生成回答之后，后台异步写excel</p>
+</blockquote>
+<h2 id="大模型微调除了训练情绪标签有训练对话生成能力吗">大模型微调除了训练情绪标签，有训练对话生成能力吗？</h2>
+<blockquote>
+<p>没有，首先 Qwen2.5-7B 本身的对话生成能力已经很强了，我们微调的目的就是在保持它流畅自然的对话能力不变的前提下，专门提升它在心理领域的专业性和风险识别能力。其次，对于对话生成能力的训练来说，基座模型qwen2.5已经足够成熟，再去训练通用对话意义不大，而且成本非常高</p>
+</blockquote>
+<h2 id="把数据写进mysql是同步的还是异步的">把数据写进Mysql是同步的还是异步的</h2>
+<blockquote>
+<p>核心对话日志、用户信息、权限配置是同步写入</p>
+<p>心理状态结果、预警记录、Excel 是异步写入</p>
+</blockquote>
+<h2 id="你这个rag流程应该都是别人封装好的直接拿来用吧你自己实现了什么">你这个rag流程应该都是别人封装好的直接拿来用吧，你自己实现了什么？</h2>
+<blockquote>
+<p>意图识别动态路由</p>
+<p>长文本分块策略</p>
+</blockquote>
+<h2 id="rag-怎么评估召回质量怎么知道-rag-有没有用">RAG 怎么评估召回质量？怎么知道 RAG 有没有用？</h2>
+<blockquote>
+<p>用我们私有的标注数据集+检索指标进行评估，只需要100条带标注的心理对话对，我们按Recall@3、Recall@5评估召回率，看正确答案是否出现在前 3~5 条检索结果里</p>
+</blockquote>
+<h2 id="好像只看到qwen25-7b的ollamaopenai用在哪">好像只看到qwen2.5-7B的Ollama，openai用在哪</h2>
+<blockquote>
+<p>我们的embedding模型text-embedding-3-small就是用的openai的</p>
+</blockquote>
+<h2 id="整个过程对学生对话多少轮有限制吗比如它进行了几十轮或者上百轮对话都是ok的吗来自买过本项目的xhs-no-problem蚂蚁一面">整个过程对学生对话多少轮有限制吗？比如它进行了几十轮或者上百轮对话都是OK的吗？（来自买过本项目的xhs no problem，蚂蚁一面）</h2>
+<blockquote>
+<p>OK的，学生可以一直聊，聊几百轮都没问题，但我们只保留最近 10 轮有效对话，更早的历史会被裁剪掉。</p>
+<p>大模型 token 上限有限，为了不硬性截断对话，我们通过控制上下文窗口长度，只保留最近 10 轮有效对话，不超上下文保证回答稳定</p>
+</blockquote>
+<h2 id="为什么调用工具用后端的代码实现而不是大模型自身的能力来自买过本项目的xhs-no-problem蚂蚁一面">为什么调用工具用后端的代码实现而不是大模型自身的能力？（来自买过本项目的xhs no problem，蚂蚁一面）</h2>
+<blockquote>
+<p>邮件、Excel、数据库写入这类操作涉及真实系统状态改变，必须由后端严格控制权限、做幂等之类的，包括说重试、落库记录这些，不能完全交给模型决定</p>
+</blockquote>
+<h2 id="你这个智能体除了主动通知老师之外针对老师还有什么样的交互的功能吗老师是只能看一些结构化数据还是也可以跟智能体问答针对老师跟智能体的问答以及学生跟智能体的问答当你识别到角色的不同然后针对上下文会话有什么特殊的处理吗来自买过本项目的xhs-no-problem蚂蚁一面">你这个智能体除了主动通知老师之外，针对老师还有什么样的交互的功能吗？老师是只能看一些结构化数据还是也可以跟智能体问答？针对老师跟智能体的问答以及学生跟智能体的问答，当你识别到角色的不同，然后针对上下文会话有什么特殊的处理吗？（来自买过本项目的xhs no problem，蚂蚁一面）</h2>
+<blockquote>
+<p>这个我建议先和面试官讲清楚这个项目的场景、背景，以及具体是给谁用的，它其实就是一个像豆包一样的网页对话模式，你可以和它正常做问问题、聊天、查资料等事情，这是预训练模型本身具有的能力。微调只是为了让它在心理场景上更强</p>
+<p>老师不用和智能体交互，但是可以查看学生风险列表、对话记录，查看心理状态统计。我们主要目的是预警高风险学生，老师在收到邮件后应该做的是立即采取行动</p>
+</blockquote>
+<h2 id="给大家再讲一下项目的场景">给大家再讲一下项目的场景</h2>
+<blockquote>
+<p>我们的项目场景并不是评测场景，不是让学生以一种集中的方式去像学校做心理测评一样。我们的项目是一个像正常豆包这些一样的网页界面，学生平时可以用它像用豆包、deepseek、千问、元宝一样查资料或者对话，任何东西</p>
+<p>只是我们这个系统会对学生的输入进行判断，这个流程图那里有写，判断出学生有问题的时候才会写excel或者发邮件，不然就是我们正常用现在这些大模型产品一样</p>
+<p>而且写excel和发邮件是不能告诉学生的，要知道心理测评很多时候学生为了防止辅导员找自己谈话，其实未必真实，我们这个系统就像他们日常用豆包一样，平常也完全可以使用，当他们某天状态非常不好像大模型倾诉求解决办法时，我们的系统能识别到高风险并进行预警</p>
+</blockquote>
+<h2 id="怎么去识别衡量模型最后的对话效果呢比如说回答符合预期吗来自买过本项目的xhs-no-problem优酷一面">怎么去识别衡量模型最后的对话效果呢，比如说回答符合预期吗？（来自买过本项目的xhs no problem，优酷一面）</h2>
+<blockquote>
+<p>我们有用私有的100条心理对话对（包括问题和标准答案）对其进行测试，计算回答准确率和召回率，用大模型做自动打分，评估相关性和专业性，是否符合预期</p>
+</blockquote>
+<h2 id="为什么不考虑用大模型rag来完成项目而要用本地部署的7b模型来自买过本项目的xhs-no-problem优酷一面">为什么不考虑用大模型+Rag来完成项目，而要用本地部署的7B模型？（来自买过本项目的xhs no problem，优酷一面）</h2>
+<blockquote>
+<ol>
+<li>
+<p>心理数据非常敏感，对话涉及心理隐私内容，不能上传到外部云平台，本地部署更安全合规</p>
+</li>
+<li>
+<p>Qwen2.5-7B 能力足够支撑场景，配合心理领域 LoRA 微调 和动态路由RAG，效果可以更好</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="你这个系统的入口在哪里比如用户作为学生他怎么跟你的系统进行对话是类似于网页的页面进行交互吗来自买过本项目的xhs-no-problem字节一面">你这个系统的入口在哪里？比如用户作为学生，他怎么跟你的系统进行对话？是类似于网页的页面进行交互吗？（来自买过本项目的xhs no problem，字节一面）</h2>
+<blockquote>
+<p>浏览器访问的平台页面，学生打开网页，然后登录进入对话界面，直接在聊天框输入文字，就能和智能体对话，交互形式和日常聊天软件基本一致</p>
+</blockquote>
+<h2 id="你对情绪进行分类是什么维度的是整个对话维度还是说每一轮就分一次来自买过本项目的xhs-no-problem字节一面">你对情绪进行分类，是什么维度的？是整个对话维度还是说每一轮就分一次？（来自买过本项目的xhs no problem，字节一面）</h2>
+<blockquote>
+<p>每一轮就分一次，但每一轮大模型都会参考最近10轮的上下文，因为你不能说这一轮他说一句偏激的话就直接发邮件了，误判率会很高，得大模型综合上下文做意图识别。</p>
+</blockquote>
+<h2 id="什么是模型灾难性遗忘">什么是模型灾难性遗忘</h2>
+<blockquote>
+<p>大模型在做新领域微调时，把原来预训练时候学会的通用能力给忘掉了，一般发生在全量微调的场景下。而我们的LoRA微调只微调很小部分的参数，自由度低，所以基本没这种情况。学了新知识，把旧知识全忘了</p>
+</blockquote>
+<h2 id="如果向量数据库中的知识库内容需要更新你是采用全量重建还是增量更新">如果向量数据库中的知识库内容需要更新，你是采用全量重建还是增量更新</h2>
+<blockquote>
+<p>都有，如果知识文档的修改或者新增，那就增量更新，只更新对应文档的 chunk，删除旧向量然后插入新向量。如果知识库结构大改，模型更换，那就全量重建，先构建新集合，切换后删除旧集合，不会导致业务中断</p>
+</blockquote>
+<hr>
+<h1 id="十四主包个人面经全解答">十四、🍠主包个人面经&amp;&amp;全解答</h1>
+<blockquote>
+<p>解答只会写和本项目相关的哈，后端的就不会写啦</p>
+<p>这里只写问到了本项目相关的面经，我有些12月底1月初的面经没问过这个项目，就不放上来了</p>
+</blockquote>
+<h2 id="腾讯后端csig26年2月">腾讯后端，CSIG（26年2月</h2>
+<ol>
+<li>
+<p>那就有几个成果可以介绍一下吗？两篇论文和发明专利分别具体做的是什么？</p>
+</li>
+<li>
+<p>布隆过滤器去拦截无效查询。你能说一下它的原理吗？</p>
+</li>
+<li>
+<p>你这两个项目你在做的过程中有没有碰到什么问题或者挑战，然后你又是怎么解决的？</p>
+</li>
+<li>
+<p>API进来是会先发到消息队列吗？</p>
+</li>
+<li>
+<p>前端是怎么判断这个东西这个人他抢到了还是没抢到呢？</p>
+</li>
+<li>
+<p>agent项目这个需求是从哪里来的？</p>
+</li>
+</ol>
+<blockquote>
+<p>近年来学生心理问题增多，但学校心理老师资源不足，学生因隐私顾虑不愿面对面咨询，导致风险无法及时发现。传统咨询模式被动，无法提前识别情绪危机。因此开发这套 AI 辅助，实现匿名倾诉 + 多模态情绪识别 + 智能咨询 + 自动预警。</p>
+</blockquote>
+<ol start="7">
+<li>你这个产品功能是对于你的用户来说是透明的，还是说它是未知的？</li>
+</ol>
+<blockquote>
+<p>半透明，毕竟预警这些你肯定不能直接告诉学生有这个功能，你告诉他有这个功能他未必会用这个智能体</p>
+</blockquote>
+<ol start="8">
+<li>这里提到了送达率98，为什么会有一个98的送达率的？</li>
+</ol>
+<blockquote>
+<p>这个就是发邮件成功送达的概率</p>
+</blockquote>
+<ol start="9">
+<li>基于心理咨询那个Lora大模型微调，识别准确率提升到85%。这个是怎么怎么做的呢？</li>
+</ol>
+<blockquote>
+<p>首先我们自己标注了1000条心理对话对，标签为4种情绪标签（正常、焦虑、低落、高风险），作为测试集</p>
+<p>基座模型为qwen2.5-7B，在微调前我们在单卡3090 ti 24GB上测试得到准确率60%，微调后测试得到一个准确率85%，这里可以吹点牛（写90%）没问题的！</p>
+<p>微调只微调了query和value层</p>
+</blockquote>
+<ol start="10">
+<li>这个九十多是指是是指什么样的一个目标？</li>
+</ol>
+<blockquote>
+<p>高风险学生心理状态识别的准确率，4分类，90%也就是模型判断这1000条测试集的学生的情绪标签与我们标注的标签的一致性达到90%</p>
+</blockquote>
+<ol start="11">
+<li>这里多次提到的用MCP我们你使用过程中，使用MCP有没有碰到什么问题？</li>
+</ol>
+<blockquote>
+<p>遇到的问题，在Flux流式模式下，如果大模型在生成中途决定调用MCP工具，中断流再将工具结果传回给模型继续生成，状态管理比较复杂，解决方法就是把上下文暂存起来</p>
+<p>Flux在输出第二个问题的时候，比如要调用写excel工具写第一次的对话，这个时候流正在输出，不能直接停，暂停的时候，对话上下文当前状态说到哪了，必须先存起来，不然回来就断片了，这是最开始的方案，后面我们改为异步调用工具以后就没有这个问题了</p>
+</blockquote>
+<ol start="12">
+<li>你觉得MCP这个机制有什么问题？</li>
+</ol>
+<blockquote>
+<p>MCP通常是基于标准输入输出或SSE通信。当大模型、MCP Client、MCP Server三者交互出错时，很难像传统HTTP接口那样通过Postman或浏览器开发者工具直观地查看请求和响应日志，定位问题很麻烦</p>
+</blockquote>
+<ol start="13">
+<li>一个什么写excel，一个写发邮件，这个你是怎么用的？</li>
+</ol>
+<blockquote>
+<p>构建了两个独立的MCP Server，注册到SpringAI中</p>
+<p>写Excel：当大模型判断需要写excel时，会调用write_excel工具。MCP Server接收到请求后，写入.xlsx文件，并返回文件的存储路径。</p>
+<p>发邮件：当识别到高风险学生，大模型会调用send_email工具。MCP Server利用JavaMail封装好的协议发送邮件。</p>
+</blockquote>
+<ol start="14">
+<li>你的这两个交互，你的提示词是怎么写的，然后他怎么配合MCP用的。</li>
+</ol>
+<p>Prompt：</p>
+<pre><code class="language-Java">你是一个心理助手，当你需要执行以下操作时，请严格遵循规则：
+
+<span class="hljs-number">1</span>、【写excel】当你判断要写excel时，你必须调用 write_excel 工具。调用前，确保 data 参数是结构化的JSON列表。<span class="hljs-number">2</span>、【发送预警】当风险等级判定为“高风险”时，你必须调用 send_email 工具。
+</code></pre>
+<p>用户对话结束后，这个时候如果微调后的qwen2.5判断需要记录对话，那模型就会通过 MCP 协议 输出工具调用指令（JSON），Java 后端接收 MCP 指令后解析指令action=write_excel，然后执行 Excel 写入工具，返回结果给模型</p>
+<ol start="15">
+<li>这个项目你怎么跟AI交互的一些提示词怎么怎么设计的。</li>
+</ol>
+<blockquote>
+<p>给他设定角色，你是一个心理专家or心理助手or你是一个心理agent智能体</p>
+<p>定义让他严格遵守的规则，严格规定它的输出内容</p>
+<p>规则里也定义它的输出格式，比如json格式</p>
+</blockquote>
+<ol start="16">
+<li>用户给你一个query，你结合用户的query，然后上面会给一些例子说判断心是不是心理问题。那你的输出，你希望大模型给你输出什么呢？</li>
+</ol>
+<blockquote>
+<p>输出情绪标签和风险等级，情绪标签4选一，风险等级3选一，根据心理标签和风险等级决定写excel还是发邮件并写入excel，同时它还应该输出安抚or开导的自然语言给用户</p>
+</blockquote>
+<ol start="17">
+<li>怎么通过MCP在大模型中加入这种判断置信度的预警功能的？</li>
+</ol>
+<blockquote>
+<p>并不是通过置信度进行判断，而是通过风险等级和情绪标签，如果情绪标签为高风险or风险等级为高风险都会触发预警功能</p>
+<p>风险等级和情绪标签通过prompt强制大模型通过意图理解后输出，为JSON格式，然后根据风险等级和情绪标签进行MCP调用工具</p>
+</blockquote>
+<ol start="18">
+<li>分块分多大是怎么确定的？</li>
+</ol>
+<p>选择512token作为初始块大小</p>
+<ul>
+<li>
+<p>因为心理知识库多为段落形式。512token通常能覆盖一个完整的定义或一个案例描述，不会切断语义。</p>
+</li>
+<li>
+<p>这里token和中文字符之间怎么换算的给大家讲一下，先给个大概公式，字符数x1.6约等于token数。1 个 Token大约0.5到0.7 个汉字字符，这里是包括标点符号换行等字符的，直接记我标红的公式就行</p>
+</li>
+<li>
+<p>我当时使用的text-embedding-3-small模型，其对长文本的表示能力在512 tokens左右表现最佳，过长会导致向量信息稀释。</p>
+</li>
+</ul>
+<p>当然我们也有进行优化，</p>
+<p>我通过实验对比了256、512、1024三种块大小，以检索命中率Top-3检索结果包含正确答案的比例为指标。512在命中率和响应延迟之间取得了最佳平衡。</p>
+<p>这里扩展讲一下这个实验怎么做的，请先详细了解普通RAG的流程，这里暂时不涉及动态路由rag</p>
+<p>对于要存在rag里的知识库，也就是心理对话对，我们做的工作其实就是把分块里的token大小设置为3个不同的，256、512、1024，不同的分块大小会导致不同的语义，通过text-embedding-3-small后得到的向量存在Chroma里面，也就是不一样的</p>
+<p>然后根据存在Chroma里的内容进行测试，就是我们输入相同的问题，比对大模型的回答和对话对正确答案的对比，越贴近正确答案的则说明这种分块方式更好</p>
+<p>因此知识库是不变的，对这个知识库，我们就是修改分块大小为256、512、1024然后比对这三种分块情况得到的放进Chroma向量库里后大模型生成的结果的效果，效果的指标采用生成结果和正确答案的比例占比</p>
+<ol start="19">
+<li>有没有指标点，你在这个过程中做了什么？我们最后你怎么确定的这个分块大小</li>
+</ol>
+<p>我们标注了1000条心理对话对作为测试集，对于每个分块策略（256、512、1024），计算前3个检索结果中包含标准答案的比例</p>
+<p>算法题：将压缩字符串解压缩输出</p>
+<h2 id="nio蔚来来自群友分享26年3月23日">NIO蔚来（来自群友分享，26年3月23日）</h2>
+<ol>
+<li>
+<p>研究生方向是什么</p>
+</li>
+<li>
+<p>先刷两道题，手撕1：你可以使用任意语言，然后初始化线程。每个线程只能打一个字母，然后要控制一下他们的顺序，按ABC的顺序去打印三次。输出ABCABCABC</p>
+</li>
+<li>
+<p>手撕2：初始化一个固定的String，比如说“what is your name&quot;然后把句子里的单词做一个逆序，输出”name is your what&quot;不能使用额外空间</p>
+</li>
+<li>
+<p>linux用的多吗？vim编辑器的操作呢</p>
+</li>
+<li>
+<p>关系数据库，里面有个关键字叫having，这个是怎么用的？</p>
+</li>
+<li>
+<p>讲一下这个智能体它的一个业务范围，它的一个应用是什么？</p>
+</li>
+</ol>
+<p>这个项目是校园心理智能助手，主要给学生用。学生可以和 AI 聊天、倾诉情绪、咨询心理问题，系统会自动识别学生的心理状态，判断有没有高风险，如果识别高风险，会自动发邮件预警给心理老师，同时自动存档记录。管理员还可以上传心理知识库，让AI生成更专业的回答</p>
+<ol start="7">
+<li>那他的技术方案讲一下</li>
+</ol>
+<p>技术栈那里</p>
+<ol start="8">
+<li>然后这里边模型是用什么？OpenAI是吗？</li>
+</ol>
+<p>Qwen2.5-7B，本地部署Ollama</p>
+<ol start="9">
+<li>这里边如果说多人同时在聊天的时候，然后这个并发解决方案是怎样的</li>
+</ol>
+<p>Spring Boot WebFlux和Flux 流式响应的异步非阻塞特性，流式会话接口基于响应式编程，单线程可处理海量连接，不阻塞额外线程。大模型调用、向量库查询均采用异步非阻塞调用</p>
+<p>SpringAI 也封装了大模型调用的异步逻辑，可以自动管理请求调度</p>
+<ol start="10">
+<li>从入口一直到模型拆分。工程大模型这个链路工程上，你是自己用了框架的一个并发能力，还是说自己是用多线程</li>
+</ol>
+<p>没有自己用多线程，用的SpringAI和WebFlux 框架原生的并发和异步能力，流式会话用的是Flux（Spring WebFlux） 响应式并发模型，SpringAI 封装了大模型调用的异步逻辑，自动管理请求调度</p>
+<ol start="11">
+<li>框架的对这种就是对于token的管理是怎么管理？如果说想咨询的问题，他的咨询量很大，会容易超对模型的上下文限制。</li>
+</ol>
+<p>token管理使用SpringAI 框架自动统计管控会话中的 Token 消耗，然后会话上下文做结构化存储区分历史对话、用户问题</p>
+<p>超上下文限制解决方案：</p>
+<ul>
+<li>
+<p>只保留近期10轮对话</p>
+</li>
+<li>
+<p>RAG 知识库只召回Top-K 高相关片段，减少无效 Token 占用</p>
+</li>
+</ul>
+<ol start="12">
+<li>这个微调怎么理解？是个知识库吗？还是像什么？因为前面2.5的类型内部模型应该是改不了</li>
+</ol>
+<ul>
+<li>
+<p>微调 ≠ 知识库，完全是两回事，RAG 知识库属于外挂知识，模型 查表回答，不改变模型本身。LoRA 微调则是小幅度优化模型的理解、输出能力，让模型更适配心理咨询场景</p>
+</li>
+<li>
+<p>开源大模型qwen2.5-7B底层主干权重不动，LoRA 只训练极小部分参数，属于轻量优化，不是改模型底层结构</p>
+</li>
+</ul>
+<ol start="13">
+<li>微调是相当于是什么？是说不断用prompt然后加一些答案和问答，然后就强制告诉模型遇到这种问题一定要这么回答是吗？</li>
+</ol>
+<p>不是，Prompt 是临时指令，每次对话都要写，不修改模型，但LoRA 微调是用真实心理咨询问答数据做训练，让模型学习心理场景的语言风格和回答规范</p>
+<p>微调后，模型自带能力，不用每次都写长 Prompt，遇到心理相关问题会自动按专业方式识别、回答。</p>
+<ol start="14">
+<li>这个微调的这个动作是怎么来实施的呢？微调是不是改它的一个类似于配置还是什么</li>
+</ol>
+<p>微调动作，首先准备心理咨询对话数据集，包括问题、标准回复、心理状态标签，然后基于 Ollama加载基座模型qwen2.5，用LoRA 轻量训练，只训练少量适配层参数，训练完成生成LoRA 权重文件，一个几MB~几十MB的适配器文件。推理时，基座模型 + LoRA 权重一起加载使用</p>
+<p>微调不改基座模型、不改配置，只新增一个轻量化适配文件</p>
+<ol start="15">
+<li>那就实际对于那个模型千问的话，它影响的是它的哪一部分？是也是配置吗？还是什么？</li>
+</ol>
+<p>LoRA 微调不修改模型主干 Transformer 层，只作用于模型的注意力层 少量参数</p>
+<ol start="16">
+<li>那这种微调以后，它的模型和体积大小改变多吗？</li>
+</ol>
+<p>几乎不变。基座模型7B体积完全不动，LoRA 微调只生成一个几 MB 到几十 MB 的小权重文件，整体占用空间和原模型差不多，部署、加载效率不受影响。</p>
+<ol start="17">
+<li>分布式锁，没有redisson的话，还能用什么实现呢？</li>
+</ol>
+<p>原生的 Redis 命令SETNX + EXPIRE，ZooKeeper 分布式锁，基于临时节点 + 事件监听，MySQL 悲观锁 / 乐观锁，简单场景可用但性能一般</p>
+<ol start="18">
+<li>大模型微调是就任何这种开源的模型都可以微调吗？</li>
+</ol>
+<p>不是所有都能，但主流开源模型都支持。支持 LoRA 微调的有Llama、Qwen、ChatGLM、Baichuan 等。必须满足模型开源权重、支持主流训练框架Transformers。闭源模型如商用版 OpenAI不开放权重，不能做 LoRA 微调，只能用 Prompt/RAG</p>
+<ol start="19">
+<li>这种需要依赖这种开源模型要提供什么这个对外接口的能力吗？还是说不提供也是可以微调。</li>
+</ol>
+<p>不需要接口。微调是本地训练，直接加载模型权重文件不依赖 API、不依赖 HTTP 接口，只要拿到模型权重文件 + 训练代码，就能跑 LoRA 微调。</p>
+<ol start="20">
+<li>本地部署它对于模型能力什么开放协议上没有要求是吧</li>
+</ol>
+<p>没有强制协议要求。纯本地运行，不依赖外网协议</p>
+<h2 id="字节后端-中国交易与广告26年2月">字节后端-中国交易与广告（26年2月</h2>
+<ol>
+<li>
+<p>第二个可以介绍一下，介绍一下这个项目具体是做了什么，然后用了一些什么技术框架。</p>
+</li>
+<li>
+<p>整个比如说整个项目它的一个流程是怎么样的？有没有哪些技术框架，可以大致给我介绍一下。</p>
+</li>
+</ol>
+<p>这里按照流程图讲就可以了</p>
+<ol start="3">
+<li>关于大模型这一块，比如说MCP，MCP这个它是解决什么问题呢？</li>
+</ol>
+<p>MCP 在这个项目里主要解决大模型和外部系统联动的问题。大模型本身只会聊天、推理，但不会操作外部服务，比如自动把心理状态数据写到 Excel，自动发预警邮件给辅导员</p>
+<ol start="4">
+<li>MCP这个协议，比如说在这个过程中，它的作用是什么？</li>
+</ol>
+<p>统一接口规范，不管外部是邮件服务、Excel 导出，都用同一套 MCP 协议调用，不用每个服务单独写适配。</p>
+<p>解耦大模型与业务系统，大模型只负责 判断要不要调用，具体怎么发邮件、怎么写文件由 MCP 调度</p>
+<ol start="5">
+<li>为什么比如说通过MCP会比较方便呢？如果不通过MCP可以怎么去实现。</li>
+</ol>
+<p>MCP一套协议适配所有工具，不用每个外部接口都重新开发对接逻辑。</p>
+<p>不用MCP的话，可以每个外部服务都单独封装 HTTP/SDK 调用</p>
+<ol start="6">
+<li>大模型像这一块大模型调应用这一块MCP它和skills的一个区别</li>
+</ol>
+<p>MCP 是底座，Skills 是应用。MCP 提供统一的调用通道，让任何工具都能被模型安全访问，Skills 基于 MCP 通道，封装具体业务逻辑，告诉模型 用哪些工具、按什么步骤、输出什么格式。</p>
+<p>流程是用户提问 → Agent 决策 → 调用对应 Skill → Skill 规划步骤 → 通过 MCP 调用外部工具 → 执行并返回结果。</p>
+<p>比如说查天气，MCP负责调用天气 API、处理网络请求、返回 JSON 数据。Skills负责理解 查北京明天天气 → 调用天气工具 → 格式化输出北京明天晴，25℃。</p>
+<ol start="7">
+<li>
+<p>生活服务平台介绍一下这个项目用到哪些技术站，可以说一下。</p>
+</li>
+<li>
+<p>websocket在这里面的使用场景</p>
+</li>
+<li>
+<p>分布式锁是解决什么问题？分布式锁是怎么实现的？</p>
+</li>
+<li>
+<p>任务执行完了，然后要去释放的时候释放失败。比如说redis这时候有问题，释放失败。该怎么办</p>
+</li>
+<li>
+<p>一人一单有整体单量的限制吗？</p>
+</li>
+<li>
+<p>比如说我刚才我拿到锁之后，我也去拿到手之后我也去下了这个单，但是释放的时候释放失败了，那这一单到底算还是不算呢？</p>
+</li>
+<li>
+<p>java里面的哈希结构，像哈希map、哈希table，他这种的一个底层存储是怎么去实现的？</p>
+</li>
+<li>
+<p>红黑树的查询和插入效率分别是什么</p>
+</li>
+<li>
+<p>hashtable是线程安全的吗</p>
+</li>
+<li>
+<p>哈西结构如果想线程安全怎么做？</p>
+</li>
+<li>
+<p>CAS和sychronized分别是做什么用的</p>
+</li>
+<li>
+<p>synchronized他是怎么去实现可重入的</p>
+</li>
+<li>
+<p>voltile这个关键字解决什么问题？</p>
+</li>
+<li>
+<p>值一变更，就所有的线程都都可以知道它的最新的值，从内存上来说是为什么？就是为什么它本身这个值是存在哪里，那为什么说其他的不可见？</p>
+</li>
+<li>
+<p>JVM的内存怎么划分的</p>
+</li>
+<li>
+<p>每一代主要用来存什么</p>
+</li>
+<li>
+<p>OOM一般发生在哪里</p>
+</li>
+<li>
+<p>堆和栈里的OOM是怎样发生的，</p>
+</li>
+<li>
+<p>Spring的IOC是做什么用的？依赖注入怎么做的？</p>
+</li>
+<li>
+<p>通过注解的话，我对一个对象做了一个注解，它是怎么就可以去实现IOC的？</p>
+</li>
+<li>
+<p>有用过AOP，AOP一般是怎么用的，比如说我想去实现一种记录日志的AOP，怎么去做？</p>
+</li>
+<li>
+<p>那个transactional注解有用过吗？为什么transactional修饰之后就可以开启事务呢</p>
+</li>
+<li>
+<p>数据库他的隔离级别一般是有哪几种？</p>
+</li>
+<li>
+<p>Mysql怎么实现事务的？</p>
+</li>
+<li>
+<p>怎么理解ACID</p>
+</li>
+<li>
+<p>mysql底层怎么保证ACID</p>
+</li>
+</ol>
+<p>算法题：</p>
+<p>1、有一个链表，单向的一个链表。这个列表里面每个节点存了一个数字，然后我一直这个列表假如说他有12345678910，10个节点，假如说是基础位的下标的节点就是13579，这些节点它存储数值是递增的，246810这些节点它存在数字能是递减的，就这么一个链表，我现在想让整个链表是递增的，我可以怎么做</p>
+<p>2、最长连续序列</p>
+<h2 id="美团java后端履约技术部26年2月">美团Java后端，履约技术部（26年2月）</h2>
+<ol>
+<li>
+<p>我看你做了两个项目，其中那个秒杀项目你大概讲一下呗，他们的主要模块有哪些？然后就是你你对你来说的挑战的很大。</p>
+</li>
+<li>
+<p>那现在的问题就是你你是就是通过一个redis去做的这个事儿，让你怎么去解决缓存删除问题。</p>
+</li>
+<li>
+<p>我看你有用到那个旁路缓存去更新数据库再删缓存，为啥要用它呢？</p>
+</li>
+<li>
+<p>那现在有就有个问题是，如果你在高并发场景下，然后去现在有一大批量去去更新那个那个缓存。但这个时候你因为比如说你依赖的集群可能有问题，那这个数都更新不成功，然后你就一直在重试，然后都积压在重复，这样就可能导致你的系统崩溃。</p>
+</li>
+<li>
+<p>你是如何通知删本地缓存的</p>
+</li>
+<li>
+<p>那如果说你部分节点处理成功，然后部分节点处理失败，那这个时候你这个缓存不就不一致了吗？你这个用户请求打到A上，然后这个A是有数据的。然后打B上是旧的数据，那查到的信息就有问题啊。</p>
+</li>
+<li>
+<p>一个服务可能部署在多台机器上，那就可能你有部分机器没删成功。那这个时候别人来查商户缓存的话，那就有有的有的商户缓存是最新的，有的商户缓存是旧的脏数据。</p>
+</li>
+<li>
+<p>redis能扛不多少QPS？这个有了解过吗？</p>
+</li>
+<li>
+<p>Java平常用哪些集合嘛？然后他们的区别</p>
+</li>
+<li>
+<p>HashMap线程不安全，主要体现在哪？有什么问题？</p>
+</li>
+<li>
+<p>HashMap多线程的话会有什么问题</p>
+</li>
+<li>
+<p>更新数据的时候多线程更新是吧，那会有什么问题呢？</p>
+</li>
+<li>
+<p>LinkedList和ArrayList的区别是啥</p>
+</li>
+<li>
+<p>那如果单独只删除最后一个呢，它们两有什么区别呢？谁快？</p>
+</li>
+<li>
+<p>为什么ArrayList或LinkedList更占优势更快一些</p>
+</li>
+<li>
+<p>concurrenthashmap在多线程的时候，因为你修改，得去看一下数据嘛，那你调用get方法如何保证数据是最新的呢</p>
+</li>
+<li>
+<p>多线程线程池的工作原理</p>
+</li>
+<li>
+<p>拒绝策略这一块呢，有哪些拒绝策略？有什么区别</p>
+</li>
+<li>
+<p>你还了解其他分布式锁、缓存的实现方式吗？为啥你用Redis不用其他的呢？</p>
+</li>
+<li>
+<p>JVM内存模型这块大概介绍一下，都有啥？每个模块在干啥？</p>
+</li>
+<li>
+<p>gc怎么判定哪些垃圾该回收</p>
+</li>
+<li>
+<p>那你Redis用到了哪些数据结构啊</p>
+</li>
+<li>
+<p>有了解过String类型的对应的大数据的长度是多少吗</p>
+</li>
+<li>
+<p>redis的内存淘汰策略，他们有啥区别？</p>
+</li>
+<li>
+<p>平时在使用的时候，怎么来选择使用哪种策略</p>
+</li>
+<li>
+<p>主键索引和唯一索引有什么区别</p>
+</li>
+</ol>
+<p>算法题：1、单例模式，线程安全的两种写法</p>
+<p>2、两个大数相加，不用big int那些</p>
+<h2 id="百度java工程师实习生数据方向26年2月">百度Java工程师实习生（数据方向）（26年2月</h2>
+<ol>
+<li>
+<p>你近期是在学习什么，或者是还是在做什么其他的项目</p>
+</li>
+<li>
+<p>你在投递简历的时候，你期望的一个工作内容或者是工作方向是怎么样？</p>
+</li>
+<li>
+<p>这个项目我看你提到了一个布隆过滤器。你可以简单介绍一下布隆过滤器是做什么用的</p>
+</li>
+<li>
+<p>这个布隆过滤器，你是利用开源的直接拿过来用，还是你这边自己自研的。</p>
+</li>
+<li>
+<p>agent智能体有这样一个问题，就是说rag即使用了你的agent可能给客户返回的一个结果，还有可能是不符合预期，或者简单说就是还是凭空编造，就是幻觉。那么出现这样的问题可能是什么原因导致的。</p>
+</li>
+</ol>
+<p>RAG 检索不准或召回不到有效信息</p>
+<p>知识库质量差</p>
+<p>Agent 路由错误，没走检索直接生成</p>
+<p>模型上下文噪声过多、约束不足</p>
+<p>Prompt 没有强制禁止编造</p>
+<ol start="6">
+<li>
+<p>Java里面线程池有哪几种？就是JDK里面自带的</p>
+</li>
+<li>
+<p>线程安全的集合都有哪些</p>
+</li>
+<li>
+<p>sychronized和reentrantlock两个类或者关键字，他们各自有什么特点</p>
+</li>
+<li>
+<p>他们两个可重入吗？是不是都是可重入的</p>
+</li>
+<li>
+<p>java里面，抽象类和接口他们有什么各自的特点？</p>
+</li>
+<li>
+<p>假设现在有一张sql的数据表，这张表里面存储的是一次全年级的数学考试成绩。里面有学生的ID班级的ID数学成绩分类，那么现在问题是要求每个班级里面成绩第二高的学生信息如何求？假设这张表的成绩无重复。</p>
+</li>
+<li>
+<p>那如果是每班级里面成绩最高的学生，如何去求？</p>
+</li>
+<li>
+<p>union或者是union all，这两者有什么区别？</p>
+</li>
+<li>
+<p>OK对于数据库事务这一块涉及到一个ACID，你可以解释一下ACID分别指的是什么？</p>
+</li>
+<li>
+<p>常见的排序算法有哪些？</p>
+</li>
+<li>
+<p>快排的平均时间复杂度是多少？</p>
+</li>
+<li>
+<p>最坏情况下呢？什么情况下是最坏情况？</p>
+</li>
+<li>
+<p>spring或者spring boot这一块，有一个涉及到一个AOP的概念。你可以解释一下AOP是做什么用</p>
+</li>
+<li>
+<p>比如现在有一个spring boot的项目已经开发完成运行了一段时间。但是之前开发的时候，实际上他是没有记住N个controller下面每个controller下面有M个方法，这些方法是没有记录请求访问信息的。现在要求是添加所有的请求访问日志信息。如何去做？就是把请求信息全部记录下来。</p>
+</li>
+<li>
+<p>比如打开浏览器输入一个网址，回车会看到这个网址的页面。他会经历哪些过程？</p>
+</li>
+</ol>
+<p>手撕：LRU，不能用LinkedHashMap</p>
+<h2 id="京东后端jdy26年3月">京东后端，jdy，（26年3月）</h2>
+<p>这个录音被我搞丢了，到时候给大家来个回忆版，但是我感觉不一定回忆的起来。。。。</p>
+<h2 id="字节后端二面部门tiktok生服26年2月初">字节后端二面，部门TikTok生服（26年2月初）</h2>
+<p>1、你这边用了Redis加上这个本地缓存。然后假如说现在你是在一个集群环境下面，那你这个本地缓存怎么去保障它的一个数据的一个一致性呢？</p>
+<p>2、怎么去实现的？</p>
+<p>3、RocketMQ怎么保证消息不丢失？</p>
+<p>4、threadlocal里面存了哪些信息</p>
+<p>5、那你这边怎么保障使用后面去清理它呢？</p>
+<p>6、怎么刷新？怎么注销？</p>
+<p>7、agent是怎么实现的，大模型的api是怎么调的，rag和mcp呢？</p>
+<p>agent的实现通过大模型做大脑 + RAG 查知识 + MCP 调用工具，用 SpringAI 封装好的 Client 对接 Ollama</p>
+<p>8、你觉得rag和agent的提示词上区别在哪</p>
+<p>9、有没有尝试过在上面增加功能，要改agent哪些部分的代码</p>
+<p>10、假如项目落地了，流量爆炸增加了100倍，你觉得你现在的这个架构，你应该你会怎么去重构它，怎么去解决这些问题。你觉得你现在的这个架构在什么地方会出问题？</p>
+<p>11、数据库里面的主键是怎么做的？</p>
+<p>12、插入的时候数据库自己去产生一个主键吗？</p>
+<p>13、Springboot里面各种像bean一样的东西，这个bean是不是单例？</p>
+<p>14、单例的话会不会有线程安全问题？怎么解决</p>
+<p>15、sychronized和Reentrantlock的区别</p>
+<p>16、你查某个接口比较慢，数据库里面表设计有问题或者SQL有问题，怎么解决</p>
+<p>17、你这个explain出来，怎么看他有没有使用索引或者有没有回表这样</p>
+<p>18、那它在非聚簇索引上查了一遍为什么还要再聚簇索引上查一遍？</p>
+<p>19、你觉得满sql的一张表，你觉得存多少数据比较合适</p>
+<p>20、网络这块了解哪些</p>
+<p>21、java里面不是有NIO吗，为什么要用NIO来做网络相关的呢？</p>
+<p>22、你觉得第二个项目最难最复杂的地方在哪里呢</p>
+<p>23、我看你有提到大模型微调，可以向我介绍一下什么是大模型微调吗？具体怎么做的呢</p>
+<p>24、这个在网上已经有很多方案了对吧，那比如你去做这个事情，怎么去选择这种不同的方案呢</p>
+<p>25、假如现在你的这个系统是一个集群的一个分布式的系统，你是怎么去设计你的这个系统里面的的这些东西，现场肯定会出现各种问题，怎么去设计这个系统。</p>
+<p>手撕：小于n的最大整数</p>
+<h2 id="字节后端一面国际化广告26年2月10日">字节后端一面，国际化广告（26年2月10日）</h2>
+<p>1、如何设计本地缓存和Redis协同工作的，在什么情况下会优先使用本地缓存，你如何保证两级缓存之间的数据一致性的呢</p>
+<p>2、如果商户信息发生变化，布隆过滤器如何更新</p>
+<p>3、它的初始大小和误判率是如何设定的</p>
+<p>4、先更新数据库后删除缓存，如果删除失败呢</p>
+<p>5、Function Calling定义了哪些具体函数？</p>
+<p>6、会话数据在Redis中的存储结构是怎样的</p>
+<p>7、本地缓存的最大容量和淘汰策略怎么配置的</p>
+<p>8、当用户通过大模型查询商户信息时，是实时查询数据库还是基于知识库？</p>
+<p>9、有没有做整体限流</p>
+<p>10、有没有做过压测，QPS能达到多少？瓶颈在哪里？</p>
+<p>11、SpringAI如何抽象Ollama和OpenAI的差异的</p>
+<p>12、如果新增一个模型，需要改动哪些代码呢</p>
+<p>13、为什么选择Flux构建流式会话，响应式编程在流式传输中有哪些好处？</p>
+<p>14、知识库文档是怎么分块和向量化的</p>
+<p>15、Chroma的持久化是怎么配置的</p>
+<p>16、管理员和用户的权限你怎么划分的，RBAC模型吗</p>
+<p>17、用于微调的数据来源是什么？数据量有多大？</p>
+<p>18、微调时选择了哪些层</p>
+<p>19、MCP服务是自己开发的微服务还是遵循某种协议</p>
+<p>20、怎么保证Excel写入的并发安全如果写入失败，是否有数据回滚或记录呢</p>
+<p>21、在LoRA微调之外，是否还使用了提示词工程来引导模型行为</p>
+<p>手撕二叉树中最大路径和</p>
+<h2 id="百度java二面26年2月8日">百度Java二面（26年2月8日）</h2>
+<ol>
+<li>
+<p>本地缓存+Redis怎么协作的？假如说啊，我现在有一次查询请求，数据在这两级缓存和数据库之间是怎么流转的能讲一下吗</p>
+</li>
+<li>
+<p>具体缓存的是什么对象，如何设计的Redis的Key？</p>
+</li>
+<li>
+<p>了解布隆过滤器底层怎么实现的么</p>
+</li>
+<li>
+<p>延迟双删怎么做的？延迟时间怎么确定呢</p>
+</li>
+<li>
+<p>你有提到缓存预热，缓存预热的时机和策略是什么</p>
+</li>
+<li>
+<p>本地缓存的淘汰策略你怎么配置的</p>
+</li>
+<li>
+<p>分布式锁的粒度是什么，不同的粒度怎么影响并发性能和实现复杂度知道吗</p>
+</li>
+<li>
+<p>假如Redis、数据库或消息队列任一环节出现问题啊，那你如何降级来保障系统可用性呢</p>
+</li>
+<li>
+<p>Redis的会话记忆具体数据结构怎么设计的呢？怎么组织一个用户的多轮对话记录，会话的TTL是多久</p>
+</li>
+<li>
+<p>大key和热key是怎么排查和优化的</p>
+</li>
+<li>
+<p>集群中如何保证一个节点更新数据后，其他节点的本地缓存能够失效或同步</p>
+</li>
+<li>
+<p>如果这个项目的流量增加100倍，你当前架构中第一个会爆发的瓶颈点是什么？你会如何重构来解决它？</p>
+</li>
+<li>
+<p>当大模型服务不可用或响应异常时，有没有降级方案</p>
+</li>
+<li>
+<p>讲一下Function Calling实现查询信息和预约到店的流程。</p>
+</li>
+<li>
+<p>用户的对话记录和个人信息，在存储和发送给大模型时有做哪些隐私保护措施吗</p>
+</li>
+<li>
+<p>用Chroma自动知识库构建的流程是什么</p>
+</li>
+<li>
+<p>项目是否容器化？CI/CD流程是怎样的</p>
+</li>
+<li>
+<p>模型的API Key、MCP服务地址等敏感配置，你是如何管理的？有使用配置中心或Secret管理服务吗</p>
+</li>
+<li>
+<p>一次对话可能触发知识库检索、模型调用写入Excel、发送邮件等多个操作。你如何保证这些操作的事务性呢</p>
+</li>
+<li>
+<p>整个项目开发过程中，你遇到的最复杂的技术问题是什么？</p>
+</li>
+</ol>
+<p>手撕力扣原题岛屿数量</p>
+<h2 id="腾讯后端一面ieg26年2月初">腾讯后端一面，IEG（26年2月初）</h2>
+<ol start="2">
+<li>
+<p>自我介绍</p>
+</li>
+<li>
+<p>先更新数据库，再删除缓存的话如果更新数据库成功，但删除Redis缓存失败呢，你怎么处理</p>
+</li>
+<li>
+<p>如果删除本地缓存的网络请求在集群节点间乱序到达，会引发什么问题？</p>
+</li>
+<li>
+<p>广播更新是最终一致性。如果需要实现秒级延迟和强一致呢？</p>
+</li>
+<li>
+<p>假如有恶意用户啊，他构造大量哈希冲突的键插入HashMap，会导致什么后果？</p>
+</li>
+</ol>
+<p>6.假如用户刚提交订单后立刻刷新列表，可能读不到刚下的单。那除了等待，有哪些方案可以缓解这个问题呢</p>
+<ol start="2">
+<li>
+<p>回表了解吗？通过EXPLAIN的Extra字段，怎么判断有没有发生回表？</p>
+</li>
+<li>
+<p>如果一张表有1亿数据啊，那一次回表操作大概会增加多少毫秒的延迟呢，这个有了解过吗</p>
+</li>
+<li>
+<p>B树在非叶子节点也存储数据，这对范围查询和插入性能有什么具体影响呢</p>
+</li>
+<li>
+<p>ThreadLocal会有什么问题？代码中怎么解决的</p>
+</li>
+<li>
+<p>你说ThreadLocal中key是弱引用，但value是强引用，那ThreadLocal`内存泄漏的完整引用链你了解吗</p>
+</li>
+<li>
+<p>mysql的事务回滚怎么实现的</p>
+</li>
+<li>
+<p>undolog为什么能保证原子性？怎么实现MVCC的</p>
+</li>
+<li>
+<p>假如某商品参与秒杀，缓存失效的瞬间有百万的请求打向数据库。怎么设计一个分布式互斥锁方案确保只有一个请求重建缓存，其余请求等待呢</p>
+</li>
+<li>
+<p>为Agent设计的提示词通常包含哪些关键组成部分呢，这与用于RAG的提示词核心区别是什么？</p>
+</li>
+<li>
+<p>docker的常用命令有哪些</p>
+</li>
+<li>
+<p>如何实现查询我附近3公里内，评分最高且正在营业的店铺？</p>
+</li>
+<li>
+<p>Spring Security如何实现管理员与用户角色的精准隔离的，然后你权限控制是细化到API接口层面，还是知识库的某个具体文档？</p>
+</li>
+<li>
+<p>使用Flux构建流式会话接口，那在传输过程中，如何确保数据流的完整性和处理可能发生的网络中断呢</p>
+</li>
+<li>
+<p>高风险学生的识别标准是什么？是在模型输出后由规则判断，还是直接由模型在输出中标识？</p>
+</li>
+<li>
+<p>你这个触发机制是如何与MCP邮件服务联动的</p>
+</li>
+<li>
+<p>自动知识库构建具体指什么？是定时爬取、监听文件变动，还是由管理员手动触发</p>
+</li>
+</ol>
+<p>手撕数组中第k大元素，先讲两种思路，然后挑一种写代码，秒了</p>
+<h2 id="百度java一面26年2月初">百度Java一面（26年2月初)</h2>
+<ol start="6">
+<li>
+<p>这两个项目是学校的项目吗？部署上线了吗</p>
+</li>
+<li>
+<p>项目有哪些表？是怎么设计的呢？</p>
+</li>
+<li>
+<p>为什么选rocketmq作消息队列，不用kafka或者其他的</p>
+</li>
+<li>
+<p>RocketMQ如何确保消息不丢失？从生产者Broker和消费者三个角度分析一下</p>
+</li>
+<li>
+<p>如果遇到一条SQL查询非常慢，排查思路是什么？会用到哪些命令和工具</p>
+</li>
+<li>
+<p>mysql支持哪些锁呢？把你了解的具体讲一下</p>
+</li>
+<li>
+<p>了解设计模式吗？你用到了哪些设计模式</p>
+</li>
+<li>
+<p>数据库连接池是怎么工作的？它为什么能显著提升性能？核心参数如何调优？</p>
+</li>
+<li>
+<p>你是如何生成全局唯一ID的</p>
+</li>
+<li>
+<p>Redis的持久化机制RDB和AOF各有什么优缺点？在生产环境中通常如何配合使用呢？</p>
+</li>
+<li>
+<p>有了解过一棵B+树能存约2千万数据吗，这个数字是如何计算出来的你知道吗</p>
+</li>
+<li>
+<p>双亲委派模型了解吗，它有什么好处？怎么打破双亲委派模型呢</p>
+</li>
+<li>
+<p>从浏览器输入网址到页面展现经历了哪些过程呢，这个了解吗</p>
+</li>
+<li>
+<p>如果让你从头设计一个像微博或Twitter这样的社交系统，你会如何设计其核心架构</p>
+</li>
+<li>
+<p>可以进一步优化一下吗？你觉得你刚才说的哪些地方还有优化空间呢</p>
+</li>
+<li>
+<p>如何保证缓存与数据库之间的数据一致性呢？</p>
+</li>
+<li>
+<p>那如果删除失败了怎么办</p>
+</li>
+<li>
+<p>重试如果还是失败了呢</p>
+</li>
+<li>
+<p>垃圾回收机制这块了解吗？知道哪些垃圾回收算法</p>
+</li>
+<li>
+<p>讲一下G1垃圾回收期</p>
+</li>
+<li>
+<p>第二个项目是agent相关吗，了解多agent之间如何相互调用吗</p>
+</li>
+<li>
+<p>RAG了解吗？向量知识库用什么实现的</p>
+</li>
+<li>
+<p>有用过ai coding吗</p>
+</li>
+</ol>
+<p>手撕：二叉树中序遍历，要求非递归写，acm输入自己写死，简单</p>
+<h2 id="京东后端一面jdy26年1月底">京东后端一面，jdy（26年1月底）</h2>
+<p>1、比如说我一个用户，我一个C端的用户想看我附近有哪些店有哪些品，你如何实现的</p>
+<p>2、C端那个用户他看到的是什么呢？它是基于什么给用户做做展示的呢？</p>
+<p>3、你们这个数据量有多大？</p>
+<p>4、比如说我一个抖音用户想要看我关注了哪些博主，或者说我一个博主看我被哪些粉丝给关注了那这两个是怎么做的</p>
+<p>5、第一个项目实现一个类似什么样的功能？</p>
+<p>6、你们模拟了多高的并发呢？</p>
+<p>7、那比如说我用户我一瞬间有100万的用户，你怎么样能做到比如说系统怎么样做到稳定</p>
+<p>8、Redis能实现消息中间件功能，那它是怎么实现的</p>
+<p>9、 怎么保证这种高并发的稳定性？</p>
+<p>10、本地缓存会把所有优惠劵信息都存在本地缓存吗</p>
+<p>11、本地缓存和Redis缓存都没有这个数据的情况下，几十万的请求直接打到数据库，怎么避免这种问题？我们怎么让本地缓存或者redis缓存提前有这个数据呢</p>
+<p>12、比如说我现在九点半的时候这个数据发生了变更，更新了数据库，那我怎么同步到缓存里呢？</p>
+<p>13、你的数据怎么从DB加载到缓存的，有个什么样的办法能让它再产生变更把数据更新到缓存里，或者有一个什么其他的方式把它加载到缓存里</p>
+<p>14、你提到说既用本地缓存也用redis缓存，我们只用redis行不行？会有什么问题？</p>
+<p>15、这个场景，redis的主从会有什么会存在什么样的问题？</p>
+<p>16、 redis的话，它比如说在主从模式下，它的主从数据是怎么同步的？了解吗</p>
+<p>17、主从复制的流程你清楚吗？</p>
+<p>18、mysql索引模型为什么采用B+树，比如二叉树、红黑树这种行不行</p>
+<p>19、比如说我现在有一个联合索引，联合索引的话有三个字段ABC，都是结构化的字段。比如说都是一些ID联合起来。比如我现在select这里面的一些数据，它的条件是A等于多少，并且C大于多少，他能用到这个索引吗？</p>
+<p>20、就mySQL查询，他会走这个联合索引，有这个索引是否会失效？</p>
+<p>21、Mysql的主键索引、唯一索引、联合索引、普通索引的区别是什么</p>
+<p>22、Mysql事务的特性？ACID怎么保证的</p>
+<p>23、RAG的原理了解吗？</p>
+<p>24、MCP、fucntion call了解吗</p>
+<p>25、如果让你从头设计一个分布式系统，你讲一下设计思路以及要考虑的点</p>
+<p>手撕LRU，acm模式，输入写死，自己写双向链表</p>
+<h2 id="字节后端一面tiktok生服26年2月3日">字节后端一面，tiktok生服（26年2月3日）</h2>
+<p>1、redis宕机时的容灾能力</p>
+<p>2、redis的master节点下线了，怎么重新选取主节点？</p>
+<p>3、领导哨兵节点怎么从从节点中选择出主节点</p>
+<p>4、bloom过滤器的优缺点？</p>
+<p>5、他的误判是假阳还是假阴？</p>
+<p>6、缓存雪崩怎么解决</p>
+<p>7、redis为什么要设计成单线程</p>
+<p>8、分布式锁怎么延长过期时间？</p>
+<p>9、缓存和数据库等数据一致性，集群模式下缓存无法成功删除，缓存未成功删除时有哪些策略</p>
+<p>11、热key问题怎么解决</p>
+<p>12、分布式系统下，你觉得互斥锁有什么优缺点</p>
+<p>13、mysql一张表最多的存储数据数</p>
+<p>14、mysql索引B+树的常用层数是？</p>
+<p>15、B树和B+数的区别</p>
+<p>16、threadlocal的底层实现</p>
+<p>17、线程池的底层实现</p>
+<p>18、jvm的垃圾回收机制了解吗</p>
+<p>19、具体讲一下G1</p>
+<p>20、Ai coding和ai带给你学习上的改变</p>
+<p>21、设计一个抖音短视频点赞系统，支持百万级并发点赞，要保证实时性和一致性，你能讲一下你的设计思路吗</p>
+<p>手撕无重复字符最长子串，秒了</p>
+<h2 id="小米后端一面26年1月底">小米后端一面(26年1月底)</h2>
+<p>1、两个项目你觉得哪个项目的复杂度更高一点？</p>
+<p>2、介绍一下你的系统架构是怎么设计的。</p>
+<p>3、有哪些模块，然后模块与模块之间的信息传递是什么样的？</p>
+<p>4、讲一下tcp三次握手四次挥手</p>
+<p>5、为什么考虑用布隆过滤器来拦截这个无效查询。然后用这种过滤器它有哪些优点，还有哪些缺点？</p>
+<p>6、这种场景里面用布隆过滤器，它的缺点除了假阳性之外还有其他的吗</p>
+<p>7、假如某个商品我从后端已经删除了。但是你的这个布隆过滤器这里你还一直判断有，这个时候你怎么去更新布隆过滤器呢</p>
+<p>8、cache aside是啥</p>
+<p>9、redis集群中，假设缓存删除失败，你通过重试的方式他也失败了，那么这个时候你的数据一致性你是怎么考虑的呢？</p>
+<p>10、为什么Redis+Lua脚本可以保证原子性</p>
+<p>11、你知道它怎么实现全部失败这个操作吗？</p>
+<p>12、比如说我lua里面假设有三个命令，就是一个set a一个set b然后一个是delete c那么我只有AB就第一个第二个我执行成功了，那他怎么保证也就是第三个执行失败的时候，然后第一个第二个他也能恢复呢？</p>
+<p>13、你觉得你在做这个项目，也就是从设计到实现的时候，你遇到最困难的问题是什么？</p>
+<p>14、你在设计这个高并发的时候，除了使用多级缓存和读写分离这两种方式之外，还有没有考虑过其他的？还有你说的分片集群的方式是什么</p>
+<p>15、那你觉得在一个高并发系统里面，你像这样设计，他有什么问题吗？</p>
+<p>16、长链接我个人是觉得这个也是不太合理，我想知道当时你为什么为什么这样去考虑？</p>
+<p>17、java里面，也就是说集合里面它有一个叫快速失败的概念。你了解吗？</p>
+<p>18、mysql里面它包含的索引类型有哪些呢？</p>
+<p>19、现在是有一个服务，那么在这个服务里面我有两个字，一个比如说是名字，一个是学校。我需要对这两个字段也就是说进行建索引。第一种建索引方式就是name加学校，我把它建成唯一索引。第二种方式就只是建成一个普通的联合索引。对那么我想知道也就是这两种建索性的方式，它在写也就是在数据写入mysql的这个场景下面，哪个效率会更高？</p>
+<p>20、了解哪些情况下会索引失效吗？</p>
+<p>21、Spring失效的场景</p>
+<p>22、讲一下回表</p>
+<p>手撕三数之和，acm模式，输入自己写死</p>
+<h2 id="快手后端一面增长方向26年1月26日">快手后端一面，增长方向（26年1月26日）</h2>
+<ol start="7">
+<li>两个项目它有什么区别？你觉得在你做的过程中技术上的差异点在哪？</li>
+</ol>
+<p>2、说一下底层的表怎么设计的。</p>
+<p>3、你这个系统你总共有几张表啊？</p>
+<p>4、它因为你用了相当于两个缓存，它能保证数据的一致性吗。</p>
+<p>5、你刚才提到你用了广播的方式。那比如说在广播的过程中，然后有缓存更新失败了，那怎么办？</p>
+<p>6、你这个广播是怎么？通过什么样的方式广播的？</p>
+<p>7、Rocketmq他广播，然后有，比如说有的实例，然后他去监听失败了，然后他怎么处理</p>
+<ol start="7">
+<li>你这个过滤器你在这里边主要给哪个模块去用的？</li>
+</ol>
+<p>9、你这个 Lua 脚本怎么写的？</p>
+<p>10、MVCC的实现原理</p>
+<p>11、redolog怎么保证crash安全</p>
+<p>12、Java 里边的 synchronized 和那个retranslock，它们底层实现上有什么区别</p>
+<p>13、安全的和非安全的什么意思</p>
+<p>14、sychronized中途不能释放锁，reentrantlock可以，那它具体是怎么去释放这个锁的</p>
+<p>15、了解线程的它的一个生命周期吗？</p>
+<p>16、拒绝策略都有啥</p>
+<p>17、gcroots有哪些类型</p>
+<p>18、项目里面都加了哪些类型的索引？索引主要用在哪些地方？</p>
+<p>19、主键索引和普通索引它在底层实现上有什么区别吗？就比如说它的数据结构。</p>
+<p>20、你觉得如果都是用 b +树的话，他们 b +树存储的信息有什么区别？</p>
+<p>21、知道回表吗？</p>
+<p>22、Hashmap 它的一个底层数据结构吗？</p>
+<p>23、你觉得它为什么要从就是链表转为红黑树呢？</p>
+<p>24、线程池的一个原理了解吗？</p>
+<p>25、说一下线程池的它的一些核心参数。</p>
+<p>26、你平常会收到一条短信或者是一条分享，它可能是一个很短的一个链接，就是我们想做这样一个短链服务，你有什么思路吗？</p>
+<p>27、spring、springmvc、 spring boot，还有 spring cloud 它这几个就是这几个 spring 的相关的这些框架，这些它都有什么区别呢？它作用都是做什么？</p>
+<p>28、spring cloud 都包含哪些组件？</p>
+<p>29、string 和Hashmap，他们两个在使用场景上有什么区别吗？</p>
+<p>手撕：ACM模式，给定一个排序链表，删除所有含重复数字的节点。</p>
+<h2 id="百度java二面26年1月23日">百度Java二面（26年1月23日）</h2>
+<p>1-5项目</p>
+<p>6、讲一下JUC并发编程</p>
+<p>7、谈谈synchronized 和reentrantlock 的它的一个核心区别</p>
+<p>8、Redis 的那个缓存雪崩，就是缓存穿透、缓存击穿</p>
+<p>9、你熟悉那个 spring boot 那个执行流程吗？就是能说一下 spring boot 启动时它的一些核心的步骤，了解不？</p>
+<p>10、自己实现一个 spring boot 的那个 start 该如何做？</p>
+<p>11、spring 的这个 AOP 跟 IOC 这一块了解吗？那它的应用场景一般有哪些容器？就是什么情况下会用到这个项目里面？</p>
+<p>12、Tomcat的线程池执行流程是怎么样的？</p>
+<p>13、k8s了解吗？</p>
+<p>14、如何来设计实现一个短链接系统</p>
+<p>15、RAG了解吗？工作流程是什么？</p>
+<p>16、Function call、MCP了解么</p>
+<p>17、谈谈你对agent的了解和看法</p>
+<h2 id="百度java一面26年1月20日">百度Java一面（26年1月20日）</h2>
+<ol start="8">
+<li>
+<p>Java 中的 Hashmap 了解了吗？它的底层结构这些</p>
+</li>
+<li>
+<p>他 1.8 和 1.8 之前有什么区别</p>
+</li>
+<li>
+<p>那他是线程安全的吗？</p>
+</li>
+<li>
+<p>那你知道线程安全有哪些吗？就是 map 中。</p>
+</li>
+<li>
+<p>Concurrenthashmap 里面采用了什么让它线程安全？</p>
+</li>
+<li>
+<p>synchronized关键字的作用是什么</p>
+</li>
+<li>
+<p>Java 中的一些集合了解吗？</p>
+</li>
+<li>
+<p>用 list 或者是 map 这种场景用在哪方面？</p>
+</li>
+<li>
+<p>就 1 ~ 10 十个数嘛。然后我如果是想取其中一个数，像取6，嗯是它的值为 6 的这个数，嗯，你一般存的话，这 1 ~ 10 这个数存在哪个里面能最快的去取到想要的。</p>
+</li>
+<li>
+<p>JVM了解吗</p>
+</li>
+<li>
+<p>线程池参数有哪些</p>
+</li>
+<li>
+<p>创建线程有哪几种方式</p>
+</li>
+<li>
+<p>Redis 里面的数据结构有哪些，底层用的什么</p>
+</li>
+<li>
+<p>像它的持久化方式呢</p>
+</li>
+<li>
+<p>像你用 Redis 一般用来做哪些方面的？</p>
+</li>
+<li>
+<p>像 Redis 的缓存崩溃和穿透击穿这些你大概了解吗？</p>
+</li>
+<li>
+<p>消息中间件用的什么</p>
+</li>
+<li>
+<p>与kafka、rabbitmq区别</p>
+</li>
+<li>
+<p>像你说的这些如何，是如何去防止他那个消息的丢失？</p>
+</li>
+<li>
+<p>Mysql 他的索引类型</p>
+</li>
+<li>
+<p>有哪些索引？</p>
+</li>
+<li>
+<p>像你说的唯一索引和主键索引它有什么区别吗？</p>
+</li>
+<li>
+<p>sql查询计划</p>
+</li>
+</ol>
+<p>场景：</p>
+<ol start="8">
+<li>
+<p>如何设计一个支持10万QPS的会员系统</p>
+</li>
+<li>
+<p>如何设计RPC在10万QPS下实现毫秒级调用h</p>
+</li>
+<li>
+<p>Linux 的一些常用命令你会知道吗？</p>
+</li>
+<li>
+<p>Docker 的话像常用的一些命令，你知道哪些。</p>
+</li>
+</ol>
+<p>手撕：盛水最多容器</p>
+<p>美团Java一面，交易方向（26年1月22日）</p>
+<p>1-7 项目拷打</p>
+<p>8、git 分支是怎么样去管理？</p>
+<p>9、比如说你日常开发，比如说多个功能开发，你会怎么样去规范分支？怎么样去合并？</p>
+<p>10、然后比如说 a 从 master 分支拆一个分支，比如说叫 develop 一的一个分支出来，是吧？在 develop 一上面做了一些修改，然后 b 又从这个。 master 分支上也同时拆了一个分支出来，然后 a 把 develope 1开发完了。之后已经合并到 master 上面，那 b 这个时候应该怎么样去把自己的功能从 develope 2 合到master？</p>
+<p>11、那 Redis 怎么样去做备份？它的备份支持哪几种方式？</p>
+<p>12、Mysql 的原子性怎么样去理解</p>
+<p>13、乐观锁和悲观锁怎么用？然后怎么样理解。</p>
+<p>14、我再问个网络的，就是 HTTP 1 还 HTTP2 有什么区别？</p>
+<p>15、TCP 有多少种状态？</p>
+<p>16、电商订单系统峰值TPS10万，如何做分库分表和读写分离？</p>
+<p>17、高负载下CPU100%，如何定位热点代码并优化？</p>
+<p>18、线程池参数调优</p>
+<p>19、Redis热key</p>
+<p>20、AIGC 了解吗？AIGC的流程是什么样的</p>
+<p>21、RAG 的它的一个流程是什么样的？</p>
+<p>22、你能讲一下那个 Java 的内存模型吗？</p>
+<p>23、可能讲一下它的 GC 吗？</p>
+<p>24、有接触过那个 AI 辅助编程吗？</p>
+<p>25、你经常关注 huggingface 吗？</p>
+<p>手撕力扣原题148排序链表</p>
+<h2 id="小红书后端一面26年1月14日">小红书后端一面（26年1月14日）</h2>
+<p>1、自我介绍</p>
+<p>2、研究生读的是主要做哪个方向的</p>
+<p>3-10项目拷打（魔改的点评+星球项目）</p>
+<p>11、IP 头和 TCP 头还记得吗</p>
+<p>12、讲一下TCP和UDP</p>
+<p>13、布隆过滤器了解吗？讲一下底层实现</p>
+<p>14、讲讲乐观锁和悲观锁的原理</p>
+<p>15、讲一下深拷贝和浅拷贝的区别</p>
+<p>16、红黑树了解吗？讲一下</p>
+<p>17、为什么用rocketmq，和kafka之间怎么选</p>
+<p>18、mysql的隔离级别有哪些</p>
+<p>19、agent、MCP了解吗，讲一下</p>
+<p>20、Zset怎么实现的</p>
+<p>21、讲一下redo log和undo log</p>
+<p>22、hashmap怎么扩容的</p>
+<p>手撕1、接雨水</p>
+<p>2、字符串字母异分谓词</p>
+<p>反问工作内容、建议</p>
+<h2 id="字节后端一面成都生活服务26年1月初">字节后端一面，成都生活服务，（26年1月初）</h2>
+<p>1、自我介绍</p>
+<p>2、介绍一下实验室是做什么的，你的研究方向</p>
+<p>3、介绍一下你的论文和发明专利</p>
+<p>开始问八股</p>
+<p>4、我们常规都会说 Redis 比较快，那 Redis 的快你觉得可以从哪几个方面去分析呢？</p>
+<p>5、那 Redis 里面有哪些我们可以聊的？数据结构就是那种让它为什么可以快速定位这种形式，就是数据结构这个层面上。</p>
+<p>6、Redis的List 结构里面用了那个快速列表，它是一个怎样的一个形式呢？</p>
+<p>7、跳表里面是一个怎样的一个结构，或者说跳表现在一共有多少层？</p>
+<p>8、那我们都说 Redis 单线程，那它单线程的话为什么还是可以比较快？按道理我们常规理解单线程不是并发过高吗？为什么它还是比较快？</p>
+<p>9、它异步那个东西，它又我们叫它一般叫什么机制？</p>
+<p>10、Redis 里面这个机制跟那个 NIO 有什么相同点？</p>
+<p>11、都是非阻塞的话，那它这二者是有什么共同点？</p>
+<p>12、Redis 我们会聊到它的那个哨兵机制，可以帮我介绍一下哨兵机制的那个主观下线和客观下线。</p>
+<p>13、怎么保持心跳的？什么时候认为他挂了我要重新选举？什么时候觉得他还在活着？</p>
+<p>14、使用 Threadlocal 有什么注意事项</p>
+<p>15、每个用户进来，我们登录进来都会给他设置一个线程上下文设置好了之后，后来只是说我都没有把它 remove 掉，那会发生什么事情？</p>
+<p>16、Java，不是有这个 JVM 不是 GC 嘛？垃圾回收机制。那为什么这里没有回收掉？就是按照常规那个 Java 这些事情不是垃圾回收，不用管，它是都会做的。那为什么 Threadlocal 这个事情就没有收回去？</p>
+<p>17、可以以你的理解，去讲一下 IOC 是什么吗</p>
+<p>18、Mysql 我们经常会说它有那种 Redo 日志。 UNDO 日志嘛？那你可以帮我介绍一下 Undo 日志是什么吗？</p>
+<p>19、你今年 2025 年日常最常用的这个 AI 工具以及 AI 的使用习惯有哪一些。</p>
+<p>20、纯命令行那种，比如说 Claude code， Gemini 的 CLI 工具 code 插件用过吗？</p>
+<p>21、你觉得提示词工程跟这个我们今年下半年经常聊的上下文工程有什么区别和关联？</p>
+<p>反问：基于面试表现建议</p>
+<h2 id="字节后端二面成都中国交易与广告2026年2月13日">字节后端二面，成都中国交易与广告（2026年2月13日）</h2>
+<ol>
+<li>
+<p>用的什么本地缓存框架</p>
+</li>
+<li>
+<p>缓存穿透、缓存雪崩这些了解吗</p>
+</li>
+<li>
+<p>这个秒杀项目是不是就是调用api？有没有什么你自己做的东西</p>
+</li>
+<li>
+<p>用的哪个消息队列？怎么保证消息不丢失的？</p>
+</li>
+<li>
+<p>第二个项目不是调api的吧，是你自己做的吗这个agent项目</p>
+</li>
+<li>
+<p>第二个项目异常中断与客户端重连如何处理的</p>
+</li>
+<li>
+<p>支持多轮对话对吧，那你们上下文管理怎么做的呢</p>
+</li>
+<li>
+<p>Chroma 处理文本向量的流程是什么</p>
+</li>
+<li>
+<p>Embedding 模型用的哪个？</p>
+</li>
+<li>
+<p>为什么用text-embedding-3-small不用别的呢</p>
+</li>
+<li>
+<p>微调的数据集是哪来的，你自己标注的吗</p>
+</li>
+<li>
+<p>开源的这个数据集有多大数据量啊，有没有做数据清洗</p>
+</li>
+<li>
+<p>那最后微调有多少数据量呢</p>
+</li>
+<li>
+<p>微调的参数怎么设置的</p>
+</li>
+<li>
+<p>微调后识别准确率提升 90%，这个90%是怎么做的？评估指标是什么</p>
+</li>
+<li>
+<p>写excel具体是一个什么流程呢？</p>
+</li>
+<li>
+<p>你刚才提到意图判断那里，那为什么要做这个意图判断呢</p>
+</li>
+</ol>
+<p>手撕：有两张表，一张用户表一张订单表，写出一条 SQL，实现以下所有要求</p>
+<ol>
+<li>
+<p>只统计2025 年全年的订单数据</p>
+</li>
+<li>
+<p>只统计已支付（order_status=1）的有效订单</p>
+</li>
+<li>
+<p>查询结果包含：</p>
+<ul>
+<li>
+<p>用户 ID、用户名</p>
+</li>
+<li>
+<p>用户总支付订单数</p>
+</li>
+<li>
+<p>用户总支付金额</p>
+</li>
+<li>
+<p>用户最大单笔支付金额</p>
+</li>
+<li>
+<p>用户首次支付时间</p>
+</li>
+</ul>
+</li>
+<li>
+<p>过滤条件：</p>
+<ul>
+<li>
+<p>总支付金额 ≥ 1000 元</p>
+</li>
+<li>
+<p>总支付订单数 ≥ 2 单</p>
+</li>
+</ul>
+</li>
+<li>
+<p>结果按总支付金额降序排序</p>
+</li>
+<li>
+<p>必须关联两张表，未下单用户不展示</p>
+</li>
+</ol>
+<h2 id="字节后端三面成都中国交易与广告2026年3月初">字节后端三面，成都中国交易与广告（2026年3月初）</h2>
+<ol>
+<li>
+<p>方便把第二个项目的完整流程和用到的技术栈完整的就是讲一下吗</p>
+</li>
+<li>
+<p>微调的数据集有做划分吗，你评估效果的时候是怎么评估的，保存效果最好的参数</p>
+</li>
+<li>
+<p>你这个是加了意图判断的对吧，如果不加这个可以怎么做呢</p>
+</li>
+<li>
+<p>动态路由RAG比RAG强在哪呢</p>
+</li>
+<li>
+<p>这个项目你觉得最大的难点是什么？最后怎么解决的呢</p>
+</li>
+<li>
+<p>邮件送达率98%，那2%没送达的是什么原因</p>
+</li>
+<li>
+<p>有碰到大模型的幻觉问题吗？</p>
+</li>
+<li>
+<p>Spring security的作用是什么</p>
+</li>
+<li>
+<p>你微调测试的数据集怎么来的呢</p>
+</li>
+<li>
+<p>标注这1000条数据集花了大概多长时间</p>
+</li>
+<li>
+<p>那我们知道其实这个领域是比较敏感的，你当时有做这些数据脱敏吗</p>
+</li>
+<li>
+<p>具体用的是哪个大模型呢，方便介绍一下吗</p>
+</li>
+<li>
+<p>你微调的时候设备配置怎么样的，大概花了多久时间啊微调</p>
+</li>
+</ol>
+<p>无手撕</p>
+<h1 id="十五agent八股">十五、🎨Agent八股</h1>
+<h2 id="最近很火的openclaw有了解过吗讲一下有没有部署过它给你带来了哪些改变">最近很火的openclaw有了解过吗？讲一下，有没有部署过？它给你带来了哪些改变</h2>
+<blockquote>
+<ul>
+<li>
+<p>OpenClaw是2026年热门开源AI智能体框架，GitHub 星标超 26 万。不是大模型本身，而是给大模型装上手脚，让它能直接操作电脑、执行命令、处理文件、调用工具。</p>
+</li>
+<li>
+<p>部署可以本地一键安装或者docker</p>
+</li>
+<li>
+<p>把大量机械重复工作交给 AI，人专注更有价值的事，同时数据完全自主、隐私安全。需手动脚本的任务现可通过自然语言驱动Agent完成，对接微信/QQ等渠道，且无需依赖第三方API。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="怎么理解大模型的幻觉问题如何解决-1">怎么理解大模型的幻觉问题？如何解决？</h2>
+<blockquote>
+<p>大模型幻觉，就是模型没有依据真实知识或给定资料，编造出看似合理但错误虚构不存在的内容</p>
+<p>比如说瞎编数据、捏造案例、给出不存在的流程</p>
+</blockquote>
+<p>怎么解决？</p>
+<ol>
+<li>
+<p>使用RAG 检索增强生成</p>
+</li>
+<li>
+<p>加入严格 Prompt 约束，提示词直接严肃调教：</p>
+</li>
+</ol>
+<pre><code class="language-Java">只根据提供的知识回答
+不知道就说 “暂无相关信息”，不要给我编造
+不提供超出心理援助范围的内容
+</code></pre>
+<ol start="3">
+<li>
+<p>领域大模型微调（比如咱们的Lora微调就能减少幻觉）</p>
+</li>
+<li>
+<p>控制上下文长度，只保留最近 10 轮有效对话，防止上下文过长导致模型混淆逻辑错乱</p>
+</li>
+</ol>
+<h2 id="普通rag动态路由ragagentic-rag的区别-1">普通RAG、动态路由RAG、Agentic RAG的区别</h2>
+<blockquote>
+<ul>
+<li>
+<p>普通 RAG ，是基础检索，每次问题都会统一走知识库查询。</p>
+</li>
+<li>
+<p>路由 RAG 会先做意图判断，动态分流，闲聊直接回答，专业问题才触发 RAG，效率更高。</p>
+</li>
+<li>
+<p>Agentic RAG 则具备自主规划能力，可以根据需求决定是否检索、检索几次、是否调用其他工具，具有多步推理能力</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="大模型调应用这一块mcp和skills的区别你了解吗-1">大模型调应用这一块MCP和Skills的区别你了解吗</h2>
+<blockquote>
+<p>MCP是大模型与外部工具之间的标准化通信协议，解决怎么安全、统一地连接外部能力的问题，而 Skills 是封装了特定任务流程、领域知识与执行逻辑的可复用能力模块，解决模型能做什么、该怎么做的问题。</p>
+<p>MCP 管打通连接，Skills 管提供能力，二者常配合使用。MCP 让模型能调用外部工具，Skills 则让模型按预设流程精准完成任务。</p>
+</blockquote>
+<h2 id="你觉得mcp这个机制有什么问题-1">你觉得MCP这个机制有什么问题？</h2>
+<blockquote>
+<ol>
+<li>
+<p>MCP 的通信是标准化的，但出错时错误信息不够友好，定位问题需要抓包分析。</p>
+</li>
+<li>
+<p>MCP 没有内置服务发现机制，需要手动配置 Server 地址，在 K8s 环境中需要配合 Service 注册。</p>
+</li>
+<li>
+<p>MCP 本身是无状态的，对于需要会话状态的操作，比如说 Excel 文件的持续写入，需要自己维护上下文。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="在lora微调之外是否还使用了prompt工程来引导模型行为"><strong>在LoRA微调之外，是否还使用了Prompt工程来引导模型行为</strong></h2>
+<blockquote>
+<p>同时使用了Prompt工程与LoRA微调，Prompt工程用于定义角色、任务边界和few-shot示例，包括我前面说的强制调教，让它按我说的去做，给我只输出我要的对应格式的东西，不要其他内容</p>
+</blockquote>
+<h2 id="为什么选mcpmcp有什么用具体你是怎么集成的">为什么选MCP？MCP有什么用，具体你是怎么集成的？</h2>
+<blockquote>
+<p>选择MCP是因为它标准化了AI与外部工具的对接，避免N×M的集成开销。MCP作为协议，将工具封装为Server，任何支持MCP的客户端均可调用。</p>
+</blockquote>
+<h2 id="微调方法你了解哪些">微调方法你了解哪些？</h2>
+<blockquote>
+<ol>
+<li>
+<p>全参数微调，效果好但成本高</p>
+</li>
+<li>
+<p>参数高效微调（PEFT），LoRA、Adapter Tuning、Prefix Tuning</p>
+</li>
+<li>
+<p>指令微调，用指令数据训练提升泛化能力</p>
+</li>
+<li>
+<p>RLHF，通过人类反馈优化模型。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="讲一下向量数据库的原理"><strong>讲一下向量数据库的原理</strong></h2>
+<blockquote>
+<p>向量数据库专门存储和检索高维向量。核心流程：</p>
+<ol>
+<li>
+<p>向量化，用Embedding模型将原始数据转为向量，长文档转为向量前需要分块，然后用嵌入模型对分好的块转成向量</p>
+</li>
+<li>
+<p>索引构建，通过算法（HNSW、IVF）建立高效索引，加速近似最近邻搜索</p>
+</li>
+<li>
+<p>相似度检索，给定查询向量，快速返回最相似的Top-K向量及对应元数据。常见指标包括召回率、查询延迟、可扩展性。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="微调时选择了哪些层"><strong>微调时选择了哪些层</strong></h2>
+<blockquote>
+<p>主要针对Transformer的自注意力层。这些层负责语义交互和特征变换，微调它们能有效调整模型行为，而偏置项和LayerNorm保持冻结，参数量增加极少。</p>
+</blockquote>
+<h2 id="余弦相似度和欧氏距离在进行相似度匹配时各自的优缺点是什么">余弦相似度和欧氏距离在进行相似度匹配时，各自的优缺点是什么</h2>
+<blockquote>
+<ol>
+<li>
+<p>余弦相似度衡量方向差异，忽略模长，适合文本等高维稀疏向量。</p>
+</li>
+<li>
+<p>欧氏距离衡量绝对距离，若向量未归一化可能误判。若向量已L2归一化，两者等价。项目中使用余弦相似度，更符合语义比较。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="向量化之前为什么要对长文档进行切片呢如果不切片会有什么后果">向量化之前为什么要对长文档进行切片呢？如果不切片会有什么后果？</h2>
+<blockquote>
+<ol>
+<li>
+<p>Embedding模型有输入长度限制，超长文本会被截断丢失信息</p>
+</li>
+<li>
+<p>长文档可能含多主题，整体向量化导致语义稀释</p>
+</li>
+<li>
+<p>检索粒度粗糙，返回整篇文档需二次处理，增加开销和错误。若不切片，检索系统难以命中具体细节，影响下游生成质量。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="agent中的长短期记忆了解吗讲一下">agent中的长短期记忆了解吗？讲一下</h2>
+<blockquote>
+<p>Agent 中的长短期记忆核心是解决大模型上下文有限、无法跨会话持久化的问题</p>
+<p>短期记忆：</p>
+<p>短期记忆是当前会话的临时缓存，用完即丢，读写极快，仅当前会话或者任务有效，结束自动清空</p>
+<p>短期记忆的实现，主要有滑动窗口、摘要压缩、状态追踪这些。滑动窗口呢比如说固定长度最近10轮，新的进旧的出。摘要压缩则是会话超长时用 LLM 把旧历史压缩成摘要，保留核心，省 token。</p>
+<p>那短期记忆有什么作用呢？可以维持当前对话连贯、跟踪任务执行状态</p>
+<p>上面已经讲完了短期记忆，接下来我们来讲一下长期记忆</p>
+<p>长期记忆：</p>
+<p>长期记忆是持久化存储、跨会话复用的结构化记忆，相当于 Agent 的经验库，重启、跨会话依然存在。但是不能直接读，要语义检索取出相关</p>
+<p>长期记忆的技术实现，主要有向量数据库+ RAG 检索、混合存储Hybrid、知识图谱。向量数据库+ RAG 检索是把历史转为向量嵌入，存入向量库比如Chroma中，然后对输入向量余弦相似度检索 Top-K 相关记忆，拼进 Prompt 给 LLM。</p>
+<p>那混合存储Hybrid呢？它是将结构化数据用户 ID、偏好、状态存到MySQL或者PostgreSQL中，语义、文本记忆放到向量库，原始日志放到文件、日志系统</p>
+<p>那长期记忆有什么用呢？</p>
+<p>可以进行经验复用，上次失败or成功→下次优化。同时也可以做长期规划，存目标、步骤、复盘，跨天执行复杂任务</p>
+</blockquote>
+<h2 id="你觉得rag的瓶颈主要在哪">你觉得RAG的瓶颈主要在哪</h2>
+<blockquote>
+<p>RAG目前的主要瓶颈包括：</p>
+<ul>
+<li>
+<p>检索质量上限：即使优化检索，也可能召回不相关或遗漏关键信息，尤其是复杂推理问题</p>
+</li>
+<li>
+<p>上下文窗口限制：虽然LLM上下文不断增大，但填入大量检索块会增加成本和处理时间且稀释关键信息。</p>
+</li>
+<li>
+<p>分块与信息损失：固定分块可能破坏文档的全局结构，导致跨块信息无法关联。</p>
+</li>
+<li>
+<p>实时性与一致性：高频更新的知识库需要快速索引和同步</p>
+</li>
+<li>
+<p>成本与延迟：每个查询都需要检索和生成，相比纯LLM调用开销更大，难以在超大规模并发下保持低延迟。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="即使说你用了rag但是你的agent可能给客户返回的一个结果还有可能是不符合预期或者简单说就是还是编造有幻觉那么出现这样的问题可能是什么原因">即使说你用了RAG，但是你的agent可能给客户返回的一个结果，还有可能是不符合预期，或者简单说就是还是编造，有幻觉，那么出现这样的问题可能是什么原因？</h2>
+<blockquote>
+<ol>
+<li>
+<p>召回率低：检索器未能从知识库中召回真正相关的文档片段，导致模型缺乏足够的事实依据，只能依赖自身参数知识来生成回答。</p>
+</li>
+<li>
+<p>相关性排序偏差：即使召回了相关文档，但排序算法将不相关低质量的片段排在前面</p>
+</li>
+<li>
+<p>知识库覆盖不全：用户问题涉及的知识不在知识库中，模型无法找到正确答案，可能强行编造。</p>
+</li>
+<li>
+<p>文档存在噪声或错误：知识库中的文档本身包含错误、矛盾的表述，模型直接采纳这些信息生成答案。</p>
+</li>
+<li>
+<p>上下文窗口限制：如果检索到的文档过长，模型可能被截断或忽略部分关键内容，导致信息丢失。</p>
+</li>
+<li>
+<p>忽视检索内容：模型过度依赖其内部参数知识，而忽视或错误理解检索到的上下文</p>
+</li>
+<li>
+<p>模型固有缺陷：即使有检索内容，生成式模型在组织语言时仍可能添油加醋，添加不在检索结果中的细节</p>
+</li>
+<li>
+<p>过度自信：模型倾向于生成流畅的文本，即使面对不确定的信息，也会用看似合理的表述填充，造成幻觉。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="什么是rag检索增强生成它的核心工作流程是怎样的">什么是RAG检索增强生成？它的核心工作流程是怎样的？</h2>
+<blockquote>
+<p>RAG是一种将信息检索与大型语言模型生成能力相结合的技术。核心思想是在模型生成回答之前，先从外部知识库中检索出与用户问题相关的信息片段，将这些信息作为上下文与原始问题一起提供给LLM，有效缓解幻觉和知识滞后问题。 分为两个阶段：</p>
+<ol>
+<li>
+<p>索引阶段：首先对文档数据进行清洗、分割成合适的文本块，然后通过嵌入模型将每个块转换为向量，并将这些向量存储到向量数据库中，同时保留元数据。</p>
+</li>
+<li>
+<p>查询阶段：用户提出问题后，同样用嵌入模型将问题向量化，在向量数据库中进行相似性搜索，召回最相关的k个文本块，将这些文本块与原始问题组合成增强提示，最后调用LLM生成最终回答。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="rag与大模型微调在解决大模型知识不足的问题上有什么本质区别分别在什么场景下选用">RAG与大模型微调在解决大模型知识不足的问题上有什么本质区别？分别在什么场景下选用？</h2>
+<blockquote>
+<ul>
+<li>
+<p>RAG是一种动态知识注入方式，模型不改变自身参数，而是通过检索实时获取外部知识，答案可追溯来源，更新知识只需更新数据库，成本低。</p>
+</li>
+<li>
+<p>微调是一种静态知识注入方式，通过调整模型参数让模型记住新知识，但知识固化在权重中，更新需要重新训练</p>
+</li>
+</ul>
+<p>场景选择：</p>
+<ul>
+<li>
+<p>RAG适合知识频繁更新需要引用来源、领域知识广泛且难以全部参数化。</p>
+</li>
+<li>
+<p>微调适合需要调整模型的行事风格、输出格式、特定术语使用（让模型模仿某种语气），或者让模型掌握不易通过检索获得的私有逻辑。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="什么是检索噪声怎么优化检索质量减少噪声对最终生成结果的影响呢"><strong>什么是&quot;检索噪声&quot;？怎么优化检索质量，减少噪声对最终生成结果的影响呢？</strong></h2>
+<blockquote>
+<p>检索噪声指召回的文本块中包含了与问题不相关或弱相关的信息，混入提示词后误导模型，产生错误或偏离的答案。</p>
+<p>优化检索质量的方法：</p>
+<ul>
+<li>
+<p>优化分块策略：避免过长块引入噪声。</p>
+</li>
+<li>
+<p>混合检索：结合向量检索和关键词检索，举个栗子，BM25+向量加权，提升召回相关度。</p>
+</li>
+<li>
+<p>重排（Rerank）：对初步召回的结果使用交叉编码器模型进行二次排序，将最相关的排在前面。</p>
+</li>
+<li>
+<p>设置相似度阈值：过滤掉相似度得分低于阈值的块。</p>
+</li>
+<li>
+<p>查询改写：对用户问题进行改写后再检索，提高召回质量。</p>
+</li>
+<li>
+<p>提示工程：在prompt中明确告知模型只基于提供的上下文回答，忽略无关信息。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="什么是向量数据库它与传统的关系型数据库mysql和搜索引擎elasticsearch的核心区别是什么"><strong>什么是向量数据库？它与传统的关系型数据库MySQL和搜索引擎Elasticsearch的核心区别是什么</strong></h2>
+<blockquote>
+<p>向量数据库是一种专门用于存储和检索高维向量数据的数据库，它支持基于向量相似性的近似最近邻搜索。 区别：</p>
+<ul>
+<li>
+<p>数据模型：MySQL存储结构化表格数据，ES存储文档（JSON）并建立倒排索引，向量数据库存储向量及其元数据，核心操作是向量相似度计算。</p>
+</li>
+<li>
+<p>查询方式：MySQL基于精确匹配和范围查询，ES基于倒排索引的文本匹配，向量数据库基于距离度量（余弦相似度or欧氏距离）进行近似最近邻搜索。</p>
+</li>
+<li>
+<p>索引结构：MySQL使用B+树，ES使用倒排索引，向量数据库使用专门为高维空间设计的索引算法以牺牲微小精度换取高速检索。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="什么是function-calling工具调用"><strong>什么是Function Calling（工具调用）？</strong></h2>
+<blockquote>
+<ol>
+<li>
+<p>Function Calling是一种让大语言模型能够根据用户意图，智能地选择并调用外部函数的能力。模型输出一个结构化的调用请求，包含函数名和参数，后端系统执行该函数并返回结果。</p>
+</li>
+<li>
+<p>在AI Agent中，Function Calling使Agent具备行动能力。让Agent可以实时获取最新信息并执行业务逻辑</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="在模型训练或微调的角度function-call的能力是如何被赋予给大模型的"><strong>在模型训练或微调的角度，Function Call的能力是如何被赋予给大模型的</strong>？</h2>
+<blockquote>
+<p>Function Call能力主要通过后期训练阶段的指令微调（SFT）和偏好优化（DPO）注入。具体步骤：</p>
+<ol>
+<li>
+<p>构造训练数据：收集包含用户请求-函数描述-模型应该输出的函数调用的对话样本。主包举个栗子哈，比如说，用户问北京天气怎么样，我们要同时提供get_weather函数的描述，标注模型应该输出get_weather(location=&quot;北京&quot;)。</p>
+</li>
+<li>
+<p>SFT微调：让模型在大量这样的样本上学习，使其学会根据用户意图和可用函数生成正确的调用格式。</p>
+</li>
+<li>
+<p>增强泛化：通过多样化的函数和请求让模型学会何时不调用（直接回答）、何时调用以及如何组合多个调用。</p>
+</li>
+<li>
+<p>偏好优化：使用人类反馈或AI反馈DPO进一步优化，让模型更倾向于正确的调用行为。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="当用户请求需要调用多个工具或进行复杂推理才能完成时举个栗子比如说帮我订明天去北京的机票和酒店agent的工作流程应该是怎样的"><strong>当用户请求需要调用多个工具或进行复杂推理才能完成时（举个栗子，比如说&quot;帮我订明天去北京的机票和酒店&quot;），Agent的工作流程应该是怎样的</strong></h2>
+<blockquote>
+<p>这类复杂任务通常采用ReAct模式（Reason+Act）推理加行动，即循环执行思考、行动、观察直到任务完成。</p>
+<ul>
+<li>
+<p>模型分析用户请求，意识到需要分别订机票和酒店，且可能需要查询航班、酒店信息，以及进行预订操作。</p>
+</li>
+<li>
+<p>模型决定调用第一个工具，search_flights(destination=&quot;北京&quot;, date=&quot;明天&quot;)，生成调用请求。后端执行并返回航班列表。</p>
+</li>
+<li>
+<p>模型看到航班列表，继续思考需要选择一个航班，然后调用预订工具。</p>
+</li>
+<li>
+<p>模型根据观察继续思考，依次调用search_hotels、book_flight、book_hotel等工具。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="有用的比较好的比较顺手的ai-coding吗cursorcopilotclaude分别在什么场景下用"><strong>有用的比较好的，比较顺手的ai coding吗，cursor、copilot、claude分别在什么场景下用</strong></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>场景</td>
+<td>首选工具</td>
+<td>辅助工具</td>
+</tr>
+<tr>
+<td>日常开发</td>
+<td>Cursor 或 Copilot</td>
+<td>两者选一即可，习惯哪个用哪个。</td>
+</tr>
+<tr>
+<td>复杂模块开发</td>
+<td>Cursor</td>
+<td>可先用 Claude 讨论设计方案。</td>
+</tr>
+<tr>
+<td>接手新项目</td>
+<td>Claude</td>
+<td>理解后，用 Cursor 进行修改。</td>
+</tr>
+<tr>
+<td>代码审查/优化</td>
+<td>Claude 或 Copilot (内嵌)</td>
+<td>Claude 分析更深入，Copilot 审查更便捷。</td>
+</tr>
+<tr>
+<td>技术方案设计</td>
+<td>Claude</td>
+<td>讨论并生成文档，再交由 Cursor 实现。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="十六代码示例">十六、🍫代码示例</h1>
+<h2 id="项目结构">项目结构</h2>
+<pre><code class="language-Bash">src/main/java/com/psychic/agent/
+├── config/
+│   ├── AiConfig.java                 <span class="hljs-comment"># 多模型配置（Ollama/OpenAI）</span>
+│   ├── ChromaConfig.java             <span class="hljs-comment"># Chroma 向量数据库配置</span>
+│   ├── McpConfig.java                <span class="hljs-comment"># MCP 客户端配置</span>
+│   └── SecurityConfig.java           <span class="hljs-comment"># Spring Security 权限配置</span>
+├── controller/
+│   └── ChatController.java           <span class="hljs-comment"># 流式聊天接口</span>
+├── service/
+│   ├── ChatService.java              <span class="hljs-comment"># 聊天服务（RAG + 模型调用）</span>
+│   ├── KnowledgeBaseService.java     <span class="hljs-comment"># 知识库构建与检索</span>
+│   ├── PsychologicalService.java     <span class="hljs-comment"># 心理状态识别（调用微调模型）</span>
+│   ├── McpExcelService.java          <span class="hljs-comment"># MCP Excel 写入服务</span>
+│   └── McpEmailService.java          <span class="hljs-comment"># MCP 邮件发送服务</span>
+├── entity/
+│   ├── User.java                     <span class="hljs-comment"># 用户实体</span>
+│   ├── ChatMessage.java              <span class="hljs-comment"># 聊天消息实体</span>
+│   └── PsychologicalReport.java      <span class="hljs-comment"># 心理报告实体</span>
+├── repository/
+│   ├── UserRepository.java
+│   ├── ChatMessageRepository.java
+│   └── PsychologicalReportRepository.java
+├── security/
+│   └── CustomUserDetailsService.java <span class="hljs-comment"># 用户详情服务</span>
+└── util/
+    └── MarkdownParser.java           <span class="hljs-comment"># 辅助工具</span>
+</code></pre>
+<h2 id="applicationyml">application.yml</h2>
+<pre><code class="language-YAML"><span class="hljs-attr">spring:</span>
+  <span class="hljs-attr">datasource:</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://localhost:3306/psychic_db</span>
+    <span class="hljs-attr">username:</span> <span class="hljs-string">root</span>
+    <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span>
+  <span class="hljs-attr">jpa:</span>
+    <span class="hljs-attr">hibernate:</span>
+      <span class="hljs-attr">ddl-auto:</span> <span class="hljs-string">update</span>
+    <span class="hljs-attr">show-sql:</span> <span class="hljs-literal">true</span>
+
+<span class="hljs-comment"># Ollama 配置</span>
+<span class="hljs-attr">ollama:</span>
+  <span class="hljs-attr">url:</span> <span class="hljs-string">http://localhost:11434</span>
+  <span class="hljs-attr">model:</span> <span class="hljs-string">qwen2.5:7b</span>  <span class="hljs-comment"># 基座模型，可替换为微调后的模型名称</span>
+
+<span class="hljs-comment"># OpenAI 配置</span>
+<span class="hljs-attr">openai:</span>
+  <span class="hljs-attr">api-key:</span> <span class="hljs-string">${OPENAI_API_KEY}</span>
+  <span class="hljs-attr">model:</span> <span class="hljs-string">gpt-3.5-turbo</span>
+
+<span class="hljs-comment"># Chroma 配置</span>
+<span class="hljs-attr">chroma:</span>
+  <span class="hljs-attr">url:</span> <span class="hljs-string">http://localhost:8000</span>
+
+<span class="hljs-comment"># MCP 服务地址</span>
+<span class="hljs-attr">mcp:</span>
+  <span class="hljs-attr">excel:</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">http://mcp-excel-service:8081</span>
+  <span class="hljs-attr">email:</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">http://mcp-email-service:8082</span>
+</code></pre>
+<h2 id="aiconfigjava">AiConfig.java</h2>
+<pre><code class="language-TypeScript">package com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">config</span>;
+
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">chat</span>.<span class="hljs-property">ChatClient</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">ollama</span>.<span class="hljs-property">OllamaChatClient</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">ollama</span>.<span class="hljs-property">api</span>.<span class="hljs-property">OllamaApi</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">openai</span>.<span class="hljs-property">OpenAiChatClient</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">openai</span>.<span class="hljs-property">api</span>.<span class="hljs-property">OpenAiApi</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">beans</span>.<span class="hljs-property">factory</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Value</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Bean</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Configuration</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Primary</span>;
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AiConfig</span> {
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${ollama.url}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> ollamaUrl;
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${ollama.model}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> ollamaModel;
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${openai.api-key}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> openaiApiKey;
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${openai.model}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> openaiModel;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-meta">@Primary</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">ChatClient</span> <span class="hljs-title function_">ollamaChatClient</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-title class_">OllamaApi</span> ollamaApi = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OllamaApi</span>(ollamaUrl);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OllamaChatClient</span>(ollamaApi).<span class="hljs-title function_">withModel</span>(ollamaModel);
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">ChatClient</span> <span class="hljs-title function_">openAiChatClient</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-title class_">OpenAiApi</span> openAiApi = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OpenAiApi</span>(openaiApiKey);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OpenAiChatClient</span>(openAiApi).<span class="hljs-title function_">withModel</span>(openaiModel);
+    }
+}
+</code></pre>
+<h2 id="向量数据库配置-chromaconfigjava">向量数据库配置 ChromaConfig.java</h2>
+<pre><code class="language-TypeScript">package com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">config</span>;
+
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">embedding</span>.<span class="hljs-property">EmbeddingClient</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">vectorstore</span>.<span class="hljs-property">ChromaVectorStore</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">vectorstore</span>.<span class="hljs-property">VectorStore</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">beans</span>.<span class="hljs-property">factory</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Value</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Bean</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Configuration</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">web</span>.<span class="hljs-property">client</span>.<span class="hljs-property">RestTemplate</span>;
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ChromaConfig</span> {
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${chroma.url}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> chromaUrl;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">VectorStore</span> <span class="hljs-title function_">vectorStore</span>(<span class="hljs-params">EmbeddingClient embeddingClient</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">ChromaVectorStore</span>.<span class="hljs-title function_">builder</span>()
+                .<span class="hljs-title function_">embeddingClient</span>(embeddingClient)
+                .<span class="hljs-title function_">collectionName</span>(<span class="hljs-string">&quot;psychic_knowledge&quot;</span>)
+                .<span class="hljs-title function_">chromaUrl</span>(chromaUrl)
+                .<span class="hljs-title function_">restTemplate</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RestTemplate</span>())
+                .<span class="hljs-title function_">build</span>();
+    }
+
+    <span class="hljs-comment">// 使用 Ollama 的嵌入模型，也可以替换为 OpenAI 嵌入</span>
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">EmbeddingClient</span> <span class="hljs-title function_">embeddingClient</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OllamaEmbeddingClient</span>(<span class="hljs-title function_">ollamaApi</span>())
+                .<span class="hljs-title function_">withModel</span>(<span class="hljs-string">&quot;text-embedding-3-small&quot;</span>);
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">OllamaApi</span> <span class="hljs-title function_">ollamaApi</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OllamaApi</span>(ollamaUrl);
+    }
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${ollama.url}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> ollamaUrl;
+}
+</code></pre>
+<h2 id="mcp-客户端配置-mcpconfigjava">MCP 客户端配置 McpConfig.java</h2>
+<pre><code class="language-TypeScript">package com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">config</span>;
+
+<span class="hljs-keyword">import</span> com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">service</span>.<span class="hljs-property">McpExcelService</span>;
+<span class="hljs-keyword">import</span> com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">service</span>.<span class="hljs-property">McpEmailService</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">beans</span>.<span class="hljs-property">factory</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Value</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Bean</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">context</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Configuration</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">web</span>.<span class="hljs-property">client</span>.<span class="hljs-property">RestTemplate</span>;
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">McpConfig</span> {
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${mcp.excel.url}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> excelMcpUrl;
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;${mcp.email.url}&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> emailMcpUrl;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">McpExcelService</span> <span class="hljs-title function_">mcpExcelService</span>(<span class="hljs-params">RestTemplate restTemplate</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">McpExcelService</span>(restTemplate, excelMcpUrl);
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">McpEmailService</span> <span class="hljs-title function_">mcpEmailService</span>(<span class="hljs-params">RestTemplate restTemplate</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">McpEmailService</span>(restTemplate, emailMcpUrl);
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">RestTemplate</span> <span class="hljs-title function_">restTemplate</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestTemplate</span>();
+    }
+}
+</code></pre>
+<h2 id="知识库服务-knowledgebaseservicejava">知识库服务 KnowledgeBaseService.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.service;
+
+<span class="hljs-keyword">import</span> org.springframework.ai.vectorstore.VectorStore;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
+
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.stream.Collectors;
+
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KnowledgeBaseService</span> {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> VectorStore vectorStore;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">KnowledgeBaseService</span><span class="hljs-params">(VectorStore vectorStore)</span> {
+        <span class="hljs-built_in">this</span>.vectorStore = vectorStore;
+    }
+
+    <span class="hljs-comment">/**
+     * 检索与用户问题最相关的知识片段
+     * <span class="hljs-doctag">@param</span> query 用户问题
+     * <span class="hljs-doctag">@param</span> topK 返回数量
+     * <span class="hljs-doctag">@return</span> 相关文本列表
+     */</span>
+    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">retrieve</span><span class="hljs-params">(String query, <span class="hljs-type">int</span> topK)</span> {
+        <span class="hljs-keyword">return</span> vectorStore.similaritySearch(query, topK)
+                .stream()
+                .map(document -&gt; document.getContent())
+                .collect(Collectors.toList());
+    }
+
+    <span class="hljs-comment">/**
+     * 添加文档到知识库（管理员调用）
+     * <span class="hljs-doctag">@param</span> content 文档内容
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addDocument</span><span class="hljs-params">(String content)</span> {
+        <span class="hljs-comment">// 这里可以拆分长文本为多个片段，并生成向量后存储</span>
+        vectorStore.add(List.of(content));
+    }
+}
+</code></pre>
+<h2 id="心理状态识别服务-psychologicalservicejava">心理状态识别服务 PsychologicalService.java</h2>
+<pre><code class="language-TypeScript">package com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">service</span>;
+
+<span class="hljs-keyword">import</span> com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">entity</span>.<span class="hljs-property">PsychologicalReport</span>;
+<span class="hljs-keyword">import</span> com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">repository</span>.<span class="hljs-property">PsychologicalReportRepository</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">ai</span>.<span class="hljs-property">chat</span>.<span class="hljs-property">ChatClient</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">beans</span>.<span class="hljs-property">factory</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Autowired</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">beans</span>.<span class="hljs-property">factory</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Qualifier</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">stereotype</span>.<span class="hljs-property">Service</span>;
+
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PsychologicalService</span> {
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-meta">@Qualifier</span>(<span class="hljs-string">&quot;ollamaChatClient&quot;</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">ChatClient</span> ollamaClient;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">PsychologicalReportRepository</span> reportRepository;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">McpExcelService</span> mcpExcelService;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">McpEmailService</span> mcpEmailService;
+
+    <span class="hljs-comment">/**
+     * 分析用户消息，返回风险等级（high/medium/low）和情绪标签
+     * <span class="hljs-doctag">@param</span> userId 用户ID
+     * <span class="hljs-doctag">@param</span> message 用户消息
+     * <span class="hljs-doctag">@return</span> 风险等级
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">analyzeAndMonitor</span>(<span class="hljs-params">Long userId, <span class="hljs-built_in">String</span> message</span>) {
+        <span class="hljs-comment">// 调用微调后的模型进行心理状态识别（微调模型名称已在 ollama 中导入，如 &quot;qwen-psych:7b&quot;）</span>
+        <span class="hljs-title class_">String</span> prompt = <span class="hljs-string">&quot;请分析以下消息的心理状态，返回 JSON 格式：{\&quot;risk\&quot;: \&quot;high|medium|low\&quot;, \&quot;emotion\&quot;: \&quot;xxx\&quot;, \&quot;confidence\&quot;: 0.xx}\n用户消息：&quot;</span> + message;
+        <span class="hljs-title class_">String</span> response = ollamaClient.<span class="hljs-title function_">call</span>(prompt);
+
+        <span class="hljs-comment">// 解析响应（实际应使用 JSON 库，此处简化）</span>
+        <span class="hljs-title class_">String</span> risk = <span class="hljs-title function_">extractRisk</span>(response);
+        <span class="hljs-title class_">String</span> emotion = <span class="hljs-title function_">extractEmotion</span>(response);
+        double confidence = <span class="hljs-title function_">extractConfidence</span>(response);
+
+        <span class="hljs-comment">// 保存心理报告</span>
+        <span class="hljs-title class_">PsychologicalReport</span> report = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PsychologicalReport</span>();
+        report.<span class="hljs-title function_">setUserId</span>(userId);
+        report.<span class="hljs-title function_">setContent</span>(message);
+        report.<span class="hljs-title function_">setRiskLevel</span>(risk);
+        report.<span class="hljs-title function_">setEmotion</span>(emotion);
+        report.<span class="hljs-title function_">setConfidence</span>(confidence);
+        reportRepository.<span class="hljs-title function_">save</span>(report);
+
+        <span class="hljs-comment">// 通过 MCP 服务写入 Excel</span>
+        mcpExcelService.<span class="hljs-title function_">writeReport</span>(report);
+
+        <span class="hljs-comment">// 高风险时发送邮件</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;high&quot;</span>.<span class="hljs-title function_">equals</span>(risk)) {
+            mcpEmailService.<span class="hljs-title function_">sendAlert</span>(userId, <span class="hljs-string">&quot;学生心理状态高风险，请及时关注&quot;</span>);
+        }
+
+        <span class="hljs-keyword">return</span> risk;
+    }
+
+    <span class="hljs-comment">// 简单解析示例，实际使用 Jackson</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">extractRisk</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> response</span>) {
+        <span class="hljs-keyword">if</span> (response.<span class="hljs-title function_">contains</span>(<span class="hljs-string">&quot;\&quot;risk\&quot;:\&quot;high\&quot;&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;high&quot;</span>;
+        <span class="hljs-keyword">if</span> (response.<span class="hljs-title function_">contains</span>(<span class="hljs-string">&quot;\&quot;risk\&quot;:\&quot;medium\&quot;&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;medium&quot;</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;low&quot;</span>;
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">String</span> <span class="hljs-title function_">extractEmotion</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> response</span>) {
+        <span class="hljs-comment">// 正则或 JSON 解析</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;neutral&quot;</span>;
+    }
+
+    <span class="hljs-keyword">private</span> double <span class="hljs-title function_">extractConfidence</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> response</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0.85</span>;
+    }
+}
+</code></pre>
+<h2 id="mcp-服务类mcpexcelservicejava">MCP 服务类McpExcelService.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.service;
+
+<span class="hljs-keyword">import</span> com.psychic.agent.entity.PsychologicalReport;
+<span class="hljs-keyword">import</span> org.springframework.web.client.RestTemplate;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">McpExcelService</span> {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> RestTemplate restTemplate;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String excelMcpUrl;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">McpExcelService</span><span class="hljs-params">(RestTemplate restTemplate, String excelMcpUrl)</span> {
+        <span class="hljs-built_in">this</span>.restTemplate = restTemplate;
+        <span class="hljs-built_in">this</span>.excelMcpUrl = excelMcpUrl;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">writeReport</span><span class="hljs-params">(PsychologicalReport report)</span> {
+        <span class="hljs-comment">// 调用 MCP Excel 服务，发送 JSON 数据</span>
+        restTemplate.postForEntity(excelMcpUrl + <span class="hljs-string">&quot;/write&quot;</span>, report, Void.class);
+    }
+}
+</code></pre>
+<h2 id="mcpemailservicejava">McpEmailService.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.service;
+
+<span class="hljs-keyword">import</span> org.springframework.web.client.RestTemplate;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">McpEmailService</span> {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> RestTemplate restTemplate;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String emailMcpUrl;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">McpEmailService</span><span class="hljs-params">(RestTemplate restTemplate, String emailMcpUrl)</span> {
+        <span class="hljs-built_in">this</span>.restTemplate = restTemplate;
+        <span class="hljs-built_in">this</span>.emailMcpUrl = emailMcpUrl;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sendAlert</span><span class="hljs-params">(Long userId, String message)</span> {
+        <span class="hljs-comment">// 构造邮件请求</span>
+        <span class="hljs-type">EmailRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EmailRequest</span>(userId, message);
+        restTemplate.postForEntity(emailMcpUrl + <span class="hljs-string">&quot;/send&quot;</span>, request, Void.class);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EmailRequest</span> {
+        <span class="hljs-keyword">private</span> Long userId;
+        <span class="hljs-keyword">private</span> String content;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-title function_">EmailRequest</span><span class="hljs-params">(Long userId, String content)</span> {
+            <span class="hljs-built_in">this</span>.userId = userId;
+            <span class="hljs-built_in">this</span>.content = content;
+        }
+        <span class="hljs-comment">// getters</span>
+    }
+}
+</code></pre>
+<h2 id="聊天服务-chatservicejava">聊天服务 ChatService.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.service;
+
+<span class="hljs-keyword">import</span> com.psychic.agent.entity.ChatMessage;
+<span class="hljs-keyword">import</span> com.psychic.agent.repository.ChatMessageRepository;
+<span class="hljs-keyword">import</span> org.springframework.ai.chat.ChatClient;
+<span class="hljs-keyword">import</span> org.springframework.ai.chat.messages.Message;
+<span class="hljs-keyword">import</span> org.springframework.ai.chat.messages.SystemMessage;
+<span class="hljs-keyword">import</span> org.springframework.ai.chat.messages.UserMessage;
+<span class="hljs-keyword">import</span> org.springframework.ai.chat.prompt.Prompt;
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Qualifier;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
+<span class="hljs-keyword">import</span> reactor.core.publisher.Flux;
+
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.stream.Collectors;
+
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ChatService</span> {
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-meta">@Qualifier(&quot;ollamaChatClient&quot;)</span>
+    <span class="hljs-keyword">private</span> ChatClient ollamaClient;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> KnowledgeBaseService knowledgeBaseService;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> ChatMessageRepository chatMessageRepository;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> PsychologicalService psychologicalService;
+
+    <span class="hljs-comment">/**
+     * 流式对话，整合 RAG + 心理监控
+     * <span class="hljs-doctag">@param</span> userId 用户ID
+     * <span class="hljs-doctag">@param</span> query 用户输入
+     * <span class="hljs-doctag">@return</span> 流式回答
+     */</span>
+    <span class="hljs-keyword">public</span> Flux&lt;String&gt; <span class="hljs-title function_">streamChat</span><span class="hljs-params">(Long userId, String query)</span> {
+        <span class="hljs-comment">// 1. 心理监控（异步非阻塞，不影响流式返回）</span>
+        psychologicalService.analyzeAndMonitor(userId, query);
+
+        <span class="hljs-comment">// 2. RAG 检索相关知识</span>
+        List&lt;String&gt; contexts = knowledgeBaseService.retrieve(query, <span class="hljs-number">3</span>);
+        <span class="hljs-type">String</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> String.join(<span class="hljs-string">&quot;\n&quot;</span>, contexts);
+
+        <span class="hljs-comment">// 3. 构建系统消息（包含检索到的知识）</span>
+        <span class="hljs-type">String</span> <span class="hljs-variable">systemPrompt</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;你是一位专业的心理关怀助手。请基于以下知识库内容回答问题，如果知识库中没有相关信息，请如实告知。\n知识库：\n&quot;</span> + context;
+        <span class="hljs-type">SystemMessage</span> <span class="hljs-variable">systemMessage</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemMessage</span>(systemPrompt);
+
+        <span class="hljs-comment">// 4. 获取历史消息（最近 5 条）</span>
+        List&lt;ChatMessage&gt; history = chatMessageRepository.findTop5ByUserIdOrderByCreateTimeDesc(userId);
+        List&lt;Message&gt; messages = history.stream()
+                .map(msg -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserMessage</span>(msg.getContent()))
+                .collect(Collectors.toList());
+        messages.add(<span class="hljs-number">0</span>, systemMessage);
+        messages.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserMessage</span>(query));
+
+        <span class="hljs-comment">// 5. 调用大模型，流式返回</span>
+        Flux&lt;String&gt; response = ollamaClient.stream(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Prompt</span>(messages))
+                .map(chunk -&gt; chunk.getResult().getOutput().getContent());
+
+        <span class="hljs-comment">// 6. 异步保存用户消息和助手回复（这里简化，实际应收集完整回复后保存）</span>
+        <span class="hljs-type">ChatMessage</span> <span class="hljs-variable">userMsg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChatMessage</span>();
+        userMsg.setUserId(userId);
+        userMsg.setContent(query);
+        userMsg.setRole(<span class="hljs-string">&quot;user&quot;</span>);
+        chatMessageRepository.save(userMsg);
+
+        <span class="hljs-keyword">return</span> response;
+    }
+}
+</code></pre>
+<h2 id="控制器-chatcontrollerjava">控制器 ChatController.java</h2>
+<pre><code class="language-TypeScript">package com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">controller</span>;
+
+<span class="hljs-keyword">import</span> com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>.<span class="hljs-property">service</span>.<span class="hljs-property">ChatService</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">beans</span>.<span class="hljs-property">factory</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">Autowired</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">security</span>.<span class="hljs-property">core</span>.<span class="hljs-property">annotation</span>.<span class="hljs-property">AuthenticationPrincipal</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">security</span>.<span class="hljs-property">core</span>.<span class="hljs-property">userdetails</span>.<span class="hljs-property">UserDetails</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">web</span>.<span class="hljs-property">bind</span>.<span class="hljs-property">annotation</span>.*;
+<span class="hljs-keyword">import</span> reactor.<span class="hljs-property">core</span>.<span class="hljs-property">publisher</span>.<span class="hljs-property">Flux</span>;
+
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">&quot;/api/chat&quot;</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ChatController</span> {
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">ChatService</span> chatService;
+
+    <span class="hljs-meta">@PostMapping</span>(<span class="hljs-string">&quot;/stream&quot;</span>)
+    <span class="hljs-keyword">public</span> <span class="hljs-title class_">Flux</span>&lt;<span class="hljs-title class_">String</span>&gt; <span class="hljs-title function_">streamChat</span>(<span class="hljs-params"><span class="hljs-meta">@AuthenticationPrincipal</span> UserDetails userDetails,
+                                   <span class="hljs-meta">@RequestParam</span> <span class="hljs-built_in">String</span> query</span>) {
+        <span class="hljs-title class_">Long</span> userId = <span class="hljs-title function_">extractUserId</span>(userDetails); <span class="hljs-comment">// 实际从 UserDetails 获取</span>
+        <span class="hljs-keyword">return</span> chatService.<span class="hljs-title function_">streamChat</span>(userId, query);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-title class_">Long</span> <span class="hljs-title function_">extractUserId</span>(<span class="hljs-params">UserDetails userDetails</span>) {
+        <span class="hljs-comment">// 假设 CustomUserDetails 中有 userId</span>
+        <span class="hljs-keyword">return</span> ((<span class="hljs-title class_">CustomUserDetails</span>) userDetails).<span class="hljs-title function_">getUserId</span>();
+    }
+}
+</code></pre>
+<h2 id="安全配置-securityconfigjava">安全配置 SecurityConfig.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.config;
+
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;
+<span class="hljs-keyword">import</span> org.springframework.security.config.annotation.web.builders.HttpSecurity;
+<span class="hljs-keyword">import</span> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+<span class="hljs-keyword">import</span> org.springframework.security.core.userdetails.UserDetailsService;
+<span class="hljs-keyword">import</span> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+<span class="hljs-keyword">import</span> org.springframework.security.crypto.password.PasswordEncoder;
+<span class="hljs-keyword">import</span> org.springframework.security.web.SecurityFilterChain;
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableWebSecurity</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfig</span> {
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> SecurityFilterChain <span class="hljs-title function_">filterChain</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception {
+        http
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers(<span class="hljs-string">&quot;/api/admin/**&quot;</span>).hasRole(<span class="hljs-string">&quot;ADMIN&quot;</span>)
+                .requestMatchers(<span class="hljs-string">&quot;/api/chat/**&quot;</span>).hasAnyRole(<span class="hljs-string">&quot;USER&quot;</span>, <span class="hljs-string">&quot;ADMIN&quot;</span>)
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -&gt; form
+                .loginPage(<span class="hljs-string">&quot;/login&quot;</span>)
+                .permitAll()
+            )
+            .csrf(csrf -&gt; csrf.disable()); <span class="hljs-comment">// 仅演示</span>
+
+        <span class="hljs-keyword">return</span> http.build();
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> PasswordEncoder <span class="hljs-title function_">passwordEncoder</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BCryptPasswordEncoder</span>();
+    }
+}<span class="hljs-keyword">package</span> com.psychic.agent.config;
+
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;
+<span class="hljs-keyword">import</span> org.springframework.security.config.annotation.web.builders.HttpSecurity;
+<span class="hljs-keyword">import</span> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+<span class="hljs-keyword">import</span> org.springframework.security.core.userdetails.UserDetailsService;
+<span class="hljs-keyword">import</span> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+<span class="hljs-keyword">import</span> org.springframework.security.crypto.password.PasswordEncoder;
+<span class="hljs-keyword">import</span> org.springframework.security.web.SecurityFilterChain;
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableWebSecurity</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfig</span> {
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> SecurityFilterChain <span class="hljs-title function_">filterChain</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception {
+        http
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers(<span class="hljs-string">&quot;/api/admin/**&quot;</span>).hasRole(<span class="hljs-string">&quot;ADMIN&quot;</span>)
+                .requestMatchers(<span class="hljs-string">&quot;/api/chat/**&quot;</span>).hasAnyRole(<span class="hljs-string">&quot;USER&quot;</span>, <span class="hljs-string">&quot;ADMIN&quot;</span>)
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -&gt; form
+                .loginPage(<span class="hljs-string">&quot;/login&quot;</span>)
+                .permitAll()
+            )
+            .csrf(csrf -&gt; csrf.disable()); <span class="hljs-comment">// 仅演示</span>
+
+        <span class="hljs-keyword">return</span> http.build();
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> PasswordEncoder <span class="hljs-title function_">passwordEncoder</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BCryptPasswordEncoder</span>();
+    }
+}
+</code></pre>
+<h2 id="userjava">User.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.entity;
+
+<span class="hljs-keyword">import</span> javax.persistence.*;
+<span class="hljs-keyword">import</span> java.util.Set;
+
+<span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table(name = &quot;users&quot;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> {
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+    <span class="hljs-keyword">private</span> Long id;
+    <span class="hljs-keyword">private</span> String username;
+    <span class="hljs-keyword">private</span> String password;
+    <span class="hljs-meta">@ElementCollection(fetch = FetchType.EAGER)</span>
+    <span class="hljs-keyword">private</span> Set&lt;String&gt; roles;
+    <span class="hljs-comment">// getters/setters</span>
+}
+</code></pre>
+<h2 id="psychologicalreportjava">PsychologicalReport.java</h2>
+<pre><code class="language-Java"><span class="hljs-keyword">package</span> com.psychic.agent.entity;
+
+<span class="hljs-keyword">import</span> javax.persistence.*;
+<span class="hljs-keyword">import</span> java.time.LocalDateTime;
+
+<span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table(name = &quot;psychological_reports&quot;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PsychologicalReport</span> {
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+    <span class="hljs-keyword">private</span> Long id;
+    <span class="hljs-keyword">private</span> Long userId;
+    <span class="hljs-keyword">private</span> String content;
+    <span class="hljs-keyword">private</span> String riskLevel;
+    <span class="hljs-keyword">private</span> String emotion;
+    <span class="hljs-keyword">private</span> Double confidence;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">createTime</span> <span class="hljs-operator">=</span> LocalDateTime.now();
+    <span class="hljs-comment">// getters/setters</span>
+}
+</code></pre>
+<h2 id="启动类-agentapplicationjava">启动类 AgentApplication.java</h2>
+<pre><code class="language-TypeScript">package com.<span class="hljs-property">psychic</span>.<span class="hljs-property">agent</span>;
+
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">boot</span>.<span class="hljs-property">SpringApplication</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">boot</span>.<span class="hljs-property">autoconfigure</span>.<span class="hljs-property">SpringBootApplication</span>;
+<span class="hljs-keyword">import</span> org.<span class="hljs-property">springframework</span>.<span class="hljs-property">cloud</span>.<span class="hljs-property">openfeign</span>.<span class="hljs-property">EnableFeignClients</span>;
+
+<span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-meta">@EnableFeignClients</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AgentApplication</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"><span class="hljs-built_in">String</span>[] args</span>) {
+        <span class="hljs-title class_">SpringApplication</span>.<span class="hljs-title function_">run</span>(<span class="hljs-title class_">AgentApplication</span>.<span class="hljs-property">class</span>, args);
+    }
+}
+</code></pre>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

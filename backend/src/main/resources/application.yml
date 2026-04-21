@@ -1,0 +1,87 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  application:
+    name: mindbridge-agent
+  autoconfigure:
+    exclude: ${SPRING_AUTOCONFIGURE_EXCLUDE:org.springframework.ai.vectorstore.chroma.autoconfigure.ChromaVectorStoreAutoConfiguration}
+  datasource:
+    url: ${DB_URL:jdbc:h2:file:./data/mindbridge;MODE=MySQL;DATABASE_TO_UPPER=false;AUTO_SERVER=TRUE}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  ai:
+    openai:
+      base-url: ${SPRING_AI_OPENAI_BASE_URL:https://api.deepseek.com}
+      api-key: ${SPRING_AI_OPENAI_API_KEY:sk-296a427c68f9480a984683f0d70f0580}
+      chat:
+        options:
+          model: ${SPRING_AI_OPENAI_MODEL:deepseek-chat}
+    vectorstore:
+      chroma:
+        initialize-schema: ${CHROMA_INIT_SCHEMA:true}
+        collection-name: ${CHROMA_COLLECTION:mindbridge_knowledge}
+        tenant-name: ${CHROMA_TENANT:SpringAiTenant}
+        database-name: ${CHROMA_DATABASE:SpringAiDatabase}
+        client:
+          host: ${CHROMA_HOST:http://127.0.0.1}
+          port: ${CHROMA_PORT:18001}
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DB:0}
+      timeout: ${REDIS_TIMEOUT:2s}
+
+mindbridge:
+  llm:
+    provider: ${LLM_PROVIDER:vllm}
+    use-requested-model: ${LLM_USE_REQUESTED_MODEL:false}
+  vllm:
+    base-url: ${VLLM_BASE_URL:https://api.deepseek.com}
+    api-key: ${VLLM_API_KEY:sk-296a427c68f9480a984683f0d70f0580}
+    model: ${VLLM_MODEL:deepseek-chat}
+    chat-path: /v1/chat/completions
+  rag:
+    enabled: ${RAG_ENABLED:true}
+    provider: ${RAG_PROVIDER:local}
+    fallback-to-local: ${RAG_FALLBACK_TO_LOCAL:true}
+    top-k: ${RAG_TOP_K:3}
+    min-chunk-length: ${RAG_MIN_CHUNK_LEN:40}
+    knowledge-dir: ${RAG_KNOWLEDGE_DIR:./data/knowledge}
+  memory:
+    history-limit: ${MEMORY_HISTORY_LIMIT:6}
+    redis-enabled: ${MEMORY_REDIS_ENABLED:true}
+    fallback-to-db: ${MEMORY_FALLBACK_TO_DB:true}
+    ttl-minutes: ${MEMORY_TTL_MINUTES:1440}
+    key-prefix: ${MEMORY_KEY_PREFIX:mindbridge:chat:memory}
+    default-conversation-id: ${MEMORY_DEFAULT_CONVERSATION_ID:default}
+  mcp:
+    enabled: ${MCP_ENABLED:true}
+    excel:
+      enabled: ${MCP_EXCEL_ENABLED:true}
+      url: ${MCP_EXCEL_URL:http://localhost:${SERVER_PORT:8081}/api/mock/mcp/excel/write}
+    email:
+      enabled: ${MCP_EMAIL_ENABLED:true}
+      url: ${MCP_EMAIL_URL:http://localhost:${SERVER_PORT:8081}/api/mock/mcp/email/send}
+    retry:
+      max-attempts: ${MCP_RETRY_MAX_ATTEMPTS:3}
+      delay-ms: ${MCP_RETRY_DELAY_MS:300}
+  auth:
+    jwt-secret: ${JWT_SECRET:mindbridge-local-dev-secret-key-change-me-1234567890}
+    issuer: ${JWT_ISSUER:mindbridge-agent}
+    expires-minutes: ${JWT_EXPIRES_MINUTES:120}
+    refresh-expires-days: ${JWT_REFRESH_EXPIRES_DAYS:7}

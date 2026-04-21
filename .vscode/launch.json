@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run AgentApplication",
+      "request": "launch",
+      "mainClass": "com.mindbridge.agent.AgentApplication",
+      "projectName": "mindbridge-agent",
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "SERVER_PORT": "8081",
+        "VLLM_BASE_URL": "http://localhost:8000",
+        "VLLM_API_KEY": "EMPTY",
+        "VLLM_MODEL": "Qwen/Qwen2.5-14B-Instruct"
+      }
+    },
+    {
+      "type": "java",
+      "name": "Run AgentApplication (Chroma)",
+      "request": "launch",
+      "mainClass": "com.mindbridge.agent.AgentApplication",
+      "projectName": "mindbridge-agent",
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "SERVER_PORT": "8081",
+        "VLLM_BASE_URL": "http://localhost:8000",
+        "VLLM_API_KEY": "EMPTY",
+        "VLLM_MODEL": "Qwen/Qwen2.5-14B-Instruct",
+        "SPRING_PROFILES_ACTIVE": "chroma",
+        "CHROMA_HOST": "http://127.0.0.1",
+        "CHROMA_PORT": "18001"
+      }
+    },
+    {
+      "type": "java",
+      "name": "Run AgentApplication (API-DeepSeek)",
+      "request": "launch",
+      "mainClass": "com.mindbridge.agent.AgentApplication",
+      "projectName": "mindbridge-agent",
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "SERVER_PORT": "8081",
+        "SPRING_PROFILES_ACTIVE": "api",
+        "LLM_PROVIDER": "vllm",
+        "LLM_USE_REQUESTED_MODEL": "false",
+        "VLLM_BASE_URL": "https://api.deepseek.com",
+        "VLLM_API_KEY": "sk-296a427c68f9480a984683f0d70f0580",
+        "VLLM_MODEL": "deepseek-chat"
+      }
+    }
+  ]
+}

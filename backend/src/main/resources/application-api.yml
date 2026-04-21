@@ -1,0 +1,4 @@
+mindbridge:
+  llm:
+    provider: vllm
+    use-requested-model: false

@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+.vscode/*.log
+.vscode/*.tmp
+
+# Java / Maven
+**/target/
+**/out/
+*.class
+
+# Logs
+*.log
+logs/
+
+# Env files
+.env
+.env.*
+
+# Runtime/cache
+*.pid
+*.seed
+*.swp
+*.swo
