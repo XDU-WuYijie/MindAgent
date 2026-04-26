@@ -33,9 +33,13 @@ public class RecentMemoryCacheService {
     }
 
     public List<RecentMemoryMessage> loadRecentWindow(Long userId, Long sessionId, int tokenBudget) {
+        return loadRecentWindowSnapshot(userId, sessionId, tokenBudget).messages();
+    }
+
+    public RecentWindowSnapshot loadRecentWindowSnapshot(Long userId, Long sessionId, int tokenBudget) {
         List<RecentMemoryMessage> cached = loadFromRedis(userId, sessionId);
         if (!cached.isEmpty()) {
-            return trimToBudget(cached, tokenBudget);
+            return new RecentWindowSnapshot("REDIS", trimToBudget(cached, tokenBudget));
         }
         List<RecentMemoryMessage> rebuilt = chatMessageService.loadRecentWindowFromDb(
                 userId,
@@ -46,7 +50,7 @@ public class RecentMemoryCacheService {
         if (!rebuilt.isEmpty()) {
             saveWindow(userId, sessionId, rebuilt);
         }
-        return rebuilt;
+        return new RecentWindowSnapshot("MYSQL", rebuilt);
     }
 
     public void refreshAfterAppend(Long userId, Long sessionId, List<RecentMemoryMessage> appendedMessages) {
@@ -141,5 +145,8 @@ public class RecentMemoryCacheService {
 
     private String buildKey(Long userId, Long sessionId) {
         return properties.getRecentKeyPrefix() + ":" + userId + ":" + sessionId;
+    }
+
+    public record RecentWindowSnapshot(String source, List<RecentMemoryMessage> messages) {
     }
 }

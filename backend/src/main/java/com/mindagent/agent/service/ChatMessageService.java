@@ -46,6 +46,11 @@ public class ChatMessageService {
     }
 
     @Transactional(readOnly = true)
+    public List<ChatMessage> listSessionMessageEntities(Long userId, Long sessionId) {
+        return chatMessageRepository.findBySessionIdAndUserIdOrderByCreatedAtAscIdAsc(sessionId, userId);
+    }
+
+    @Transactional(readOnly = true)
     public List<RecentMemoryMessage> loadRecentWindowFromDb(Long userId, Long sessionId, int tokenBudget, int keepTurns) {
         List<ChatMessage> rows = chatMessageRepository
                 .findTop100BySessionIdAndUserIdAndCompressedFalseOrderByCreatedAtDescIdDesc(sessionId, userId);

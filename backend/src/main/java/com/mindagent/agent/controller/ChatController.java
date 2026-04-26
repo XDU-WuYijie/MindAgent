@@ -3,7 +3,9 @@ package com.mindagent.agent.controller;
 import com.mindagent.agent.dto.ChatStreamRequest;
 import com.mindagent.agent.dto.ChatSessionListItem;
 import com.mindagent.agent.dto.ChatSessionMessageItem;
+import com.mindagent.agent.dto.ChatSessionTokenDebugResponse;
 import com.mindagent.agent.dto.CreateSessionResponse;
+import com.mindagent.agent.service.ChatMemoryService;
 import com.mindagent.agent.service.ChatMessageService;
 import com.mindagent.agent.service.ChatOrchestrationService;
 import com.mindagent.agent.service.ChatSessionService;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,13 +36,16 @@ public class ChatController {
     private final ChatOrchestrationService chatOrchestrationService;
     private final ChatSessionService chatSessionService;
     private final ChatMessageService chatMessageService;
+    private final ChatMemoryService chatMemoryService;
 
     public ChatController(ChatOrchestrationService chatOrchestrationService,
                           ChatSessionService chatSessionService,
-                          ChatMessageService chatMessageService) {
+                          ChatMessageService chatMessageService,
+                          ChatMemoryService chatMemoryService) {
         this.chatOrchestrationService = chatOrchestrationService;
         this.chatSessionService = chatSessionService;
         this.chatMessageService = chatMessageService;
+        this.chatMemoryService = chatMemoryService;
     }
 
     @GetMapping("/health")
@@ -72,6 +78,15 @@ public class ChatController {
         Long userId = resolveUserId(jwt, 1L);
         chatSessionService.requireOwnedSession(userId, sessionId);
         return chatMessageService.listSessionMessages(userId, sessionId);
+    }
+
+    @GetMapping("/chat/sessions/{sessionId}/token-debug")
+    public ChatSessionTokenDebugResponse tokenDebug(@PathVariable Long sessionId,
+                                                    @RequestParam(required = false) String draftQuery,
+                                                    @AuthenticationPrincipal Jwt jwt) {
+        Long userId = resolveUserId(jwt, 1L);
+        chatSessionService.requireOwnedSession(userId, sessionId);
+        return chatMemoryService.buildTokenDebug(userId, sessionId, draftQuery);
     }
 
     @DeleteMapping("/chat/sessions/{sessionId}")
