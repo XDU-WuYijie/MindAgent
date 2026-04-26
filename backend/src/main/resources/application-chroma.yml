@@ -2,6 +2,6 @@ spring:
   autoconfigure:
     exclude: ""
 
-mindbridge:
+mindagent:
   rag:
     provider: chroma

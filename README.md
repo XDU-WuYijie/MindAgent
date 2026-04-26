@@ -1,106 +1,64 @@
-# MindBridge
+# MindAgent
 
-MindBridge is a Spring Boot + WebFlux backend for mental-health chat workflows:
+MindAgent 是一个基于 Spring Boot + WebFlux 的智能体后端项目，当前包含后端接口、静态前端页面、Docker 本地依赖环境以及项目文档。
 
-- JWT auth (`accessToken + refreshToken`)
-- intent routing (`CHAT / CONSULT / RISK`)
-- RAG retrieval (local/chroma)
-- MCP-like dispatch (excel/email mock integration)
-- SSE chat streaming
+## 目录说明
 
-## Quick Start (Backend)
+- `backend/`：后端服务代码
+- `frontend/`：静态前端页面
+- `docker/`：nginx 配置及 MySQL / Redis / Chroma 数据目录
+- `docs/`：归档资料与补充文档
+- `backend/storage/`：后端本地运行时文件目录（知识库原文、仓库缓存）
+- `docker-compose.yml`：项目本地依赖服务编排文件
 
-1. Start backend:
+## 快速启动
 
-```powershell
-cd E:\Conch\MindBridge\backend
+1. 启动依赖服务
+
+```bash
+cd /Users/xiaotouming/JavaProjects/MindAgent
+docker compose -f docker-compose.yml up -d
+```
+
+2. 启动后端
+
+```bash
+cd /Users/xiaotouming/JavaProjects/MindAgent/backend
 mvn spring-boot:run
 ```
 
-2. Health check:
+3. 健康检查
 
-```powershell
-curl http://localhost:8081/api/health
+```bash
+curl http://127.0.0.1:8082/api/health
 ```
 
-## Run With Public LLM API (No Lab Server Needed)
+## 默认端口
 
-If your lab vLLM server is intranet-only, run backend in API mode:
+- `8082`：MindAgent 后端
+- `8088`：MindAgent 前端 nginx
+- `3308`：MySQL
+- `6380`：Redis
+- `18001`：Chroma
 
-```powershell
-cd E:\Conch\MindBridge
-powershell -ExecutionPolicy Bypass -File .\scripts\start-api-mode.ps1 `
-  -ApiKey "YOUR_API_KEY" `
-  -BaseUrl "https://api.openai.com" `
-  -Model "gpt-4o-mini" `
-  -ServerPort 8081
-```
+## 默认本地账号
 
-Notes:
+- MySQL：`root / 123456`
+- Redis：密码 `123456`
+- 应用默认用户：
+  - `admin / admin123`
+  - `user / user123`
 
-- API mode uses Spring profile `api` and forces `mindbridge.llm.provider=spring-ai`.
-- In API mode, backend ignores frontend-requested model name and uses `SPRING_AI_OPENAI_MODEL`.
-- You can use any OpenAI-compatible endpoint by changing `-BaseUrl`.
+## 环境变量说明
 
-## Web UI via Nginx Reverse Proxy
+- 所有大模型 `api-key` 已移除明文默认值
+- 启动前请按实际使用场景设置：
+  - `SPRING_AI_OPENAI_API_KEY`
+  - `VLLM_API_KEY`
 
-This repo provides a minimal frontend tester at `frontend/index.html`.
+## 文档入口
 
-Nginx proxies:
-
-- `http://localhost:8088/` -> frontend
-- `http://localhost:8088/api/*` -> backend `http://localhost:8081/api/*`
-
-### Start Nginx (Docker)
-
-```powershell
-cd E:\Conch\MindBridge\deploy
-docker compose -f .\docker-compose.nginx.yml up -d
-```
-
-Open:
-
-- `http://localhost:8088`
-- `http://localhost:8088/lab.html` (admin lab page, admin login required)
-
-### Pull Repository As Knowledge Source (Admin)
-
-After admin login, call:
-
-```powershell
-curl -X POST "http://localhost:8081/api/kb/pull-repo" `
-  -H "Authorization: Bearer <ADMIN_TOKEN>" `
-  -H "Content-Type: application/json" `
-  -d "{\"repoUrl\":\"https://github.com/spring-projects/spring-ai.git\",\"branch\":\"main\",\"subPath\":\"\"}"
-```
-
-Notes:
-
-- Requires local `git` command available in PATH.
-- Imports `.md/.txt` files from the repository into `mindbridge.rag.knowledge-dir`.
-- Triggers automatic knowledge reload after import.
-
-### Stop Nginx
-
-```powershell
-cd E:\Conch\MindBridge\deploy
-docker compose -f .\docker-compose.nginx.yml down
-```
-
-## Optional: Use MySQL instead of H2
-
-The backend defaults to H2 file DB. To switch to MySQL, set env vars before startup:
-
-```powershell
-$env:DB_URL="jdbc:mysql://127.0.0.1:3306/mindbridge?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8"
-$env:DB_USERNAME="root"
-$env:DB_PASSWORD="your_password"
-$env:DB_DRIVER="com.mysql.cj.jdbc.Driver"
-```
-
-Then start backend:
-
-```powershell
-cd E:\Conch\MindBridge\backend
-mvn spring-boot:run
-```
+- [AGENTS.md](/Users/xiaotouming/JavaProjects/MindAgent/AGENTS.md)
+- [项目进展.md](/Users/xiaotouming/JavaProjects/MindAgent/项目进展.md)
+- [项目功能设计.md](/Users/xiaotouming/JavaProjects/MindAgent/项目功能设计.md)
+- [docs/README.md](/Users/xiaotouming/JavaProjects/MindAgent/docs/README.md)

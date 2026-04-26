@@ -26,3 +26,15 @@ logs/
 *.seed
 *.swp
 *.swo
+data/
+backend/data/
+backend/storage/knowledge/*
+backend/storage/repo-cache/*
+!backend/storage/knowledge/.gitkeep
+!backend/storage/repo-cache/.gitkeep
+docker/mysql/data/*
+docker/redis/data/*
+docker/chroma/data/*
+!docker/mysql/data/.gitkeep
+!docker/redis/data/.gitkeep
+!docker/chroma/data/.gitkeep

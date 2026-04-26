@@ -1,4 +1,4 @@
-mindbridge:
+mindagent:
   llm:
     provider: vllm
     use-requested-model: false

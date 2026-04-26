@@ -10,11 +10,11 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.mindbridge</groupId>
+    <groupId>com.mindagent</groupId>
     <artifactId>backend</artifactId>
     <version>0.1.0</version>
-    <name>mindbridge-agent</name>
-    <description>MindBridge backend module 1 - skeleton + SSE chat</description>
+    <name>mindagent-agent</name>
+    <description>MindAgent backend module 1 - skeleton + SSE chat</description>
 
     <properties>
         <java.version>21</java.version>
@@ -67,8 +67,9 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <classifier>osx-aarch_64</classifier>
             <scope>runtime</scope>
         </dependency>
         <dependency>
