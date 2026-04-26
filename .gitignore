@@ -20,7 +20,7 @@ logs/
 # Env files
 .env
 .env.*
-
+.playwright-mcp
 # Runtime/cache
 *.pid
 *.seed

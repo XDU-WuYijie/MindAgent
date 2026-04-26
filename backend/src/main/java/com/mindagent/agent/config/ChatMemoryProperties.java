@@ -5,19 +5,23 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "mindagent.memory")
 public class ChatMemoryProperties {
 
-    private int historyLimit = 6;
+    private int recentKeepTurns = 6;
     private boolean redisEnabled = true;
-    private boolean fallbackToDb = true;
-    private long ttlMinutes = 1440;
-    private String keyPrefix = "mindagent:chat:memory";
-    private String defaultConversationId = "default";
+    private long recentTtlMinutes = 1440;
+    private String recentKeyPrefix = "mindagent:chat:recent";
+    private int inputBudget = 6144;
+    private int compressTriggerTokens = 3000;
+    private int summaryTargetTokens = 700;
+    private int summaryHardLimitTokens = 1000;
+    private int ragBudget = 2000;
+    private int minRagBudget = 800;
 
-    public int getHistoryLimit() {
-        return historyLimit;
+    public int getRecentKeepTurns() {
+        return recentKeepTurns;
     }
 
-    public void setHistoryLimit(int historyLimit) {
-        this.historyLimit = historyLimit;
+    public void setRecentKeepTurns(int recentKeepTurns) {
+        this.recentKeepTurns = recentKeepTurns;
     }
 
     public boolean isRedisEnabled() {
@@ -28,35 +32,67 @@ public class ChatMemoryProperties {
         this.redisEnabled = redisEnabled;
     }
 
-    public boolean isFallbackToDb() {
-        return fallbackToDb;
+    public long getRecentTtlMinutes() {
+        return recentTtlMinutes;
     }
 
-    public void setFallbackToDb(boolean fallbackToDb) {
-        this.fallbackToDb = fallbackToDb;
+    public void setRecentTtlMinutes(long recentTtlMinutes) {
+        this.recentTtlMinutes = recentTtlMinutes;
     }
 
-    public long getTtlMinutes() {
-        return ttlMinutes;
+    public String getRecentKeyPrefix() {
+        return recentKeyPrefix;
     }
 
-    public void setTtlMinutes(long ttlMinutes) {
-        this.ttlMinutes = ttlMinutes;
+    public void setRecentKeyPrefix(String recentKeyPrefix) {
+        this.recentKeyPrefix = recentKeyPrefix;
     }
 
-    public String getKeyPrefix() {
-        return keyPrefix;
+    public int getInputBudget() {
+        return inputBudget;
     }
 
-    public void setKeyPrefix(String keyPrefix) {
-        this.keyPrefix = keyPrefix;
+    public void setInputBudget(int inputBudget) {
+        this.inputBudget = inputBudget;
     }
 
-    public String getDefaultConversationId() {
-        return defaultConversationId;
+    public int getCompressTriggerTokens() {
+        return compressTriggerTokens;
     }
 
-    public void setDefaultConversationId(String defaultConversationId) {
-        this.defaultConversationId = defaultConversationId;
+    public void setCompressTriggerTokens(int compressTriggerTokens) {
+        this.compressTriggerTokens = compressTriggerTokens;
+    }
+
+    public int getSummaryTargetTokens() {
+        return summaryTargetTokens;
+    }
+
+    public void setSummaryTargetTokens(int summaryTargetTokens) {
+        this.summaryTargetTokens = summaryTargetTokens;
+    }
+
+    public int getSummaryHardLimitTokens() {
+        return summaryHardLimitTokens;
+    }
+
+    public void setSummaryHardLimitTokens(int summaryHardLimitTokens) {
+        this.summaryHardLimitTokens = summaryHardLimitTokens;
+    }
+
+    public int getRagBudget() {
+        return ragBudget;
+    }
+
+    public void setRagBudget(int ragBudget) {
+        this.ragBudget = ragBudget;
+    }
+
+    public int getMinRagBudget() {
+        return minRagBudget;
+    }
+
+    public void setMinRagBudget(int minRagBudget) {
+        this.minRagBudget = minRagBudget;
     }
 }

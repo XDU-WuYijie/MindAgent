@@ -52,9 +52,12 @@ curl http://127.0.0.1:8082/api/health
 ## 环境变量说明
 
 - 所有大模型 `api-key` 已移除明文默认值
+- 默认策略：
+  - 主聊天模型默认走 Qwen OpenAI 兼容云端接口（`https://dashscope.aliyuncs.com/compatible-mode` + `/v1/chat/completions`）
+  - Spring AI 侧模型默认也走 Qwen 云端模型，便于先跑通聊天与后续向量能力
 - 启动前请按实际使用场景设置：
-  - `SPRING_AI_OPENAI_API_KEY`
-  - `VLLM_API_KEY`
+  - `QWEN_API_KEY`
+  - 或分别设置 `SPRING_AI_OPENAI_API_KEY`、`VLLM_API_KEY`
 
 ## 文档入口
 

@@ -5,31 +5,50 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chat_messages")
+@Table(name = "chat_message")
 public class ChatMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "session_id", nullable = false)
+    private Long sessionId;
+
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @Column(nullable = false, length = 32)
     private String role;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String content;
 
-    @Column(length = 32)
-    private String intent;
+    @Column(name = "token_count", nullable = false)
+    private Integer tokenCount = 0;
+
+    @Column(name = "message_status", nullable = false, length = 32)
+    private String messageStatus = "COMPLETED";
 
     @Column(nullable = false)
+    private Boolean compressed = false;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String metadata;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Long getId() {
         return id;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 
     public Long getUserId() {
@@ -56,12 +75,36 @@ public class ChatMessage {
         this.content = content;
     }
 
-    public String getIntent() {
-        return intent;
+    public Integer getTokenCount() {
+        return tokenCount;
     }
 
-    public void setIntent(String intent) {
-        this.intent = intent;
+    public void setTokenCount(Integer tokenCount) {
+        this.tokenCount = tokenCount;
+    }
+
+    public String getMessageStatus() {
+        return messageStatus;
+    }
+
+    public void setMessageStatus(String messageStatus) {
+        this.messageStatus = messageStatus;
+    }
+
+    public Boolean getCompressed() {
+        return compressed;
+    }
+
+    public void setCompressed(Boolean compressed) {
+        this.compressed = compressed;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
     }
 
     public LocalDateTime getCreatedAt() {

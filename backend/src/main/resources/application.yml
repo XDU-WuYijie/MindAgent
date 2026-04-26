@@ -20,11 +20,12 @@ spring:
         format_sql: false
   ai:
     openai:
-      base-url: ${SPRING_AI_OPENAI_BASE_URL:https://api.deepseek.com}
-      api-key: ${SPRING_AI_OPENAI_API_KEY:}
+      # Spring AI side models: default to Qwen OpenAI-compatible cloud endpoint.
+      base-url: ${SPRING_AI_OPENAI_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode}
+      api-key: ${SPRING_AI_OPENAI_API_KEY:${QWEN_API_KEY:}}
       chat:
         options:
-          model: ${SPRING_AI_OPENAI_MODEL:deepseek-chat}
+          model: ${SPRING_AI_OPENAI_MODEL:qwen-plus}
     vectorstore:
       chroma:
         initialize-schema: ${CHROMA_INIT_SCHEMA:true}
@@ -47,9 +48,10 @@ mindagent:
     provider: ${LLM_PROVIDER:vllm}
     use-requested-model: ${LLM_USE_REQUESTED_MODEL:false}
   vllm:
-    base-url: ${VLLM_BASE_URL:https://api.deepseek.com}
-    api-key: ${VLLM_API_KEY:}
-    model: ${VLLM_MODEL:deepseek-chat}
+    # Main chat model: default to Qwen OpenAI-compatible cloud endpoint.
+    base-url: ${VLLM_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode}
+    api-key: ${VLLM_API_KEY:${QWEN_API_KEY:}}
+    model: ${VLLM_MODEL:qwen-plus}
     chat-path: /v1/chat/completions
   rag:
     enabled: ${RAG_ENABLED:true}
@@ -59,12 +61,16 @@ mindagent:
     min-chunk-length: ${RAG_MIN_CHUNK_LEN:40}
     knowledge-dir: ${RAG_KNOWLEDGE_DIR:./storage/knowledge}
   memory:
-    history-limit: ${MEMORY_HISTORY_LIMIT:6}
     redis-enabled: ${MEMORY_REDIS_ENABLED:true}
-    fallback-to-db: ${MEMORY_FALLBACK_TO_DB:true}
-    ttl-minutes: ${MEMORY_TTL_MINUTES:1440}
-    key-prefix: ${MEMORY_KEY_PREFIX:mindagent:chat:memory}
-    default-conversation-id: ${MEMORY_DEFAULT_CONVERSATION_ID:default}
+    recent-key-prefix: ${MEMORY_RECENT_KEY_PREFIX:mindagent:chat:recent}
+    recent-ttl-minutes: ${MEMORY_RECENT_TTL_MINUTES:1440}
+    recent-keep-turns: ${MEMORY_RECENT_KEEP_TURNS:6}
+    input-budget: ${MEMORY_INPUT_BUDGET:6144}
+    compress-trigger-tokens: ${MEMORY_COMPRESS_TRIGGER_TOKENS:3000}
+    summary-target-tokens: ${MEMORY_SUMMARY_TARGET_TOKENS:700}
+    summary-hard-limit-tokens: ${MEMORY_SUMMARY_HARD_LIMIT_TOKENS:1000}
+    rag-budget: ${MEMORY_RAG_BUDGET:2000}
+    min-rag-budget: ${MEMORY_MIN_RAG_BUDGET:800}
   mcp:
     enabled: ${MCP_ENABLED:true}
     excel:

@@ -1,6 +1,7 @@
 package com.mindagent.agent.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class ChatStreamRequest {
 
@@ -9,7 +10,8 @@ public class ChatStreamRequest {
 
     private String model;
     private Long userId = 1L;
-    private String conversationId;
+    @NotNull
+    private Long sessionId;
 
     public String getQuery() {
         return query;
@@ -35,11 +37,11 @@ public class ChatStreamRequest {
         this.userId = userId;
     }
 
-    public String getConversationId() {
-        return conversationId;
+    public Long getSessionId() {
+        return sessionId;
     }
 
-    public void setConversationId(String conversationId) {
-        this.conversationId = conversationId;
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 }
