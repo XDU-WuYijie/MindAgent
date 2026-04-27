@@ -16,7 +16,7 @@ public class PsychologicalReport {
     private Long userId;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String queryText;
 
     @Column(nullable = false, length = 32)
