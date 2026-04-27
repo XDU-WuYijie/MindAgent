@@ -77,11 +77,12 @@ public class ChatMemoryService {
     }
 
     public List<Map<String, Object>> buildMessages(IntentType intent,
+                                                   QueryType queryType,
                                                    String query,
                                                    List<String> ragContexts,
                                                    PromptMemory memory) {
         List<Map<String, Object>> messages = new ArrayList<>();
-        messages.add(ChatMessageFactory.message("system", responseSystemPrompt(intent, ragContexts)));
+        messages.add(ChatMessageFactory.message("system", responseSystemPrompt(intent, queryType, ragContexts)));
         if (memory.summaryText() != null && !memory.summaryText().isBlank()) {
             messages.add(ChatMessageFactory.message("system", "Session summary:\n" + memory.summaryText()));
         }
@@ -165,7 +166,7 @@ public class ChatMemoryService {
         return trimmed.substring(0, maxLength) + "...";
     }
 
-    private String responseSystemPrompt(IntentType intent, List<String> contexts) {
+    private String responseSystemPrompt(IntentType intent, QueryType queryType, List<String> contexts) {
         String contextBlock = contexts.isEmpty()
                 ? ""
                 : "\nUse the following retrieved knowledge when relevant:\n" + String.join("\n---\n", contexts);
@@ -177,10 +178,20 @@ public class ChatMemoryService {
                     Never provide harmful guidance.
                     """ + contextBlock;
         }
-        if (intent == IntentType.CONSULT) {
+        if (queryType == QueryType.APPOINTMENT_PROCESS) {
+            return """
+                    You are a campus mental-health assistant.
+                    Answer only about counseling appointment process, appointment status, cancellation, reschedule and notifications.
+                    Do not invent platform details when the retrieved knowledge is insufficient.
+                    Keep the answer operational, concise and explicit.
+                    """ + contextBlock;
+        }
+        if (intent == IntentType.CONSULT || queryType == QueryType.PSYCHOLOGY_KNOWLEDGE) {
             return """
                     You are a campus mental-health assistant.
                     Respond with empathy and structure: acknowledge feelings first, then provide 1-3 practical suggestions.
+                    Focus on psychoeducation and self-adjustment guidance.
+                    Do not fabricate facts when the retrieved knowledge is insufficient.
                     Keep it concise and supportive.
                     """ + contextBlock;
         }

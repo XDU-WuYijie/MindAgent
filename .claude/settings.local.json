@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./mvnw test:*)",
+      "Bash(mvn test:*)",
+      "Bash(java -c 'import com.mindagent.agent.service.QueryRoutingService; System.out.println\\(\"你好你好你好你好你好\".length\\(\\)\\);')"
+    ]
+  }
+}

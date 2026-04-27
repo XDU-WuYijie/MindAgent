@@ -1,6 +1,7 @@
 package com.mindagent.agent;
 
 import com.mindagent.agent.config.RagProperties;
+import com.mindagent.agent.config.RerankProperties;
 import com.mindagent.agent.config.VllmProperties;
 import com.mindagent.agent.config.ChatMemoryProperties;
 import com.mindagent.agent.config.McpProperties;
@@ -14,6 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties({
         VllmProperties.class,
         RagProperties.class,
+        RerankProperties.class,
         ChatMemoryProperties.class,
         McpProperties.class,
         AuthProperties.class,

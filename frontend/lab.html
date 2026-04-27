@@ -146,6 +146,37 @@
       margin-bottom: 10px;
     }
 
+    .upload-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .space-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #f8fbff, #f4f8ff);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .space-card h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .space-card .space-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .space-card .space-file {
+      margin-top: auto;
+    }
+
     button {
       border: 1px solid var(--line);
       border-radius: 11px;
@@ -196,6 +227,7 @@
 
     @media (max-width: 1120px) {
       .chat-grid { grid-template-columns: 1fr; }
+      .upload-grid { grid-template-columns: 1fr; }
     }
 
     .sub-title {
@@ -302,20 +334,10 @@
           <button id="btnAdminReports">GET /api/admin/reports</button>
           <button id="btnAdminMcp">GET /api/admin/mcp-logs</button>
         </div>
-        <div class="row">
-          <input id="kbFile" type="file" />
-        </div>
+        <div id="kbSpaceStatus" class="status">正在加载知识库空间...</div>
+        <div id="kbUploadSpaces" class="upload-grid"></div>
         <div class="btns">
-          <button id="btnKbUpload">POST /api/kb/upload</button>
           <button id="btnKbReload">POST /api/kb/reload</button>
-        </div>
-        <div class="row">
-          <input id="repoUrl" placeholder="Git 仓库 URL (https://...)" />
-          <input id="repoBranch" placeholder="分支（默认 main）" value="main" />
-          <input id="repoSubPath" placeholder="子目录（可选，如 docs）" />
-        </div>
-        <div class="btns">
-          <button id="btnKbPullRepo">POST /api/kb/pull-repo</button>
         </div>
         <pre id="adminOutput"></pre>
       </section>
@@ -362,11 +384,14 @@
     const authStatus = el("authStatus");
     const leftOutput = el("leftOutput");
     const adminOutput = el("adminOutput");
+    const kbSpaceStatus = el("kbSpaceStatus");
+    const kbUploadSpaces = el("kbUploadSpaces");
     const sseOutput = el("sseOutput");
     const fullAnswer = el("fullAnswer");
     const chatStatus = el("chatStatus");
     const bubbleList = el("bubbleList");
     const llmIndicator = el("llmIndicator");
+    let knowledgeSpaces = [];
 
     function getConversationId() {
       const fromQuery = new URLSearchParams(location.search).get("c");
@@ -384,6 +409,18 @@
       localStorage.removeItem(ROLE_KEY);
     }
 
+    function redirectToLogin() {
+      location.href = "login.html";
+    }
+
+    function redirectByRole(role) {
+      if ((role || "").toUpperCase() === "ADMIN") {
+        location.href = "admin.html";
+        return;
+      }
+      location.href = "index.html";
+    }
+
     function setSession(accessToken, refreshToken, role) {
       if (accessToken) localStorage.setItem(ACCESS_KEY, accessToken);
       if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
@@ -392,6 +429,59 @@
 
     function isAdminSession() {
       return getRole() === "ADMIN" && !!getAccessToken();
+    }
+
+    function spaceCardTitle(spaceKey) {
+      switch ((spaceKey || "").toLowerCase()) {
+        case "knowledge_base_3":
+          return "上传校园内部知识库";
+        default:
+          return "上传校园心理健康知识";
+      }
+    }
+
+    function spaceTitle(spaceKey) {
+      switch ((spaceKey || "").toLowerCase()) {
+        case "knowledge_base_3":
+          return "校园内部知识库";
+        default:
+          return "校园心理健康知识";
+      }
+    }
+
+    function spaceInputId(spaceKey) {
+      return `kbFile_${spaceKey}`;
+    }
+
+    function renderKnowledgeSpaces(items) {
+      knowledgeSpaces = Array.isArray(items) && items.length ? items : [
+        { key: "knowledge_base_1", label: "上传校园心理健康知识", description: "面向校园心理健康 FAQ、知识文档与合并后的科普资料。" },
+        { key: "knowledge_base_3", label: "上传校园内部知识库", description: "面向校园内部制度、流程与资料。" }
+      ];
+      kbUploadSpaces.innerHTML = knowledgeSpaces.map(space => {
+        const key = space.key || "knowledge_base_1";
+        const label = space.label || spaceCardTitle(key);
+        const desc = space.description || "";
+        return `
+          <section class="space-card">
+            <h3>${label}</h3>
+            <div class="badge">${key}</div>
+            <div class="space-desc">${desc}</div>
+            <div class="row space-file">
+              <input id="${spaceInputId(key)}" type="file" accept=".md,.txt" />
+            </div>
+            <div class="btns">
+              <button class="primary" data-space="${key}" data-kind="faq">上传 FAQ</button>
+              <button class="primary" data-space="${key}" data-kind="kb">上传 KB</button>
+            </div>
+          </section>
+        `;
+      }).join("");
+      kbUploadSpaces.querySelectorAll("button[data-space]").forEach(button => {
+        button.addEventListener("click", () => uploadKb(button.dataset.space, button.dataset.kind));
+      });
+      kbSpaceStatus.textContent = `已加载 ${knowledgeSpaces.length} 个知识库空间。`;
+      kbSpaceStatus.className = "status ok";
     }
 
     function renderGate() {
@@ -422,6 +512,25 @@
       const data = await res.json();
       setSession(data.accessToken || data.token, data.refreshToken, data.role || getRole());
       leftOutput.textContent = JSON.stringify(data, null, 2);
+      return true;
+    }
+
+    async function bootstrapLabPage() {
+      if (!getAccessToken()) {
+        if (getRefreshToken()) {
+          const ok = await refreshToken();
+          if (!ok) return false;
+        } else {
+          redirectToLogin();
+          return false;
+        }
+      }
+      const role = (getRole() || "").toUpperCase();
+      if (role !== "ADMIN") {
+        redirectByRole(role);
+        return false;
+      }
+      renderGate();
       return true;
     }
 
@@ -600,32 +709,31 @@
       await run(true);
     }
 
-    async function uploadKb() {
-      const fileInput = el("kbFile");
+    async function loadSpaces() {
+      try {
+        const res = await api("/api/kb/spaces");
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && Array.isArray(data.items) && data.items.length) {
+          renderKnowledgeSpaces(data.items);
+          return;
+        }
+      } catch (_) {
+        // fall back to the static placeholders below
+      }
+      renderKnowledgeSpaces([]);
+    }
+
+    async function uploadKb(spaceKey, kind) {
+      const fileInput = el(spaceInputId(spaceKey));
       if (!fileInput.files || fileInput.files.length === 0) {
         adminOutput.textContent = "请先选择一个 .md 或 .txt 文件。";
         return;
       }
       const form = new FormData();
       form.append("file", fileInput.files[0]);
+      if (kind) form.append("kind", kind);
+      if (spaceKey) form.append("space", spaceKey);
       const res = await api("/api/kb/upload", { method: "POST", body: form });
-      adminOutput.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
-    }
-
-    async function pullRepoKb() {
-      const repoUrl = (el("repoUrl").value || "").trim();
-      const branch = (el("repoBranch").value || "main").trim();
-      const subPath = (el("repoSubPath").value || "").trim();
-      if (!repoUrl) {
-        adminOutput.textContent = "Please input repo URL first.";
-        return;
-      }
-      const payload = { repoUrl, branch, subPath };
-      const res = await api("/api/kb/pull-repo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
       adminOutput.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
     }
 
@@ -648,9 +756,7 @@
 
     el("btnAdminReports").addEventListener("click", () => callJson("/api/admin/reports", adminOutput));
     el("btnAdminMcp").addEventListener("click", () => callJson("/api/admin/mcp-logs", adminOutput));
-    el("btnKbUpload").addEventListener("click", uploadKb);
     el("btnKbReload").addEventListener("click", () => callJson("/api/kb/reload", adminOutput, { method: "POST" }));
-    el("btnKbPullRepo").addEventListener("click", pullRepoKb);
 
     el("btnChat").addEventListener("click", sendChat);
     el("btnClear").addEventListener("click", () => {
@@ -661,8 +767,12 @@
       chatStatus.className = "status";
     });
 
-    renderGate();
-    refreshLlmIndicator();
+    (async function boot() {
+      const ok = await bootstrapLabPage();
+      if (!ok) return;
+      await loadSpaces();
+      refreshLlmIndicator();
+    })();
   </script>
 </body>
 </html>

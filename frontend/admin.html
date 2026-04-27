@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindAgent 管理员页面 - 知识库管理</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111d35;
+      --paper: rgba(255,255,255,.96);
+      --line: rgba(215,223,239,.95);
+      --text: #14213d;
+      --muted: #64748b;
+      --brand: #1f66e5;
+      --brand-2: #1549b6;
+      --ok: #067647;
+      --warn: #b54708;
+      --danger: #b42318;
+      --radius: 18px;
+      --shadow: 0 22px 52px rgba(15, 23, 42, .24);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #e8effd;
+      font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(900px 500px at -10% -15%, rgba(31,102,229,.18), transparent 56%),
+        radial-gradient(900px 500px at 110% -15%, rgba(7,118,71,.22), transparent 56%),
+        linear-gradient(180deg, var(--bg-soft), var(--bg));
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 20px 18px 28px;
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+      animation: rise .45s ease-out both;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: .4px;
+    }
+    .hero p {
+      margin: 6px 0 0;
+      color: #c6d4ee;
+      font-size: 14px;
+      max-width: 900px;
+      line-height: 1.56;
+    }
+    .pill {
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #d6e2fa;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 14px;
+      align-items: start;
+      animation: rise .55s ease-out both;
+      animation-delay: .04s;
+    }
+    @media (max-width: 1180px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; }
+    }
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      padding: 14px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      border: 1px solid var(--line);
+      background: #f7f9ff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+    }
+    .row { display: grid; gap: 8px; margin-bottom: 10px; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      outline: none;
+      color: var(--text);
+      font-size: 14px;
+      background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(31,102,229,.48);
+      box-shadow: 0 0 0 4px rgba(31,102,229,.12);
+    }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 8px 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform .16s, box-shadow .16s, filter .16s;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(17, 24, 39, .08);
+      filter: brightness(.99);
+    }
+    button.primary {
+      color: #fff;
+      border-color: var(--brand);
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+    button.danger {
+      color: #fff;
+      border-color: #c43b2d;
+      background: linear-gradient(135deg, #de4838, #b42318);
+    }
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .danger-text { color: var(--danger); }
+    .summary-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-bottom: 10px;
+    }
+    @media (max-width: 680px) {
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fcfeff, #f4f8ff);
+      padding: 10px;
+    }
+    .metric .label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .metric .value { font-size: 18px; font-weight: 700; letter-spacing: .2px; }
+    .metric .desc { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+    .docs-wrap {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+    }
+    .docs-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+    }
+    .docs-table th, .docs-table td {
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    .docs-table th {
+      background: #f6f9ff;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .docs-table tr:hover td {
+      background: #f9fbff;
+    }
+    .docs-table tr.active td {
+      background: rgba(31,102,229,.08);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .status-processing { color: #b54708; background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.22); }
+    .status-active { color: #067647; background: rgba(16,185,129,.10); border-color: rgba(16,185,129,.22); }
+    .status-failed { color: #b42318; background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.20); }
+    .status-deleted { color: #475569; background: rgba(148,163,184,.14); border-color: rgba(148,163,184,.26); }
+    .status-default { color: #334155; background: rgba(148,163,184,.10); border-color: rgba(148,163,184,.18); }
+    .meta-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 960px) {
+      .meta-grid { grid-template-columns: 1fr; }
+    }
+    .meta-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fcfeff, #f7fbff);
+      padding: 10px;
+      min-width: 0;
+    }
+    .meta-item .k {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .meta-item .v {
+      font-size: 13px;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.55;
+    }
+    .detail-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .detail-head h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .chunk-list {
+      display: grid;
+      gap: 10px;
+      max-height: 760px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .chunk-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      padding: 12px;
+    }
+    .chunk-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .chunk-top strong { font-size: 14px; }
+    .chunk-body {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 960px) {
+      .chunk-body { grid-template-columns: 1fr; }
+    }
+    .chunk-pre {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .empty {
+      border: 1px dashed rgba(148,163,184,.6);
+      border-radius: 14px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255,255,255,.7);
+    }
+    .hidden { display: none; }
+    .toolbar-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .upload-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .space-card {
+      border: 1px solid rgba(215,223,239,.95);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(31,102,229,.06), rgba(7,118,71,.05));
+      padding: 12px;
+      min-height: 176px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .space-card h3 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+    .space-card .space-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .space-card .space-file {
+      margin-top: auto;
+    }
+    @media (max-width: 720px) {
+      .toolbar-grid { grid-template-columns: 1fr; }
+      .upload-grid { grid-template-columns: 1fr; }
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <h1>知识库管理</h1>
+        <p>MySQL 是管理真相源，负责文档展示、状态流转、chunk 列表与详情；Chroma 只保留向量检索结果。支持上传覆盖更新与精确删除。</p>
+      </div>
+      <div class="pill" id="authPill">Auth: checking...</div>
+    </header>
+
+    <main class="layout">
+      <section class="card">
+        <h2>管理操作 <span class="badge">Admin</span></h2>
+        <div class="status" id="authStatus">正在检查权限...</div>
+
+        <div class="summary-grid">
+          <div class="metric">
+            <div class="label">文档总数</div>
+            <div class="value" id="docCount">0</div>
+            <div class="desc">包含 `解析中 / 已生效 / 失败 / 已删除` 的全部记录。</div>
+          </div>
+          <div class="metric">
+            <div class="label">当前文档</div>
+            <div class="value" id="activeDocName">未选择</div>
+            <div class="desc" id="activeDocMeta">点击右侧列表查看详情。</div>
+          </div>
+        </div>
+
+        <div class="toolbar-grid">
+          <div class="card" style="padding:12px;">
+            <h2 style="margin-bottom:8px;">上传入口 <span class="badge">POST /api/kb/upload</span></h2>
+            <div id="spaceStatus" class="status" style="margin-bottom:0;">正在加载知识库空间...</div>
+          </div>
+        </div>
+        <div id="uploadSpaces" class="upload-grid" style="margin-top:10px;"></div>
+
+        <div class="btns" style="margin-top:10px;">
+          <button id="btnReload">重载缓存</button>
+          <button id="btnRefreshDocs">刷新列表</button>
+          <button id="btnLogout">退出登录</button>
+          <button id="btnGoLogin">返回登录页</button>
+        </div>
+
+        <div class="row">
+          <select id="statusFilter">
+            <option value="">全部状态</option>
+            <option value="PROCESSING">解析中</option>
+            <option value="ACTIVE">已生效</option>
+            <option value="FAILED">失败</option>
+            <option value="DELETED">已删除</option>
+          </select>
+          <input id="searchInput" placeholder="按文件名 / 文档名搜索" />
+        </div>
+
+        <div id="listStatus" class="status">等待加载文档列表</div>
+        <table class="docs-table">
+          <thead>
+            <tr>
+              <th style="width:28%;">文件名</th>
+              <th style="width:14%;">类型</th>
+              <th style="width:18%;">知识库空间</th>
+              <th style="width:14%;">分类</th>
+              <th style="width:12%;">状态</th>
+              <th style="width:10%;">chunk 数量</th>
+              <th style="width:14%;">更新时间</th>
+              <th style="width:6%;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="docTbody">
+            <tr><td colspan="8" class="empty">正在加载...</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <div class="detail-head">
+          <div>
+            <h3 id="detailTitle">文档详情</h3>
+            <div class="status" id="detailSub">选择左侧文档查看原始信息、chunk 列表与 metadata。</div>
+          </div>
+          <div class="btns" style="margin:0;">
+            <button id="btnRefreshDetail">刷新详情</button>
+            <button class="danger" id="btnDeleteDoc">删除文档</button>
+          </div>
+        </div>
+
+        <div id="detailEmpty" class="empty">尚未选择文档。</div>
+        <div id="detailPanel" class="hidden">
+          <div class="summary-grid">
+            <div class="metric">
+              <div class="label">状态</div>
+              <div class="value" id="detailStatus">-</div>
+              <div class="desc" id="detailStatusDesc">-</div>
+            </div>
+            <div class="metric">
+              <div class="label">向量库状态</div>
+              <div class="value" id="detailVector">-</div>
+              <div class="desc">仅当文档状态为 `ACTIVE` 时才视为已写入向量库。</div>
+            </div>
+          </div>
+
+          <h2>原始文档信息 <span class="badge">MySQL</span></h2>
+          <div class="meta-grid" id="docMetaGrid"></div>
+
+          <h2 style="margin-top:14px;">Chunk 列表 <span class="badge">kb_chunk</span></h2>
+          <div id="chunkList" class="chunk-list"></div>
+        </div>
+
+        <div id="actionStatus" class="status" style="margin-top:14px;">准备就绪</div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const ACCESS_KEY = "mb_access_token";
+    const REFRESH_KEY = "mb_refresh_token";
+    const ROLE_KEY = "mb_role";
+
+    const el = (id) => document.getElementById(id);
+    const authPill = el("authPill");
+    const authStatus = el("authStatus");
+    const listStatus = el("listStatus");
+    const actionStatus = el("actionStatus");
+    const docTbody = el("docTbody");
+    const docCount = el("docCount");
+    const activeDocName = el("activeDocName");
+    const activeDocMeta = el("activeDocMeta");
+    const detailTitle = el("detailTitle");
+    const detailSub = el("detailSub");
+    const detailEmpty = el("detailEmpty");
+    const detailPanel = el("detailPanel");
+    const detailStatus = el("detailStatus");
+    const detailStatusDesc = el("detailStatusDesc");
+    const detailVector = el("detailVector");
+    const docMetaGrid = el("docMetaGrid");
+    const chunkList = el("chunkList");
+    const uploadSpaces = el("uploadSpaces");
+    const spaceStatus = el("spaceStatus");
+
+    let documents = [];
+    let knowledgeSpaces = [];
+    let activeDocumentId = null;
+    let activeDetail = null;
+    let refreshTimer = null;
+
+    function getAccessToken() { return localStorage.getItem(ACCESS_KEY) || ""; }
+    function getRefreshToken() { return localStorage.getItem(REFRESH_KEY) || ""; }
+    function getRole() { return localStorage.getItem(ROLE_KEY) || ""; }
+
+    function clearSession() {
+      localStorage.removeItem(ACCESS_KEY);
+      localStorage.removeItem(REFRESH_KEY);
+      localStorage.removeItem(ROLE_KEY);
+    }
+
+    function redirectToLogin() {
+      location.href = "login.html";
+    }
+
+    function redirectByRole(role) {
+      if ((role || "").toUpperCase() === "ADMIN") {
+        location.href = "admin.html";
+        return;
+      }
+      location.href = "index.html";
+    }
+
+    function statusLabel(status) {
+      const map = {
+        PROCESSING: "解析中",
+        ACTIVE: "已生效",
+        FAILED: "失败",
+        DELETED: "已删除"
+      };
+      return map[(status || "").toUpperCase()] || (status || "-");
+    }
+
+    function statusClass(status) {
+      switch ((status || "").toUpperCase()) {
+        case "PROCESSING": return "status-processing";
+        case "ACTIVE": return "status-active";
+        case "FAILED": return "status-failed";
+        case "DELETED": return "status-deleted";
+        default: return "status-default";
+      }
+    }
+
+    function typeLabel(sourceType) {
+      return (sourceType || "").toLowerCase().includes("faq") ? "FAQ" : "知识文档";
+    }
+
+    function spaceUploadLabel(spaceKey) {
+      switch ((spaceKey || "").toLowerCase()) {
+        case "knowledge_base_3":
+          return "上传校园内部知识库";
+        default:
+          return "上传校园心理健康知识";
+      }
+    }
+
+    function spaceCardTitle(spaceKey) {
+      switch ((spaceKey || "").toLowerCase()) {
+        case "knowledge_base_3":
+          return "校园内部知识库";
+        default:
+          return "校园心理健康知识";
+      }
+    }
+
+    function formatTime(value) {
+      if (!value) return "-";
+      const text = String(value);
+      return text.replace("T", " ").replace(".000000", "");
+    }
+
+    function parseJson(text) {
+      if (!text) return {};
+      try {
+        return JSON.parse(text);
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function escapeHtml(text) {
+      return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function setStatus(node, text, cls) {
+      node.textContent = text;
+      node.className = `status ${cls || ""}`.trim();
+    }
+
+    function spaceInputId(spaceKey) {
+      return `uploadFile_${spaceKey}`;
+    }
+
+    function renderUploadSpaces(items) {
+      knowledgeSpaces = Array.isArray(items) && items.length ? items : [
+        { key: "knowledge_base_1", label: "校园心理健康知识", description: "面向校园心理健康 FAQ、知识文档与合并后的科普资料。" },
+        { key: "knowledge_base_3", label: "校园内部知识库", description: "面向校园内部制度、流程与资料。" }
+      ];
+      uploadSpaces.innerHTML = knowledgeSpaces.map(space => {
+        const key = space.key || "knowledge_base_1";
+        const label = space.label || spaceCardTitle(key);
+        const uploadLabel = space.uploadLabel || spaceUploadLabel(key);
+        const desc = space.description || "";
+        return `
+          <section class="space-card">
+            <h3>${escapeHtml(label)}</h3>
+            <div class="badge">${escapeHtml(key)}</div>
+            <div class="space-desc">${escapeHtml(desc)}</div>
+            <div class="row space-file">
+              <input id="${escapeHtml(spaceInputId(key))}" type="file" accept=".md,.txt" />
+            </div>
+            <div class="btns">
+              <button class="primary" data-upload-space="${escapeHtml(key)}" data-upload-kind="faq">上传 FAQ</button>
+              <button class="primary" data-upload-space="${escapeHtml(key)}" data-upload-kind="kb">上传 KB</button>
+            </div>
+          </section>
+        `;
+      }).join("");
+      uploadSpaces.querySelectorAll("button[data-upload-space]").forEach(button => {
+        button.addEventListener("click", () => uploadFile(button.dataset.uploadSpace, button.dataset.uploadKind));
+      });
+      if (spaceStatus) {
+        setStatus(spaceStatus, `已加载 ${knowledgeSpaces.length} 个知识库空间。`, "ok");
+      }
+    }
+
+    function ensureAdmin() {
+      const role = (getRole() || "").toUpperCase();
+      if (!getAccessToken()) {
+        authPill.textContent = "Auth: 需要登录";
+        setStatus(authStatus, "当前会话已失效，请先登录。", "warn");
+        setTimeout(redirectToLogin, 650);
+        return false;
+      }
+      if (role !== "ADMIN") {
+        authPill.textContent = "Auth: 用户会话";
+        setStatus(authStatus, "当前账号不是管理员，正在返回使用页面。", "warn");
+        setTimeout(() => redirectByRole(role), 650);
+        return false;
+      }
+      authPill.textContent = "Auth: ADMIN";
+      setStatus(authStatus, "管理员会话已就绪。", "ok");
+      return true;
+    }
+
+    async function refreshToken() {
+      const rt = getRefreshToken();
+      if (!rt) return false;
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken: rt })
+      });
+      if (!res.ok) {
+        clearSession();
+        redirectToLogin();
+        return false;
+      }
+      const data = await res.json();
+      if (data.accessToken || data.token) localStorage.setItem(ACCESS_KEY, data.accessToken || data.token);
+      if (data.refreshToken) localStorage.setItem(REFRESH_KEY, data.refreshToken);
+      if (data.role) localStorage.setItem(ROLE_KEY, data.role);
+      ensureAdmin();
+      return true;
+    }
+
+    async function api(path, options = {}, allowRetry = true) {
+      const headers = Object.assign({}, options.headers || {});
+      const token = getAccessToken();
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+      const res = await fetch(path, Object.assign({}, options, { headers }));
+      if (res.status === 401 && allowRetry && getRefreshToken()) {
+        const ok = await refreshToken();
+        if (ok) return api(path, options, false);
+      }
+      return res;
+    }
+
+    async function loadDocuments() {
+      setStatus(listStatus, "正在加载文档列表...", "");
+      const res = await api("/api/kb/documents");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus(listStatus, data.error || `加载失败：HTTP ${res.status}`, "danger-text");
+        docTbody.innerHTML = `<tr><td colspan="8" class="empty">加载失败</td></tr>`;
+        return;
+      }
+      documents = Array.isArray(data.items) ? data.items : [];
+      docCount.textContent = String(documents.length);
+      setStatus(listStatus, `共 ${documents.length} 条文档记录。`, "ok");
+      renderDocuments();
+      if (activeDocumentId) {
+        const exists = documents.some(item => String(item.id) === String(activeDocumentId));
+        if (!exists && documents.length) {
+          selectDocument(documents[0].id);
+        }
+      } else if (documents.length) {
+        selectDocument(documents[0].id);
+      }
+    }
+
+    function filteredDocuments() {
+      const status = el("statusFilter").value;
+      const keyword = el("searchInput").value.trim().toLowerCase();
+      return documents.filter(item => {
+        const statusOk = !status || String(item.status || "").toUpperCase() === status;
+        const text = `${item.originalFilename || ""} ${item.docName || ""} ${item.storedFilename || ""} ${item.knowledgeBaseLabel || ""}`.toLowerCase();
+        const keywordOk = !keyword || text.includes(keyword);
+        return statusOk && keywordOk;
+      });
+    }
+
+    function renderDocuments() {
+      const items = filteredDocuments();
+      if (!items.length) {
+        docTbody.innerHTML = `<tr><td colspan="8" class="empty">没有符合条件的文档</td></tr>`;
+        return;
+      }
+      docTbody.innerHTML = items.map(item => `
+        <tr class="${String(item.id) === String(activeDocumentId) ? "active" : ""}" data-id="${item.id}">
+          <td>
+            <div style="font-weight:700;">${escapeHtml(item.originalFilename || item.storedFilename || "-")}</div>
+            <div style="font-size:12px;color:#64748b;margin-top:3px;">${escapeHtml(item.docName || "-")}</div>
+          </td>
+          <td>
+            <span class="status-badge ${statusClass(item.status)}">${escapeHtml(typeLabel(item.sourceType))}</span>
+          </td>
+          <td>
+            <span class="status-badge status-default">${escapeHtml(item.knowledgeBaseLabel || spaceUploadLabel(item.knowledgeBaseKey || "knowledge_base_1"))}</span>
+          </td>
+          <td>${escapeHtml(item.category || "-")}</td>
+          <td>
+            <span class="status-badge ${statusClass(item.status)}">${escapeHtml(item.statusLabel || statusLabel(item.status))}</span>
+          </td>
+          <td>${item.chunkCount ?? 0}</td>
+          <td>${escapeHtml(formatTime(item.updatedAt))}</td>
+          <td><button data-act="select" data-id="${item.id}">查看</button></td>
+        </tr>
+      `).join("");
+
+      docTbody.querySelectorAll("tr[data-id]").forEach(row => {
+        row.addEventListener("click", (event) => {
+          const btn = event.target.closest("button");
+          if (btn && btn.dataset.act === "select") {
+            selectDocument(btn.dataset.id);
+            return;
+          }
+          selectDocument(row.dataset.id);
+        });
+      });
+    }
+
+    async function selectDocument(id) {
+      activeDocumentId = id;
+      renderDocuments();
+      setStatus(actionStatus, "正在加载文档详情...", "");
+      const res = await api(`/api/kb/documents/${id}`);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus(actionStatus, data.error || `详情加载失败：HTTP ${res.status}`, "danger-text");
+        return;
+      }
+      activeDetail = data;
+      renderDetail(data);
+    }
+
+    function renderDetail(data) {
+      const doc = data.document || {};
+      const chunks = Array.isArray(data.chunks) ? data.chunks : [];
+      detailEmpty.classList.add("hidden");
+      detailPanel.classList.remove("hidden");
+      activeDocName.textContent = doc.docName || doc.originalFilename || "未命名";
+      activeDocMeta.textContent = `${typeLabel(doc.sourceType)} · ${doc.category || "-"} · ${statusLabel(doc.status)}`;
+      detailTitle.textContent = doc.originalFilename || doc.storedFilename || "文档详情";
+      detailSub.textContent = `ID: ${doc.id || "-"} · 存储文件: ${doc.storedFilename || "-"} · 更新于 ${formatTime(doc.updatedAt)}`;
+      detailStatus.textContent = statusLabel(doc.status);
+      detailStatus.className = `value ${statusClass(doc.status)}`.trim();
+      detailStatusDesc.textContent = `chunk 数: ${doc.chunkCount ?? 0}，vector 数: ${doc.vectorCount ?? 0}。`;
+      detailVector.textContent = data.vectorStoreWritten ? "已写入" : "未写入";
+      docMetaGrid.innerHTML = metaItems([
+        ["原始文件名", doc.originalFilename],
+        ["存储文件名", doc.storedFilename],
+        ["知识库空间", doc.knowledgeBaseLabel || spaceUploadLabel(doc.knowledgeBaseKey)],
+        ["文档名称", doc.docName],
+        ["类型", typeLabel(doc.sourceType)],
+        ["分类", doc.category],
+        ["来源类型", doc.sourceType],
+        ["受众", doc.audience],
+        ["版本", doc.version],
+        ["状态", statusLabel(doc.status)],
+        ["错误信息", doc.errorMessage],
+        ["文件大小", doc.fileBytes == null ? "-" : `${doc.fileBytes} bytes`],
+        ["chunk 数量", doc.chunkCount],
+        ["vector 数量", doc.vectorCount],
+        ["创建时间", formatTime(doc.createdAt)],
+        ["更新时间", formatTime(doc.updatedAt)],
+        ["处理时间", formatTime(doc.processedAt)],
+        ["存储路径", doc.storagePath]
+      ]);
+
+      if (!chunks.length) {
+        chunkList.innerHTML = `<div class="empty">该文档暂无 chunk。</div>`;
+      } else {
+        chunkList.innerHTML = chunks.map(chunk => {
+          const metadata = parseJson(chunk.metadataJson);
+          return `
+            <article class="chunk-card">
+              <div class="chunk-top">
+                <div>
+                  <strong>Chunk #${chunk.chunkIndex ?? "-"}</strong>
+                  <div style="font-size:12px;color:#64748b;margin-top:4px;">
+                    ${escapeHtml(chunk.chunkId || "-")} · ${escapeHtml(chunk.sectionKey || "-")} · ${escapeHtml(chunk.sectionTitle || "-")}
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <span class="status-badge ${statusClass(doc.status)}">${escapeHtml(statusLabel(doc.status))}</span>
+                  <span class="status-badge status-default">${escapeHtml(String(chunk.tokenCount ?? 0))} tokens</span>
+                </div>
+              </div>
+              <div class="chunk-body">
+                <div>
+                  <div class="status" style="margin-bottom:6px;">内容预览</div>
+                  <div class="chunk-pre">${escapeHtml(previewText(chunk.content))}</div>
+                </div>
+                <div>
+                  <div class="status" style="margin-bottom:6px;">metadata</div>
+                  <div class="chunk-pre">${escapeHtml(JSON.stringify(metadata, null, 2))}</div>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+      }
+      setStatus(actionStatus, `已加载文档 ${doc.docName || doc.originalFilename || doc.id}。`, "ok");
+    }
+
+    function previewText(text) {
+      const value = String(text || "");
+      return value.length > 1200 ? `${value.slice(0, 1200)}...` : value;
+    }
+
+    function metaItems(items) {
+      return items.map(([k, v]) => `
+        <div class="meta-item">
+          <div class="k">${escapeHtml(k)}</div>
+          <div class="v">${escapeHtml(v == null || v === "" ? "-" : String(v))}</div>
+        </div>
+      `).join("");
+    }
+
+    async function deleteSelected() {
+      if (!activeDocumentId) {
+        setStatus(actionStatus, "请先选择一个文档。", "warn");
+        return;
+      }
+      const current = documents.find(item => String(item.id) === String(activeDocumentId));
+      const name = current ? (current.originalFilename || current.docName || current.id) : activeDocumentId;
+      if (!confirm(`确认删除文档：${name} ?`)) return;
+      setStatus(actionStatus, "正在删除...", "");
+      const res = await api(`/api/kb/documents/${activeDocumentId}`, { method: "DELETE" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus(actionStatus, data.error || `删除失败：HTTP ${res.status}`, "danger-text");
+        return;
+      }
+      setStatus(actionStatus, `文档已删除：${data.document?.storedFilename || activeDocumentId}`, "ok");
+      activeDetail = data;
+      await loadDocuments();
+      if (documents.length) {
+        const next = documents.find(item => String(item.id) !== String(activeDocumentId)) || documents[0];
+        if (next) {
+          selectDocument(next.id);
+        }
+      } else {
+        activeDocumentId = null;
+        showEmptyDetail();
+      }
+    }
+
+    function showEmptyDetail() {
+      activeDocName.textContent = "未选择";
+      activeDocMeta.textContent = "点击上方选择列表或右侧表格查看详情。";
+      detailTitle.textContent = "文档详情";
+      detailSub.textContent = "选择文档后可查看原始信息、chunk 列表与 metadata。";
+      detailEmpty.classList.remove("hidden");
+      detailPanel.classList.add("hidden");
+    }
+
+    async function loadSpaces() {
+      try {
+        const res = await api("/api/kb/spaces");
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && Array.isArray(data.items) && data.items.length) {
+          renderUploadSpaces(data.items);
+          return;
+        }
+      } catch (_) {
+        // fall back to static defaults below
+      }
+      renderUploadSpaces([]);
+    }
+
+    async function uploadFile(spaceKey, kind) {
+      const fileInput = el(spaceInputId(spaceKey));
+      if (!fileInput.files || !fileInput.files.length) {
+        setStatus(actionStatus, "请选择要上传的文件。", "warn");
+        return;
+      }
+      const file = fileInput.files[0];
+      const form = new FormData();
+      form.append("file", file);
+      if (kind) form.append("kind", kind);
+      if (spaceKey) form.append("space", spaceKey);
+      setStatus(actionStatus, `正在上传到 ${spaceCardTitle(spaceKey)}，解析为 ${kind ? kind.toUpperCase() : "自动识别"}...`, "");
+      const res = await api("/api/kb/upload", { method: "POST", body: form });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus(actionStatus, data.error || `上传失败：HTTP ${res.status}`, "danger-text");
+        return;
+      }
+      setStatus(actionStatus, `上传已受理：${data.file || file.name}，文档 ID: ${data.documentId}，空间: ${spaceCardTitle(data.space || spaceKey)}，类型: ${data.kind || kind || "auto"}。`, "ok");
+      fileInput.value = "";
+      await loadDocuments();
+      if (data.documentId) {
+        await selectDocument(data.documentId);
+      }
+    }
+
+    async function reloadKnowledge() {
+      setStatus(actionStatus, "正在重载知识库缓存...", "");
+      const res = await api("/api/kb/reload", { method: "POST" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus(actionStatus, data.error || `重载失败：HTTP ${res.status}`, "danger-text");
+        return;
+      }
+      setStatus(actionStatus, `缓存已重载，当前块数：${data.chunks ?? 0}`, "ok");
+      await loadDocuments();
+    }
+
+    function startAutoRefresh() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = setInterval(async () => {
+        const selected = documents.find(item => String(item.id) === String(activeDocumentId));
+        if (selected && String(selected.status || "").toUpperCase() === "PROCESSING") {
+          await loadDocuments();
+          if (activeDocumentId) {
+            await selectDocument(activeDocumentId);
+          }
+        }
+      }, 4500);
+    }
+
+    el("btnRefreshDocs").addEventListener("click", loadDocuments);
+    el("btnReload").addEventListener("click", reloadKnowledge);
+    el("btnDeleteDoc").addEventListener("click", deleteSelected);
+    el("btnRefreshDetail").addEventListener("click", async () => {
+      if (activeDocumentId) await selectDocument(activeDocumentId);
+    });
+    el("btnLogout").addEventListener("click", () => {
+      clearSession();
+      redirectToLogin();
+    });
+    el("btnGoLogin").addEventListener("click", redirectToLogin);
+    el("statusFilter").addEventListener("change", renderDocuments);
+    el("searchInput").addEventListener("input", renderDocuments);
+
+    async function bootstrapAdminPage() {
+      if (!getAccessToken()) {
+        if (getRefreshToken()) {
+          const ok = await refreshToken();
+          if (!ok) return false;
+        } else {
+          redirectToLogin();
+          return false;
+        }
+      }
+      if (!ensureAdmin()) return false;
+      await loadSpaces();
+      return true;
+    }
+
+    (async function boot() {
+      const ok = await bootstrapAdminPage();
+      if (!ok) return;
+      await loadDocuments();
+      startAutoRefresh();
+    })();
+  </script>
+</body>
+</html>

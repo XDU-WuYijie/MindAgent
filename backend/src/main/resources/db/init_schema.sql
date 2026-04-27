@@ -112,6 +112,56 @@ CREATE TABLE IF NOT EXISTS refresh_tokens (
   KEY idx_refresh_tokens_expires_at (expires_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS kb_document (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  original_filename VARCHAR(255) NOT NULL,
+  stored_filename VARCHAR(255) NOT NULL,
+  storage_path VARCHAR(500) NOT NULL,
+  knowledge_base_key VARCHAR(32) NOT NULL,
+  doc_name VARCHAR(255) NOT NULL,
+  source_type VARCHAR(32) NOT NULL,
+  audience VARCHAR(255) DEFAULT NULL,
+  version VARCHAR(64) DEFAULT NULL,
+  status VARCHAR(16) NOT NULL,
+  error_message VARCHAR(500) DEFAULT NULL,
+  file_bytes BIGINT NOT NULL,
+  chunk_count INT NOT NULL DEFAULT 0,
+  vector_count INT NOT NULL DEFAULT 0,
+  created_at DATETIME(6) NOT NULL,
+  updated_at DATETIME(6) NOT NULL,
+  processed_at DATETIME(6) DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_kb_document_space_stored_filename (knowledge_base_key, stored_filename),
+  KEY idx_kb_document_status_created_at (status, created_at),
+  KEY idx_kb_document_updated_at (updated_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS kb_chunk (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  document_id BIGINT NOT NULL,
+  chunk_index INT NOT NULL,
+  chunk_id VARCHAR(255) NOT NULL,
+  section_key VARCHAR(64) NOT NULL,
+  section_title VARCHAR(255) NOT NULL,
+  category VARCHAR(255) DEFAULT NULL,
+  tags VARCHAR(500) DEFAULT NULL,
+  risk_level VARCHAR(16) DEFAULT NULL,
+  source_page_range VARCHAR(64) DEFAULT NULL,
+  question_text LONGTEXT DEFAULT NULL,
+  answer_text LONGTEXT DEFAULT NULL,
+  content LONGTEXT NOT NULL,
+  metadata_json LONGTEXT NOT NULL,
+  token_count INT NOT NULL,
+  created_at DATETIME(6) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_kb_chunk_chunk_id (chunk_id),
+  KEY idx_kb_chunk_document_id (document_id),
+  KEY idx_kb_chunk_document_order (document_id, chunk_index),
+  CONSTRAINT fk_kb_chunk_document
+    FOREIGN KEY (document_id) REFERENCES kb_document (id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 INSERT INTO app_users (username, password_hash, role)
 SELECT 'admin', '$2y$10$6Ir/CSrUgitVwqC2wpEEiuSBw9CaObgci8P3CT33PSQrbj5byAGZi', 'ADMIN'
 WHERE NOT EXISTS (

@@ -288,6 +288,50 @@
       word-break: break-word;
     }
 
+    .result-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .result-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fcfeff, #f4f8ff);
+      padding: 10px;
+    }
+
+    .result-item .head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .result-item .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .result-item .meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .result-item .snippet {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -299,24 +343,19 @@
     <header class="hero">
       <div>
         <h1>MindAgent 展示页</h1>
-        <p>用于日常体验：登录、聊天、我的记录。管理员账号会显示“进入联调页”按钮。聊天区域同时展示 SSE 实时事件与完整回复。</p>
+        <p>用于日常体验：聊天、我的记录与当前会话管理。未登录会跳转登录页，管理员账号会自动分流到管理页。聊天区域同时展示 SSE 实时事件与完整回复。</p>
       </div>
       <div class="pill" id="llmIndicator">LLM: loading...</div>
     </header>
 
     <main class="layout">
       <section class="card">
-        <h2>登录与会话 <span class="badge">Auth</span></h2>
-        <div class="row">
-          <input id="username" placeholder="用户名（user/admin）" value="user" />
-          <input id="password" type="password" placeholder="密码" value="user123" />
-        </div>
+        <h2>会话与数据 <span class="badge">User</span></h2>
+        <div id="authStatus" class="status warn">正在检查登录状态...</div>
         <div class="btns">
-          <button class="primary" id="btnLogin">登录</button>
           <button id="btnRefresh">刷新令牌</button>
           <button id="btnLogout">退出</button>
         </div>
-        <div id="authStatus" class="status warn">未登录</div>
 
         <div class="btns">
           <button class="primary" id="btnCreateSession">新建会话</button>
@@ -331,9 +370,6 @@
         <div id="sessionStatus" class="status">当前会话：未选择</div>
         <pre id="sessionList"></pre>
 
-        <div id="labEntryBox" class="btns hidden">
-          <button id="btnGoLab">进入管理员联调页</button>
-        </div>
         <pre id="leftOutput"></pre>
         <p class="sub-title" style="margin-top:10px;">SSE 实时事件（intent / rag / token / done）</p>
         <pre id="sseOutput"></pre>
@@ -347,11 +383,16 @@
         </div>
         <div class="btns">
           <button class="primary" id="btnChat">发送（POST /api/chat/stream）</button>
+          <button id="btnRagDebug">调试召回（POST /api/rag/retrieve/debug）</button>
           <button id="btnClear">清空结果</button>
         </div>
         <div id="chatStatus" class="status">准备就绪</div>
         <p class="sub-title" style="margin-top:10px;">聊天气泡视图（更接近真实聊天界面）</p>
         <div id="bubbleList" class="chat-bubbles"></div>
+        <p class="sub-title" style="margin-top:10px;">RAG 调试 Top5（最终展示结果）</p>
+        <div id="ragDebugGrid" class="debug-grid"></div>
+        <div id="ragResultList" class="result-list"></div>
+        <pre id="ragDebugOutput"></pre>
         <p class="sub-title" style="margin-top:10px;">当前会话 Token 调试</p>
         <div id="tokenDebugGrid" class="debug-grid"></div>
         <pre id="tokenDebugOutput"></pre>
@@ -369,13 +410,15 @@
     const leftOutput = el("leftOutput");
     const sseOutput = el("sseOutput");
     const chatStatus = el("chatStatus");
-    const labEntryBox = el("labEntryBox");
     const bubbleList = el("bubbleList");
     const llmIndicator = el("llmIndicator");
     const sessionStatus = el("sessionStatus");
     const sessionList = el("sessionList");
     const tokenDebugGrid = el("tokenDebugGrid");
     const tokenDebugOutput = el("tokenDebugOutput");
+    const ragDebugGrid = el("ragDebugGrid");
+    const ragResultList = el("ragResultList");
+    const ragDebugOutput = el("ragDebugOutput");
     let currentSessionId = null;
     let tokenDebugTimer = null;
 
@@ -403,18 +446,30 @@
       if (!at) {
         authStatus.textContent = "未登录";
         authStatus.className = "status warn";
-        labEntryBox.classList.add("hidden");
         return;
       }
       authStatus.textContent = `已登录（角色: ${role || "unknown"}）`;
       authStatus.className = "status ok";
-      if (role === "ADMIN") labEntryBox.classList.remove("hidden");
-      else labEntryBox.classList.add("hidden");
+    }
+
+    function redirectToLogin() {
+      location.href = "login.html";
+    }
+
+    function redirectByRole(role) {
+      if ((role || "").toUpperCase() === "ADMIN") {
+        location.href = "admin.html";
+        return;
+      }
+      location.href = "index.html";
     }
 
     async function refreshToken() {
       const rt = getRefreshToken();
-      if (!rt) return false;
+      if (!rt) {
+        redirectToLogin();
+        return false;
+      }
       const res = await fetch("/api/auth/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -422,6 +477,7 @@
       });
       if (!res.ok) {
         clearSession();
+        redirectToLogin();
         return false;
       }
       const data = await res.json();
@@ -440,24 +496,6 @@
         if (ok) return api(path, options, false);
       }
       return res;
-    }
-
-    async function login() {
-      const username = el("username").value.trim();
-      const password = el("password").value;
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json().catch(() => ({}));
-      leftOutput.textContent = JSON.stringify(data, null, 2);
-      if (!res.ok) {
-        authStatus.textContent = "登录失败";
-        authStatus.className = "status danger";
-        return;
-      }
-      setSession(data.accessToken || data.token, data.refreshToken, data.role || "");
     }
 
     async function callJson(path) {
@@ -596,6 +634,24 @@
               answerText += evt.data;
               updateBubbleText(assistantBubble, answerText);
             }
+            if (evt.eventName === "rag") {
+              try {
+                const rag = JSON.parse(evt.data);
+                renderRagDebug({
+                  ok: true,
+                  intentType: null,
+                  queryType: rag.queryType,
+                  rewrittenQuery: rag.rewrittenQuery,
+                  bm25Results: [],
+                  vectorResults: [],
+                  fusedResults: [],
+                  rerankResults: rag.rerankResults || [],
+                  selectedResults: rag.selectedChunks || []
+                });
+              } catch (_) {
+                // Ignore rag preview parse failures.
+              }
+            }
             if (evt.eventName === "done") {
               chatStatus.textContent = "完成";
               chatStatus.className = "status ok";
@@ -617,6 +673,7 @@
         await loadSessions(false);
         await loadCurrentSessionMessages();
         await refreshTokenDebug();
+        await runRagDebug();
       };
       await run(true);
     }
@@ -692,6 +749,82 @@
       `).join("");
 
       tokenDebugOutput.textContent = JSON.stringify(data, null, 2);
+    }
+
+    function preview(text, max = 180) {
+      const safe = String(text || "").trim();
+      return safe.length <= max ? safe : safe.slice(0, max) + "...";
+    }
+
+    function renderRagDebug(data) {
+      if (!data) {
+        ragDebugGrid.innerHTML = "";
+        ragResultList.innerHTML = "";
+        ragDebugOutput.textContent = "";
+        return;
+      }
+      const cards = [
+        {
+          label: "Intent / QueryType",
+          value: `${data.intentType || "-"} / ${data.queryType || "-"}`,
+          desc: `rewritten=${data.rewrittenQuery || "-"}`
+        },
+        {
+          label: "BM25 / Vector",
+          value: `${(data.bm25Results || []).length} / ${(data.vectorResults || []).length}`,
+          desc: "混合召回阶段"
+        },
+        {
+          label: "Fused / Rerank",
+          value: `${(data.fusedResults || []).length} / ${(data.rerankResults || []).length}`,
+          desc: "RRF 融合后进入 Qwen Rerank"
+        },
+        {
+          label: "Selected Top5",
+          value: (data.selectedResults || []).length,
+          desc: "前端最终展示"
+        }
+      ];
+
+      ragDebugGrid.innerHTML = cards.map((card) => `
+        <div class="metric">
+          <div class="label">${escapeHtml(card.label)}</div>
+          <div class="value">${escapeHtml(card.value)}</div>
+          <div class="desc">${escapeHtml(card.desc)}</div>
+        </div>
+      `).join("");
+
+      ragResultList.innerHTML = (data.selectedResults || []).map((item, index) => `
+        <div class="result-item">
+          <div class="head">
+            <span>Top ${index + 1}</span>
+            <span>rerank=${escapeHtml(item.rerankScore ?? 0)} | fused=${escapeHtml(item.fusedScore ?? 0)}</span>
+          </div>
+          <div class="title">${escapeHtml(item.docName || item.chunkId || "-")}</div>
+          <div class="meta">${escapeHtml(item.chunkId || "-")} | ${escapeHtml(item.knowledgeBaseKey || "-")} | ${escapeHtml(item.category || "-")} | ${escapeHtml(item.sourceType || "-")}</div>
+          <div class="snippet">${escapeHtml(preview(item.content))}</div>
+        </div>
+      `).join("");
+      ragDebugOutput.textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function runRagDebug() {
+      const payload = {
+        query: el("query").value,
+        model: el("model").value.trim()
+      };
+      const res = await api("/api/rag/retrieve/debug", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        ragDebugGrid.innerHTML = "";
+        ragResultList.innerHTML = "";
+        ragDebugOutput.textContent = `HTTP ${res.status}\n\n${await res.text()}`;
+        return;
+      }
+      renderRagDebug(await res.json());
     }
 
     async function refreshTokenDebug() {
@@ -801,7 +934,6 @@
       await refreshTokenDebug();
     }
 
-    el("btnLogin").addEventListener("click", login);
     el("btnRefresh").addEventListener("click", async () => {
       const ok = await refreshToken();
       authStatus.textContent = ok ? "令牌刷新成功" : "令牌刷新失败";
@@ -814,9 +946,9 @@
       renderSessionList([]);
       renderTokenDebug(null);
       leftOutput.textContent = "";
+      redirectToLogin();
     });
     el("btnMyReports").addEventListener("click", () => callJson("/api/me/reports"));
-    el("btnGoLab").addEventListener("click", () => location.href = "/lab.html");
     el("btnCreateSession").addEventListener("click", async () => {
       await createSession();
       await loadCurrentSessionMessages();
@@ -829,20 +961,44 @@
     el("btnSwitchSession").addEventListener("click", switchSession);
 
     el("btnChat").addEventListener("click", sendChat);
+    el("btnRagDebug").addEventListener("click", runRagDebug);
     el("query").addEventListener("input", scheduleTokenDebugRefresh);
     el("btnClear").addEventListener("click", () => {
       sseOutput.textContent = "";
       bubbleList.innerHTML = "";
+      renderRagDebug(null);
       chatStatus.textContent = "已清空";
       chatStatus.className = "status";
       scheduleTokenDebugRefresh();
     });
 
-    renderAuth();
-    renderSessionStatus();
-    renderSessionList([]);
-    refreshLlmIndicator();
-    ensureSession();
+    async function bootstrapPage() {
+      if (!getAccessToken()) {
+        if (getRefreshToken()) {
+          const ok = await refreshToken();
+          if (!ok) return false;
+        } else {
+          redirectToLogin();
+          return false;
+        }
+      }
+      const role = (getRole() || "").toUpperCase();
+      if (role === "ADMIN") {
+        redirectByRole(role);
+        return false;
+      }
+      renderAuth();
+      return true;
+    }
+
+    (async function boot() {
+      const ok = await bootstrapPage();
+      if (!ok) return;
+      renderSessionStatus();
+      renderSessionList([]);
+      refreshLlmIndicator();
+      await ensureSession();
+    })();
   </script>
 </body>
 </html>

@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindAgent 登录</title>
+  <style>
+    :root {
+      --bg: #eef3fb;
+      --paper: rgba(255,255,255,.86);
+      --line: rgba(214,223,239,.95);
+      --text: #132238;
+      --muted: #62708c;
+      --brand: #1f66e5;
+      --brand-2: #1549b6;
+      --accent: #00a88e;
+      --danger: #b42318;
+      --shadow: 0 24px 56px rgba(21,73,182,.16);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(860px 520px at 15% 10%, rgba(31,102,229,.18), transparent 58%),
+        radial-gradient(720px 440px at 100% 0%, rgba(0,168,142,.16), transparent 55%),
+        linear-gradient(180deg, #f3f7fd, #e7eef9 56%, #eaf1fb);
+    }
+    .wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+    }
+    .hero {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1.15fr .85fr;
+      width: min(1120px, 100%);
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(31,102,229,.08);
+      color: var(--brand);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      box-shadow: 0 0 0 4px rgba(31,102,229,.10);
+    }
+    h1 {
+      margin: 16px 0 10px;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.06;
+      letter-spacing: -.6px;
+    }
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 54ch;
+      font-size: 15px;
+    }
+    .points {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .points li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #1d3557;
+      line-height: 1.55;
+    }
+    .points span {
+      width: 8px;
+      height: 8px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+    .card-title {
+      margin: 0 0 18px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .row {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus {
+      border-color: rgba(31,102,229,.48);
+      box-shadow: 0 0 0 4px rgba(31,102,229,.12);
+    }
+    .btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 11px 14px;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .16s, box-shadow .16s, filter .16s;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(17,24,39,.08);
+      filter: brightness(.99);
+    }
+    button.primary {
+      color: #fff;
+      border-color: var(--brand);
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+    .status {
+      margin-top: 16px;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      background: rgba(255,255,255,.7);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .ok { color: #067647; }
+    .danger { color: var(--danger); }
+    .hint {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+    .mini {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    .metric {
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(247,250,255,.95));
+      padding: 14px;
+    }
+    .metric .label { font-size: 12px; color: var(--muted); }
+    .metric .value { font-size: 26px; font-weight: 800; margin-top: 6px; }
+    .metric .desc { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .panel { animation: rise .5s ease-out both; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <section class="panel">
+        <div class="brand"><span class="brand-dot"></span>MindAgent 管理入口</div>
+        <h1>单独的登录页面</h1>
+        <p class="lead">
+          这里负责登录与身份切换。管理员登录后进入知识库管理页，普通用户可以继续进入现有业务页面。
+        </p>
+        <ul class="points">
+          <li><span></span>管理员页专注知识库管理，数据源以 MySQL 为准。</li>
+          <li><span></span>Chroma 只承担向量检索，不作为管理真相源。</li>
+          <li><span></span>登录后自动保存访问令牌，方便切换页面。</li>
+        </ul>
+      </section>
+
+      <section class="panel mini">
+        <div>
+          <h2 class="card-title">登录</h2>
+          <div class="row">
+            <label for="username">用户名</label>
+            <input id="username" value="admin" placeholder="admin / user" />
+          </div>
+          <div class="row">
+            <label for="password">密码</label>
+            <input id="password" type="password" value="admin123" placeholder="请输入密码" />
+          </div>
+          <div class="btns">
+            <button class="primary" id="btnLogin">登录</button>
+          </div>
+          <div id="status" class="status">等待登录</div>
+          <div class="hint">
+            默认管理员账号通常为 `admin / admin123`，普通用户账号为 `user / user123`，如果你改过初始化数据，按实际账号登录即可。登录后会按角色自动进入对应页面。
+          </div>
+        </div>
+        <div class="metric">
+          <div class="label">登录后跳转</div>
+          <div class="value">Admin / Chat</div>
+          <div class="desc">管理员自动进入知识库管理页；普通用户进入现有业务页面。</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const ACCESS_KEY = "mb_access_token";
+    const REFRESH_KEY = "mb_refresh_token";
+    const ROLE_KEY = "mb_role";
+
+    const el = (id) => document.getElementById(id);
+    const status = el("status");
+
+    function getAccessToken() { return localStorage.getItem(ACCESS_KEY) || ""; }
+    function getRefreshToken() { return localStorage.getItem(REFRESH_KEY) || ""; }
+    function getRole() { return localStorage.getItem(ROLE_KEY) || ""; }
+
+    function setSession(accessToken, refreshToken, role) {
+      if (accessToken) localStorage.setItem(ACCESS_KEY, accessToken);
+      if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
+      if (role) localStorage.setItem(ROLE_KEY, role);
+    }
+
+    function redirectByRole(role) {
+      if ((role || "").toUpperCase() === "ADMIN") {
+        location.href = "admin.html";
+      } else {
+        location.href = "index.html";
+      }
+    }
+
+    function clearSession() {
+      localStorage.removeItem(ACCESS_KEY);
+      localStorage.removeItem(REFRESH_KEY);
+      localStorage.removeItem(ROLE_KEY);
+    }
+
+    async function refreshToken() {
+      const rt = getRefreshToken();
+      if (!rt) return false;
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken: rt })
+      });
+      if (!res.ok) {
+        clearSession();
+        return false;
+      }
+      const data = await res.json();
+      setSession(data.accessToken || data.token, data.refreshToken, data.role || getRole());
+      return true;
+    }
+
+    async function bootstrapLoginPage() {
+      const role = getRole();
+      if (getAccessToken() && role) {
+        redirectByRole(role);
+        return;
+      }
+      if (getRefreshToken()) {
+        status.textContent = "检测到已有会话，正在恢复登录状态...";
+        status.className = "status";
+        const ok = await refreshToken();
+        if (ok) redirectByRole(getRole());
+      }
+    }
+
+    async function login() {
+      const username = el("username").value.trim();
+      const password = el("password").value;
+      status.textContent = "登录中...";
+      status.className = "status";
+      try {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          status.textContent = data.error || "登录失败";
+          status.className = "status danger";
+          return;
+        }
+        setSession(data.accessToken || data.token, data.refreshToken, data.role || "");
+        status.textContent = `登录成功，角色：${data.role || "unknown"}`;
+        status.className = "status ok";
+        setTimeout(() => redirectByRole(data.role || ""), 350);
+      } catch (err) {
+        status.textContent = err?.message || "登录失败";
+        status.className = "status danger";
+      }
+    }
+
+    el("btnLogin").addEventListener("click", login);
+    el("password").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") login();
+    });
+
+    bootstrapLoginPage();
+  </script>
+</body>
+</html>

@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .pathMatchers("/api/health/**", "/api/auth/**", "/api/mock/mcp/**").permitAll()
                         .pathMatchers("/api/admin/**", "/api/kb/**").hasRole("ADMIN")
                         .pathMatchers("/api/me/**").hasAnyRole("USER", "ADMIN")
+                        .pathMatchers("/api/rag/**").hasAnyRole("USER", "ADMIN")
                         .pathMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN")
                         .anyExchange().authenticated()
                 )

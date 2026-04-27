@@ -2,6 +2,7 @@ package com.mindagent.agent.service;
 
 import com.mindagent.agent.config.ChatMemoryProperties;
 import com.mindagent.agent.config.RagProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mindagent.agent.entity.ChatMessage;
 import com.mindagent.agent.entity.ChatSession;
 import com.mindagent.agent.entity.PsychologicalReport;
@@ -30,7 +31,6 @@ public class ChatOrchestrationService {
             """;
 
     private final ChatModelGateway chatModelGateway;
-    private final KnowledgeBaseService knowledgeBaseService;
     private final RagProperties ragProperties;
     private final ChatMemoryProperties memoryProperties;
     private final ChatSessionService chatSessionService;
@@ -41,9 +41,11 @@ public class ChatOrchestrationService {
     private final TokenEstimateService tokenEstimateService;
     private final McpDispatchService mcpDispatchService;
     private final PsychologicalReportRepository reportRepository;
+    private final QueryRoutingService queryRoutingService;
+    private final RagRetrievalService ragRetrievalService;
+    private final ObjectMapper objectMapper;
 
     public ChatOrchestrationService(ChatModelGateway chatModelGateway,
-                                    KnowledgeBaseService knowledgeBaseService,
                                     RagProperties ragProperties,
                                     ChatMemoryProperties memoryProperties,
                                     ChatSessionService chatSessionService,
@@ -53,9 +55,11 @@ public class ChatOrchestrationService {
                                     MemoryCompressService memoryCompressService,
                                     TokenEstimateService tokenEstimateService,
                                     McpDispatchService mcpDispatchService,
-                                    PsychologicalReportRepository reportRepository) {
+                                    PsychologicalReportRepository reportRepository,
+                                    QueryRoutingService queryRoutingService,
+                                    RagRetrievalService ragRetrievalService,
+                                    ObjectMapper objectMapper) {
         this.chatModelGateway = chatModelGateway;
-        this.knowledgeBaseService = knowledgeBaseService;
         this.ragProperties = ragProperties;
         this.memoryProperties = memoryProperties;
         this.chatSessionService = chatSessionService;
@@ -66,6 +70,9 @@ public class ChatOrchestrationService {
         this.tokenEstimateService = tokenEstimateService;
         this.mcpDispatchService = mcpDispatchService;
         this.reportRepository = reportRepository;
+        this.queryRoutingService = queryRoutingService;
+        this.ragRetrievalService = ragRetrievalService;
+        this.objectMapper = objectMapper;
     }
 
     public Flux<ServerSentEvent<String>> streamChatWithIntent(Long userId,
@@ -73,81 +80,89 @@ public class ChatOrchestrationService {
                                                               String query,
                                                               String requestedModel) {
         return classifyIntent(query, requestedModel)
-                .flatMapMany(intent -> Mono.fromCallable(() -> {
+                .flatMap(intent -> queryRoutingService.classify(query, requestedModel)
+                        .map(queryType -> new RoutedQuery(intent, queryType)))
+                .flatMapMany(routed -> Mono.fromCallable(() -> {
                             ChatSession session = chatSessionService.requireOwnedSession(userId, sessionId);
                             ChatMemoryService.PromptMemory promptMemory = chatMemoryService.loadPromptMemory(
                                     userId,
                                     sessionId,
-                                    tokenEstimateService.estimate(query) + memoryReserve(intent)
+                                    tokenEstimateService.estimate(query) + memoryReserve(routed.intent(), routed.queryType())
                             );
                             ChatMessage userMessage = chatMessageService.saveMessage(userId, sessionId, "user", query);
                             chatSessionService.touchSession(session, query);
-                            return new PreparedChat(intent, promptMemory, userMessage);
+                            return new PreparedChat(routed.intent(), routed.queryType(), promptMemory, userMessage);
                         })
                         .subscribeOn(Schedulers.boundedElastic())
                         .flatMapMany(prepared -> {
-                    List<String> contexts = shouldUseRag(intent)
-                            ? trimRagContexts(knowledgeBaseService.retrieve(query, ragProperties.getTopK()))
-                            : List.of();
-                    List<Map<String, Object>> messages = chatMemoryService.buildMessages(
-                            intent,
-                            query,
-                            contexts,
-                            prepared.promptMemory()
-                    );
-                    Flux<ServerSentEvent<String>> intentEvent = Flux.just(ServerSentEvent.<String>builder()
-                            .event("intent")
-                            .data(intent.name())
-                            .build());
-                    Flux<ServerSentEvent<String>> ragEvent = Flux.just(ServerSentEvent.<String>builder()
-                            .event("rag")
-                            .data("contexts=" + contexts.size())
-                            .build());
+                    Mono<RagRetrievalResult> retrievalMono = shouldUseRag(prepared.intent(), prepared.queryType())
+                            ? ragRetrievalService.retrieve(prepared.intent(), prepared.queryType(), query)
+                            : Mono.just(new RagRetrievalResult(prepared.intent(), prepared.queryType(), query, List.of(), List.of(), List.of(), List.of(), List.of()));
+                    return retrievalMono.flatMapMany(retrieval -> {
+                        List<String> contexts = retrieval.selectedResults().stream()
+                                .map(RetrievedChunk::content)
+                                .toList();
+                        List<Map<String, Object>> messages = chatMemoryService.buildMessages(
+                                prepared.intent(),
+                                prepared.queryType(),
+                                query,
+                                contexts,
+                                prepared.promptMemory()
+                        );
+                        Flux<ServerSentEvent<String>> intentEvent = Flux.just(ServerSentEvent.<String>builder()
+                                .event("intent")
+                                .data(prepared.intent().name())
+                                .build());
+                        Flux<ServerSentEvent<String>> ragEvent = Flux.just(ServerSentEvent.<String>builder()
+                                .event("rag")
+                                .data(buildRagEventData(retrieval))
+                                .build());
 
-                    StringBuilder answerBuffer = new StringBuilder();
-                    Flux<ServerSentEvent<String>> answerEvents = chatModelGateway.streamChat(messages, requestedModel)
-                            .map(chunk -> {
-                                answerBuffer.append(chunk);
-                                return ServerSentEvent.<String>builder()
-                                        .event("token")
-                                        .data(chunk)
-                                        .build();
-                            })
-                            .concatWithValues(ServerSentEvent.<String>builder()
-                                    .event("done")
-                                    .data("[DONE]")
-                                    .build())
-                            .doOnComplete(() -> {
-                                persistAssistantReply(
-                                        userId,
-                                        sessionId,
-                                        query,
-                                        intent,
-                                        requestedModel,
-                                        contexts,
-                                        prepared.userMessage(),
-                                        answerBuffer.toString()
-                                );
-                                mcpDispatchService.dispatchAsync(
-                                        userId,
-                                        query,
-                                        intent,
-                                        toRiskLevel(intent),
-                                        contexts.size()
-                                );
-                            })
-                            .onErrorResume(ex -> Flux.just(
-                                    ServerSentEvent.<String>builder()
-                                            .event("error")
-                                            .data(ex.getMessage() == null ? "chat_stream_failed" : ex.getMessage())
-                                            .build(),
-                                    ServerSentEvent.<String>builder()
-                                            .event("done")
-                                            .data("[DONE]")
-                                            .build()
-                            ));
+                        StringBuilder answerBuffer = new StringBuilder();
+                        Flux<ServerSentEvent<String>> answerEvents = chatModelGateway.streamChat(messages, requestedModel)
+                                .map(chunk -> {
+                                    answerBuffer.append(chunk);
+                                    return ServerSentEvent.<String>builder()
+                                            .event("token")
+                                            .data(chunk)
+                                            .build();
+                                })
+                                .concatWithValues(ServerSentEvent.<String>builder()
+                                        .event("done")
+                                        .data("[DONE]")
+                                        .build())
+                                .doOnComplete(() -> {
+                                    persistAssistantReply(
+                                            userId,
+                                            sessionId,
+                                            query,
+                                            prepared.intent(),
+                                            requestedModel,
+                                            contexts,
+                                            prepared.userMessage(),
+                                            answerBuffer.toString()
+                                    );
+                                    mcpDispatchService.dispatchAsync(
+                                            userId,
+                                            query,
+                                            prepared.intent(),
+                                            toRiskLevel(prepared.intent()),
+                                            contexts.size()
+                                    );
+                                })
+                                .onErrorResume(ex -> Flux.just(
+                                        ServerSentEvent.<String>builder()
+                                                .event("error")
+                                                .data(ex.getMessage() == null ? "chat_stream_failed" : ex.getMessage())
+                                                .build(),
+                                        ServerSentEvent.<String>builder()
+                                                .event("done")
+                                                .data("[DONE]")
+                                                .build()
+                                ));
 
-                    return intentEvent.concatWith(ragEvent).concatWith(answerEvents);
+                        return intentEvent.concatWith(ragEvent).concatWith(answerEvents);
+                    });
                 }))
                 .onErrorResume(ex -> Flux.just(
                         ServerSentEvent.<String>builder()
@@ -161,7 +176,7 @@ public class ChatOrchestrationService {
                 ));
     }
 
-    private Mono<IntentType> classifyIntent(String query, String requestedModel) {
+    public Mono<IntentType> classifyIntent(String query, String requestedModel) {
         List<Map<String, Object>> messages = List.of(
                 ChatMessageFactory.message("system", INTENT_PROMPT),
                 ChatMessageFactory.message("user", query)
@@ -180,8 +195,16 @@ public class ChatOrchestrationService {
                 .defaultIfEmpty(IntentType.CHAT);
     }
 
+    public IntentType classifyIntentSync(String query, String requestedModel) {
+        return classifyIntent(query, requestedModel).blockOptional().orElse(IntentType.CHAT);
+    }
+
     private boolean shouldUseRag(IntentType intent) {
         return ragProperties.isEnabled() && (intent == IntentType.CONSULT || intent == IntentType.RISK);
+    }
+
+    private boolean shouldUseRag(IntentType intent, QueryType queryType) {
+        return shouldUseRag(intent) && queryType != QueryType.OTHER;
     }
 
     private String toRiskLevel(IntentType intent) {
@@ -194,29 +217,24 @@ public class ChatOrchestrationService {
         return "low";
     }
 
-    private int memoryReserve(IntentType intent) {
-        return shouldUseRag(intent) ? Math.max(0, 1024 + memoryProperties.getMinRagBudget()) : 1024;
+    private int memoryReserve(IntentType intent, QueryType queryType) {
+        return shouldUseRag(intent, queryType) ? Math.max(0, 1024 + memoryProperties.getMinRagBudget()) : 1024;
     }
 
-    private List<String> trimRagContexts(List<String> contexts) {
-        if (contexts.isEmpty()) {
-            return List.of();
+    private String buildRagEventData(RagRetrievalResult retrieval) {
+        try {
+                    Map<String, Object> payload = Map.of(
+                            "queryType", retrieval.queryType().name(),
+                            "rewrittenQuery", retrieval.rewrittenQuery(),
+                            "contexts", retrieval.selectedResults().size(),
+                            "rerankTopK", retrieval.rerankResults().size(),
+                            "rerankResults", retrieval.rerankResults(),
+                            "selectedChunks", retrieval.selectedResults()
+                    );
+            return objectMapper.writeValueAsString(payload);
+        } catch (Exception ex) {
+            return "{\"queryType\":\"" + retrieval.queryType().name() + "\",\"contexts\":" + retrieval.selectedResults().size() + "}";
         }
-        List<String> selected = new ArrayList<>();
-        int used = 0;
-        for (String context : contexts) {
-            int tokens = tokenEstimateService.estimate(context);
-            if (!selected.isEmpty() && used + tokens > ragBudget()) {
-                break;
-            }
-            used += tokens;
-            selected.add(context);
-        }
-        return selected;
-    }
-
-    private int ragBudget() {
-        return Math.max(0, memoryProperties.getRagBudget());
     }
 
     private void persistAssistantReply(Long userId,
@@ -268,8 +286,15 @@ public class ChatOrchestrationService {
 
     private record PreparedChat(
             IntentType intent,
+            QueryType queryType,
             ChatMemoryService.PromptMemory promptMemory,
             ChatMessage userMessage
+    ) {
+    }
+
+    private record RoutedQuery(
+            IntentType intent,
+            QueryType queryType
     ) {
     }
 }
