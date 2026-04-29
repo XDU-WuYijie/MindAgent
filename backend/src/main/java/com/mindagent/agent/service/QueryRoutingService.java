@@ -48,7 +48,9 @@ public class QueryRoutingService {
             return QueryType.OTHER;
         }
         boolean appointmentAction = containsAny(normalized,
-                "帮我预约", "我想预约", "替我预约", "给我预约", "取消我的预约", "帮我取消", "查我的预约", "看看还有哪些时间", "查询可用时间");
+                "帮我预约", "我想预约", "替我预约", "给我预约", "取消我的预约", "帮我取消", "查我的预约",
+                "看看还有哪些时间", "查询可用时间", "哪个老师可以预约", "哪些老师可以预约", "谁可以预约",
+                "可预约老师", "真实可预约", "现在有哪个老师", "现在谁有空", "还有哪些时间");
         boolean appointment = containsAny(normalized,
                 "预约", "咨询预约", "预约咨询", "取消预约", "改期", "预约状态", "我的预约", "预约记录", "通知", "提醒", "时间段", "申请");
         boolean psych = containsAny(normalized,

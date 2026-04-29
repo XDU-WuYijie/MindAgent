@@ -45,7 +45,11 @@ public class DashScopeChatGateway implements ChatModelGateway {
     public Mono<ToolChatResult> completeWithTools(List<Map<String, Object>> messages,
                                                   List<ToolCallback> toolCallbacks,
                                                   String requestedModel) {
-        return requireDelegate().completeWithTools(messages, toolCallbacks, requestedModel);
+        SpringAiChatService delegate = springAiChatServiceProvider.getIfAvailable();
+        if (delegate != null) {
+            return delegate.completeWithTools(messages, toolCallbacks, requestedModel);
+        }
+        return vllmChatService.completeWithTools(messages, toolCallbacks, requestedModel);
     }
 
     @Override
@@ -53,14 +57,4 @@ public class DashScopeChatGateway implements ChatModelGateway {
         return true;
     }
 
-    private SpringAiChatService requireDelegate() {
-        SpringAiChatService delegate = springAiChatServiceProvider.getIfAvailable();
-        if (delegate == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.SERVICE_UNAVAILABLE,
-                    "Spring AI ChatModel is not available. Check spring.ai.openai configuration and auto-configuration."
-            );
-        }
-        return delegate;
-    }
 }

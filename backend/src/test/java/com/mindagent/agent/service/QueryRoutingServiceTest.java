@@ -28,6 +28,13 @@ class QueryRoutingServiceTest {
     }
 
     @Test
+    void shouldRouteAvailableTeacherQueryToAppointmentActionByRule() {
+        QueryRoutingService service = new QueryRoutingService(new StubChatGateway("OTHER"));
+        QueryType queryType = service.classify("现在有哪个老师可以预约？请查询真实可预约时段。", null).block();
+        assertEquals(QueryType.APPOINTMENT_ACTION, queryType);
+    }
+
+    @Test
     void shouldRoutePsychologyQuestionByRule() {
         QueryRoutingService service = new QueryRoutingService(new StubChatGateway("OTHER"));
         QueryType queryType = service.classify("考试前特别焦虑怎么办", null).block();

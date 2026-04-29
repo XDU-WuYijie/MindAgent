@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mindagent.agent.config.VllmProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class VllmChatService implements ChatModelGateway {
@@ -66,6 +69,20 @@ public class VllmChatService implements ChatModelGateway {
             .map(this::extractMessageContent)
             .defaultIfEmpty("")
             .onErrorMap(this::wrapUpstreamError);
+    }
+
+    @Override
+    public Mono<ToolChatResult> completeWithTools(List<Map<String, Object>> messages,
+                                                  List<ToolCallback> toolCallbacks,
+                                                  String requestedModel) {
+        return Mono.fromCallable(() -> runToolChat(messages, toolCallbacks, requestedModel))
+                .subscribeOn(reactor.core.scheduler.Schedulers.boundedElastic())
+                .onErrorMap(this::wrapUpstreamError);
+    }
+
+    @Override
+    public boolean supportsToolCalling() {
+        return true;
     }
 
     private void applyAuthHeader(HttpHeaders headers, String apiKey) {
@@ -136,6 +153,112 @@ public class VllmChatService implements ChatModelGateway {
             // Ignore parse errors and return an empty string.
         }
         return "";
+    }
+
+    private ToolChatResult runToolChat(List<Map<String, Object>> messages,
+                                       List<ToolCallback> toolCallbacks,
+                                       String requestedModel) {
+        List<Map<String, Object>> workingMessages = new ArrayList<>(messages);
+        List<ToolExecutionView> executions = new ArrayList<>();
+        Map<String, ToolCallback> callbacks = toolCallbacks.stream()
+                .collect(Collectors.toMap(callback -> callback.getToolDefinition().name(), Function.identity()));
+
+        for (int round = 0; round < 4; round++) {
+            Map<String, Object> payload = buildPayload(workingMessages, requestedModel, false);
+            payload.put("tools", toolCallbacks.stream().map(this::toOpenAiTool).toList());
+            payload.put("tool_choice", "auto");
+
+            String raw = postChatCompletion(payload);
+            JsonNode message = firstMessage(raw);
+            JsonNode toolCalls = message.path("tool_calls");
+            if (!toolCalls.isArray() || toolCalls.isEmpty()) {
+                return new ToolChatResult(message.path("content").asText(""), executions);
+            }
+
+            workingMessages.add(assistantToolCallMessage(message));
+            for (JsonNode toolCall : toolCalls) {
+                ToolExecutionView execution = executeToolCall(callbacks, toolCall);
+                executions.add(execution);
+                workingMessages.add(toolResultMessage(toolCall.path("id").asText(), execution.result()));
+            }
+        }
+        return new ToolChatResult(summarizeToolExecutions(executions), executions);
+    }
+
+    private String postChatCompletion(Map<String, Object> payload) {
+        return llmWebClient.post()
+                .uri(vllmProperties.getChatPath())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .headers(headers -> applyAuthHeader(headers, vllmProperties.getApiKey()))
+                .bodyValue(payload)
+                .retrieve()
+                .bodyToMono(String.class)
+                .blockOptional()
+                .orElse("");
+    }
+
+    private JsonNode firstMessage(String raw) {
+        try {
+            return objectMapper.readTree(raw).path("choices").path(0).path("message");
+        } catch (Exception ex) {
+            throw new IllegalStateException("Invalid chat completion response", ex);
+        }
+    }
+
+    private Map<String, Object> toOpenAiTool(ToolCallback callback) {
+        Map<String, Object> function = new HashMap<>();
+        function.put("name", callback.getToolDefinition().name());
+        function.put("description", callback.getToolDefinition().description());
+        function.put("parameters", parseSchema(callback.getToolDefinition().inputSchema()));
+        return Map.of("type", "function", "function", function);
+    }
+
+    private Object parseSchema(String schema) {
+        try {
+            return objectMapper.readValue(schema, Object.class);
+        } catch (Exception ex) {
+            return Map.of("type", "object", "properties", Map.of());
+        }
+    }
+
+    private Map<String, Object> assistantToolCallMessage(JsonNode message) {
+        Map<String, Object> assistant = new HashMap<>();
+        assistant.put("role", "assistant");
+        assistant.put("content", message.path("content").isMissingNode() || message.path("content").isNull() ? "" : message.path("content").asText(""));
+        assistant.put("tool_calls", objectMapper.convertValue(message.path("tool_calls"), Object.class));
+        return assistant;
+    }
+
+    private ToolExecutionView executeToolCall(Map<String, ToolCallback> callbacks, JsonNode toolCall) {
+        String name = toolCall.path("function").path("name").asText("");
+        String arguments = toolCall.path("function").path("arguments").asText("{}");
+        ToolCallback callback = callbacks.get(name);
+        if (callback == null) {
+            return new ToolExecutionView(name, arguments, "Unknown tool: " + name, "FAILED");
+        }
+        try {
+            String result = callback.call(arguments);
+            return new ToolExecutionView(name, arguments, result, "SUCCESS");
+        } catch (RuntimeException ex) {
+            return new ToolExecutionView(name, arguments, ex.getMessage() == null ? "tool_call_failed" : ex.getMessage(), "FAILED");
+        }
+    }
+
+    private Map<String, Object> toolResultMessage(String toolCallId, String result) {
+        Map<String, Object> message = new HashMap<>();
+        message.put("role", "tool");
+        message.put("tool_call_id", toolCallId);
+        message.put("content", result == null ? "" : result);
+        return message;
+    }
+
+    private String summarizeToolExecutions(List<ToolExecutionView> executions) {
+        if (executions.isEmpty()) {
+            return "";
+        }
+        ToolExecutionView last = executions.get(executions.size() - 1);
+        return last.result() == null ? "" : last.result();
     }
 
     private Map<String, Object> buildPayload(List<Map<String, Object>> messages,
