@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindAgent 老师端</title>
+  <style>
+    :root {
+      --bg: #f2f8ff;
+      --paper: #ffffff;
+      --text: #152b4c;
+      --muted: #637394;
+      --line: #d8e3f3;
+      --brand: #1677ff;
+      --brand-2: #075bd8;
+      --accent: #10b981;
+      --danger: #b42318;
+      --warn: #b54708;
+      --shadow: 0 18px 42px rgba(29, 78, 216, 0.12);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(880px 500px at -10% -10%, rgba(22,119,255,.13), transparent 56%),
+        radial-gradient(820px 460px at 110% 0%, rgba(16,185,129,.11), transparent 58%),
+        var(--bg);
+    }
+    .shell { max-width: 1480px; margin: 0 auto; padding: 24px 26px 30px; }
+    .hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 26px; }
+    .brand-title { display: flex; align-items: center; gap: 12px; }
+    .hero-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, #1677ff, #12b981);
+      font-size: 22px;
+      box-shadow: 0 10px 24px rgba(22,119,255,.22);
+    }
+    .hero h1 { margin: 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+    .hero p { margin: 8px 0 0; color: var(--text); line-height: 1.55; font-size: 15px; }
+    .pill {
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 999px;
+      padding: 8px 18px 8px 8px;
+      background: rgba(255,255,255,.75);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.55), 0 8px 24px rgba(29,78,216,.08);
+      font-size: 15px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pill::before {
+      content: "T";
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1677ff, #10b981);
+    }
+    .layout { display: grid; gap: 20px; grid-template-columns: minmax(560px, 1fr) minmax(520px, 1fr); align-items: start; }
+    @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } .hero { flex-direction: column; } }
+    .stack { display: grid; gap: 18px; }
+    .card { background: rgba(255,255,255,.92); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+    .card h2 { margin: 0 0 24px; font-size: 24px; display: flex; align-items: center; gap: 10px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
+    .field { display: grid; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-weight: 700; font-size: 15px; }
+    .row { display: grid; gap: 16px; margin-bottom: 18px; }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 12px 14px;
+      font-size: 15px;
+      color: var(--text);
+      background: rgba(255,255,255,.94);
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: rgba(22,119,255,.5); box-shadow: 0 0 0 4px rgba(22,119,255,.10); }
+    textarea { min-height: 92px; resize: vertical; }
+    .btns { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 20px; }
+    .btns.two-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    button {
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px 14px;
+      background: #fff;
+      color: var(--text);
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(15,23,42,.04);
+    }
+    button.primary { color: #fff; border-color: var(--brand); background: linear-gradient(135deg, var(--brand), var(--brand-2)); }
+    button.success { color: #fff; border-color: #0aa66a; background: linear-gradient(135deg, #16b977, #059669); }
+    button.warn { color: #c2410c; border-color: #fed7aa; background: #fff7ed; }
+    button.danger { color: #ef4444; border-color: #fecaca; background: #fff5f5; }
+    .status { border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; color: var(--muted); background: #f8fbff; margin-bottom: 14px; white-space: pre-wrap; }
+    .ok { color: #067647; }
+    .danger { color: var(--danger); }
+    .raw-output { display: none; }
+    pre { margin: 0; border: 1px solid var(--line); border-radius: 11px; background: #f8fbfd; padding: 10px; max-height: 260px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+    .table-wrap { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 22px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { border-bottom: 1px solid var(--line); padding: 16px 12px; text-align: left; font-size: 14px; vertical-align: middle; }
+    th { background: #f8fbff; color: var(--text); font-weight: 800; }
+    tr:last-child td { border-bottom: 0; }
+    .status-badge { display: inline-flex; align-items: center; padding: 5px 8px; border-radius: 6px; font-size: 13px; border: 1px solid transparent; white-space: nowrap; }
+    .status-pending { color: var(--warn); background: #fff7ed; border-color: #fed7aa; }
+    .status-confirmed { color: #1677ff; background: #eff6ff; border-color: #bfdbfe; }
+    .status-completed { color: #059669; background: #ecfdf5; border-color: #bbf7d0; }
+    .status-cancelled { color: #64748b; background: #f1f5f9; border-color: #cbd5e1; }
+    @media (max-width: 720px) {
+      .shell { padding: 18px 14px 24px; }
+      .form-grid, .btns, .btns.two-row { grid-template-columns: 1fr; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <div class="brand-title">
+          <div class="hero-icon">▰</div>
+          <h1>老师端</h1>
+        </div>
+        <p>管理个人资料、空闲时间设置与学生预约记录。老师先录入某天几点到几点有空，系统会自动拆成 1 小时排班表。</p>
+      </div>
+      <div class="pill" id="rolePill">Teacher</div>
+    </header>
+
+    <main class="layout">
+      <div class="stack">
+        <section class="card">
+          <h2>个人资料</h2>
+          <div id="profileStatus" class="status">准备就绪</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="displayName">显示名称</label>
+              <input id="displayName" placeholder="teacher" />
+            </div>
+            <div class="field">
+              <label for="title">职称</label>
+              <input id="title" placeholder="教授" />
+            </div>
+            <div class="field">
+              <label for="officeLocation">办公室 / 位置</label>
+              <input id="officeLocation" placeholder="A10" />
+            </div>
+            <div class="field">
+              <label for="contactPhone">联系电话</label>
+              <input id="contactPhone" placeholder="18268159587" />
+            </div>
+            <div class="field full">
+              <label for="bio">个人简介</label>
+              <textarea id="bio" placeholder="一个心理教师"></textarea>
+            </div>
+          </div>
+          <div class="btns">
+            <button id="btnLoadProfile">读取资料</button>
+            <button class="primary" id="btnSaveProfile">保存资料</button>
+            <button id="btnLogout">退出</button>
+          </div>
+          <pre id="profileOutput" class="raw-output"></pre>
+        </section>
+
+        <section class="card">
+          <h2>设置空闲时间 / 排班表</h2>
+          <div class="form-grid">
+            <div class="field">
+              <label for="slotId">教师 ID / 序号</label>
+              <input id="slotId" placeholder="1" />
+            </div>
+            <div class="field">
+              <label for="slotStartTime">开始时间</label>
+              <input id="slotStartTime" placeholder="2026-05-01T09:00:00" />
+            </div>
+            <div class="field">
+              <label for="slotEndTime">结束时间</label>
+              <input id="slotEndTime" placeholder="2026-05-01T12:00:00" />
+            </div>
+            <div class="field">
+              <label for="slotLocation">办公室 / 位置</label>
+              <input id="slotLocation" placeholder="a10" />
+            </div>
+            <div class="field full">
+              <label for="slotNotes">备注</label>
+              <input id="slotNotes" placeholder="备注" />
+            </div>
+          </div>
+          <div class="btns two-row">
+            <button id="btnLoadSlots">查看排班表</button>
+            <button class="success" id="btnCreateSlot">新增空闲区间</button>
+            <button id="btnUpdateSlot">更新单个小时段</button>
+            <button id="btnOpenSlot">开放单个小时段</button>
+            <button class="warn" id="btnCloseSlot">关闭单个小时段</button>
+            <button class="danger" id="btnDeleteSlot">删除单个小时段</button>
+          </div>
+          <pre id="slotOutput"></pre>
+        </section>
+      </div>
+
+      <section class="card">
+        <h2>预约管理</h2>
+        <div id="appointmentStatus" class="status">可查看列表、详情、取消与完成。</div>
+        <div class="row">
+          <input id="appointmentId" placeholder="appointmentId（详情/取消/完成时填写）" />
+          <input id="appointmentReason" placeholder="取消原因（可选）" />
+        </div>
+        <div class="btns">
+          <button id="btnLoadAppointments">查看预约列表</button>
+          <button id="btnLoadAppointmentDetail">查看详情</button>
+          <button id="btnCancelAppointment">取消预约</button>
+          <button class="success" id="btnCompleteAppointment">完成预约</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>appointmentId</th>
+                <th>学生</th>
+                <th>预约时间</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentTbody">
+              <tr><td colspan="5">点击“查看预约列表”加载数据。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre id="appointmentOutput" class="raw-output"></pre>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const ACCESS_KEY = "mb_access_token";
+    const REFRESH_KEY = "mb_refresh_token";
+    const ROLE_KEY = "mb_role";
+    const el = (id) => document.getElementById(id);
+
+    function getAccessToken() { return localStorage.getItem(ACCESS_KEY) || ""; }
+    function getRefreshToken() { return localStorage.getItem(REFRESH_KEY) || ""; }
+    function getRole() { return (localStorage.getItem(ROLE_KEY) || "").toUpperCase(); }
+    function clearSession() {
+      localStorage.removeItem(ACCESS_KEY);
+      localStorage.removeItem(REFRESH_KEY);
+      localStorage.removeItem(ROLE_KEY);
+    }
+    function redirectToLogin() { location.href = "login.html"; }
+
+    async function refreshToken() {
+      const rt = getRefreshToken();
+      if (!rt) {
+        redirectToLogin();
+        return false;
+      }
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken: rt })
+      });
+      if (!res.ok) {
+        clearSession();
+        redirectToLogin();
+        return false;
+      }
+      const data = await res.json();
+      localStorage.setItem(ACCESS_KEY, data.accessToken || data.token || "");
+      localStorage.setItem(REFRESH_KEY, data.refreshToken || "");
+      localStorage.setItem(ROLE_KEY, data.role || "");
+      return true;
+    }
+
+    async function api(path, options = {}, allowRetry = true) {
+      const headers = Object.assign({}, options.headers || {});
+      const token = getAccessToken();
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+      const res = await fetch(path, Object.assign({}, options, { headers }));
+      if (res.status === 401 && allowRetry && getRefreshToken()) {
+        const ok = await refreshToken();
+        if (ok) return api(path, options, false);
+      }
+      return res;
+    }
+
+    async function callAndRender(path, options, outputId, statusId, successText) {
+      const res = await api(path, options);
+      const text = await res.text();
+      el(outputId).textContent = `HTTP ${res.status}\n\n${text}`;
+      el(statusId).textContent = res.ok ? successText : `请求失败：HTTP ${res.status}`;
+      el(statusId).className = res.ok ? "status ok" : "status danger";
+      return res;
+    }
+
+    async function loadProfile() {
+      const res = await api("/api/teacher/profile/me");
+      const text = await res.text();
+      el("profileOutput").textContent = `HTTP ${res.status}\n\n${text}`;
+      if (!res.ok) return;
+      const data = JSON.parse(text);
+      el("displayName").value = data.displayName || "";
+      el("title").value = data.title || "";
+      el("officeLocation").value = data.officeLocation || "";
+      el("contactPhone").value = data.contactPhone || "";
+      el("bio").value = data.bio || "";
+      el("profileStatus").textContent = "资料已加载";
+      el("profileStatus").className = "status ok";
+    }
+
+    function profilePayload() {
+      return {
+        displayName: el("displayName").value.trim(),
+        title: el("title").value.trim(),
+        officeLocation: el("officeLocation").value.trim(),
+        contactPhone: el("contactPhone").value.trim(),
+        bio: el("bio").value
+      };
+    }
+
+    function slotPayload() {
+      return {
+        startTime: el("slotStartTime").value.trim(),
+        endTime: el("slotEndTime").value.trim(),
+        location: el("slotLocation").value.trim(),
+        notes: el("slotNotes").value.trim(),
+        open: true
+      };
+    }
+
+    function formatJson(text) {
+      try {
+        return JSON.stringify(JSON.parse(text), null, 2);
+      } catch (_) {
+        return text;
+      }
+    }
+
+    function formatSlotSummary(payload) {
+      const items = Array.isArray(payload) ? payload : [payload];
+      if (!items.length || !items[0]) return "当前没有排班记录。";
+      return items.map((item) => {
+        const label = `${item.startTime || "-"} ~ ${item.endTime || "-"}`;
+        const meta = [
+          `编号: ${item.id ?? "-"}`,
+          `状态: ${item.status || "-"}`,
+          `地点: ${item.location || "未填写"}`,
+          `备注: ${item.notes || "无"}`
+        ];
+        return `${label}\n${meta.join(" | ")}`;
+      }).join("\n\n");
+    }
+
+    function statusLabel(status) {
+      const value = String(status || "").toUpperCase();
+      const map = {
+        PENDING: "待处理",
+        CONFIRMED: "已确认",
+        COMPLETED: "已完成",
+        CANCELLED: "已取消"
+      };
+      return map[value] || status || "-";
+    }
+
+    function statusClass(status) {
+      const value = String(status || "").toUpperCase();
+      if (value === "PENDING") return "status-pending";
+      if (value === "CONFIRMED" || value === "BOOKED") return "status-confirmed";
+      if (value === "COMPLETED") return "status-completed";
+      if (value === "CANCELLED") return "status-cancelled";
+      return "status-cancelled";
+    }
+
+    function escapeHtml(text) {
+      return String(text == null ? "" : text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function renderAppointments(items) {
+      const rows = Array.isArray(items) ? items : [];
+      if (!rows.length) {
+        el("appointmentTbody").innerHTML = '<tr><td colspan="5">当前没有预约记录。</td></tr>';
+        return;
+      }
+      el("appointmentTbody").innerHTML = rows.map((item) => {
+        const id = item.appointmentId ?? item.id ?? "-";
+        const student = item.studentDisplayName || item.studentName || item.studentUsername || item.userName || "-";
+        const account = item.studentUsername || item.studentAccount || "";
+        const start = item.startTime || item.appointmentTime || "-";
+        const status = item.status || "-";
+        return `
+          <tr>
+            <td>${escapeHtml(id)}</td>
+            <td><strong>${escapeHtml(student)}</strong><br><span style="color:#637394;font-size:12px;">${escapeHtml(account)}</span></td>
+            <td>${escapeHtml(start)}</td>
+            <td><span class="status-badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span></td>
+            <td>
+              <button type="button" data-appointment-id="${escapeHtml(id)}" data-action="detail">详情</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+      el("appointmentTbody").querySelectorAll("button[data-appointment-id]").forEach((button) => {
+        button.addEventListener("click", () => {
+          el("appointmentId").value = button.dataset.appointmentId;
+          el("btnLoadAppointmentDetail").click();
+        });
+      });
+    }
+
+    async function loadAppointments() {
+      const res = await api("/api/teacher/appointments");
+      const text = await res.text();
+      el("appointmentOutput").textContent = `HTTP ${res.status}\n\n${text}`;
+      el("appointmentStatus").textContent = res.ok ? "预约列表已加载" : `请求失败：HTTP ${res.status}`;
+      el("appointmentStatus").className = res.ok ? "status ok" : "status danger";
+      if (!res.ok) return;
+      try {
+        renderAppointments(JSON.parse(text));
+      } catch (_) {
+        renderAppointments([]);
+      }
+    }
+
+    async function bootstrap() {
+      if (!getAccessToken()) {
+        if (!getRefreshToken() || !(await refreshToken())) return;
+      }
+      if (getRole() !== "TEACHER") {
+        redirectToLogin();
+        return;
+      }
+      await loadProfile();
+    }
+
+    async function loadSlots() {
+      const res = await api("/api/teacher/slots");
+      const text = await res.text();
+      if (!res.ok) {
+        el("slotOutput").textContent = `HTTP ${res.status}\n\n${text}`;
+        el("profileStatus").textContent = `请求失败：HTTP ${res.status}`;
+        el("profileStatus").className = "status danger";
+        return;
+      }
+      const data = JSON.parse(text);
+      el("slotOutput").textContent = `${formatSlotSummary(data)}\n\n----- 原始响应 -----\n${formatJson(text)}`;
+      el("profileStatus").textContent = "排班表已加载";
+      el("profileStatus").className = "status ok";
+    }
+
+    async function submitSlot(path, method, successText) {
+      const res = await api(path, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(slotPayload())
+      });
+      const text = await res.text();
+      if (!res.ok) {
+        el("slotOutput").textContent = `HTTP ${res.status}\n\n${text}`;
+        el("profileStatus").textContent = `请求失败：HTTP ${res.status}`;
+        el("profileStatus").className = "status danger";
+        return;
+      }
+      const data = JSON.parse(text);
+      const title = Array.isArray(data) ? "本次自动生成的排班：" : "排班已更新：";
+      el("slotOutput").textContent = `${title}\n${formatSlotSummary(data)}\n\n----- 原始响应 -----\n${formatJson(text)}`;
+      el("profileStatus").textContent = successText;
+      el("profileStatus").className = "status ok";
+    }
+
+    el("btnLoadProfile").addEventListener("click", loadProfile);
+    el("btnSaveProfile").addEventListener("click", () => callAndRender(
+      "/api/teacher/profile/me",
+      { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(profilePayload()) },
+      "profileOutput",
+      "profileStatus",
+      "资料已保存"
+    ));
+    el("btnLoadSlots").addEventListener("click", loadSlots);
+    el("btnCreateSlot").addEventListener("click", () => submitSlot("/api/teacher/slots", "POST", "空闲区间已生成排班"));
+    el("btnUpdateSlot").addEventListener("click", () => submitSlot(`/api/teacher/slots/${el("slotId").value.trim()}`, "PUT", "单个小时段已更新"));
+    el("btnOpenSlot").addEventListener("click", () => callAndRender(
+      `/api/teacher/slots/${el("slotId").value.trim()}/open`,
+      { method: "PATCH" },
+      "slotOutput",
+      "profileStatus",
+      "单个小时段已开放"
+    ));
+    el("btnCloseSlot").addEventListener("click", () => callAndRender(
+      `/api/teacher/slots/${el("slotId").value.trim()}/close`,
+      { method: "PATCH" },
+      "slotOutput",
+      "profileStatus",
+      "单个小时段已关闭"
+    ));
+    el("btnDeleteSlot").addEventListener("click", () => callAndRender(
+      `/api/teacher/slots/${el("slotId").value.trim()}`,
+      { method: "DELETE" },
+      "slotOutput",
+      "profileStatus",
+      "单个小时段已删除"
+    ));
+    el("btnLoadAppointments").addEventListener("click", loadAppointments);
+    el("btnLoadAppointmentDetail").addEventListener("click", () => callAndRender(`/api/teacher/appointments/${el("appointmentId").value.trim()}`, {}, "appointmentOutput", "appointmentStatus", "预约详情已加载"));
+    el("btnCancelAppointment").addEventListener("click", () => callAndRender(
+      `/api/teacher/appointments/${el("appointmentId").value.trim()}/cancel`,
+      { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reason: el("appointmentReason").value.trim() }) },
+      "appointmentOutput",
+      "appointmentStatus",
+      "预约已取消"
+    ));
+    el("btnCompleteAppointment").addEventListener("click", () => callAndRender(
+      `/api/teacher/appointments/${el("appointmentId").value.trim()}/complete`,
+      { method: "PATCH" },
+      "appointmentOutput",
+      "appointmentStatus",
+      "预约已完成"
+    ));
+    el("btnLogout").addEventListener("click", () => {
+      clearSession();
+      redirectToLogin();
+    });
+
+    bootstrap();
+  </script>
+</body>
+</html>

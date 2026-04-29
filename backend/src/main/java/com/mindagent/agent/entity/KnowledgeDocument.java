@@ -44,7 +44,7 @@ public class KnowledgeDocument {
     @Column(name = "status", nullable = false, length = 16)
     private String status;
 
-    @Column(name = "error_message", length = 500)
+    @Column(name = "error_message", length = 2000)
     private String errorMessage;
 
     @Column(name = "file_bytes", nullable = false)

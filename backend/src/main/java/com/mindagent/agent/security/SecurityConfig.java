@@ -37,9 +37,11 @@ public class SecurityConfig {
                 .authorizeExchange(ex -> ex
                         .pathMatchers("/api/health/**", "/api/auth/**", "/api/mock/mcp/**").permitAll()
                         .pathMatchers("/api/admin/**", "/api/kb/**").hasRole("ADMIN")
+                        .pathMatchers("/api/teacher/**").hasRole("TEACHER")
+                        .pathMatchers("/api/appointment/**").hasRole("USER")
                         .pathMatchers("/api/me/**").hasAnyRole("USER", "ADMIN")
                         .pathMatchers("/api/rag/**").hasAnyRole("USER", "ADMIN")
-                        .pathMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN")
+                        .pathMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN", "TEACHER")
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth -> oauth

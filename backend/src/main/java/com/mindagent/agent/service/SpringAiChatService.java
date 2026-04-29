@@ -8,6 +8,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @Service
 @ConditionalOnBean(ChatModel.class)
-public class SpringAiChatService implements ChatModelGateway {
+public class SpringAiChatService {
 
     private final ChatModel chatModel;
 
@@ -27,7 +28,6 @@ public class SpringAiChatService implements ChatModelGateway {
         this.chatModel = chatModel;
     }
 
-    @Override
     public Flux<String> streamChat(List<Map<String, Object>> messages, String requestedModel) {
         Prompt prompt = buildPrompt(messages, requestedModel);
         return chatModel.stream(prompt)
@@ -35,14 +35,30 @@ public class SpringAiChatService implements ChatModelGateway {
                 .filter(token -> token != null && !token.isEmpty());
     }
 
-    @Override
     public Mono<String> completeOnce(List<Map<String, Object>> messages, String requestedModel) {
         Prompt prompt = buildPrompt(messages, requestedModel);
         return Mono.fromCallable(() -> extractContent(chatModel.call(prompt)))
                 .defaultIfEmpty("");
     }
 
+    public Mono<ToolChatResult> completeWithTools(List<Map<String, Object>> messages,
+                                                  List<ToolCallback> toolCallbacks,
+                                                  String requestedModel) {
+        Prompt prompt = buildPrompt(messages, requestedModel, toolCallbacks);
+        return Mono.fromCallable(() -> {
+            ChatResponse response = chatModel.call(prompt);
+            String answer = extractContent(response);
+            return new ToolChatResult(answer, List.of());
+        }).defaultIfEmpty(new ToolChatResult("", List.of()));
+    }
+
     private Prompt buildPrompt(List<Map<String, Object>> messages, String requestedModel) {
+        return buildPrompt(messages, requestedModel, List.of());
+    }
+
+    private Prompt buildPrompt(List<Map<String, Object>> messages,
+                               String requestedModel,
+                               List<ToolCallback> toolCallbacks) {
         List<Message> springMessages = new ArrayList<>();
         for (Map<String, Object> message : messages) {
             String role = String.valueOf(message.getOrDefault("role", "user"));
@@ -59,9 +75,13 @@ public class SpringAiChatService implements ChatModelGateway {
             return new Prompt(springMessages);
         }
 
-        OpenAiChatOptions options = OpenAiChatOptions.builder()
-                .model(model)
-                .build();
+        OpenAiChatOptions.Builder builder = OpenAiChatOptions.builder()
+                .model(model);
+        if (toolCallbacks != null && !toolCallbacks.isEmpty()) {
+            builder.toolCallbacks(toolCallbacks);
+            builder.internalToolExecutionEnabled(true);
+        }
+        OpenAiChatOptions options = builder.build();
         return new Prompt(springMessages, options);
     }
 

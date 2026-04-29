@@ -7,6 +7,7 @@ import com.mindagent.agent.entity.ChatMessage;
 import com.mindagent.agent.entity.ChatSession;
 import com.mindagent.agent.entity.PsychologicalReport;
 import com.mindagent.agent.repository.PsychologicalReportRepository;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -43,6 +44,7 @@ public class ChatOrchestrationService {
     private final PsychologicalReportRepository reportRepository;
     private final QueryRoutingService queryRoutingService;
     private final RagRetrievalService ragRetrievalService;
+    private final AppointmentToolCallbackFactory appointmentToolCallbackFactory;
     private final ObjectMapper objectMapper;
 
     public ChatOrchestrationService(ChatModelGateway chatModelGateway,
@@ -58,6 +60,7 @@ public class ChatOrchestrationService {
                                     PsychologicalReportRepository reportRepository,
                                     QueryRoutingService queryRoutingService,
                                     RagRetrievalService ragRetrievalService,
+                                    AppointmentToolCallbackFactory appointmentToolCallbackFactory,
                                     ObjectMapper objectMapper) {
         this.chatModelGateway = chatModelGateway;
         this.ragProperties = ragProperties;
@@ -72,6 +75,7 @@ public class ChatOrchestrationService {
         this.reportRepository = reportRepository;
         this.queryRoutingService = queryRoutingService;
         this.ragRetrievalService = ragRetrievalService;
+        this.appointmentToolCallbackFactory = appointmentToolCallbackFactory;
         this.objectMapper = objectMapper;
     }
 
@@ -118,48 +122,9 @@ public class ChatOrchestrationService {
                                 .data(buildRagEventData(retrieval))
                                 .build());
 
-                        StringBuilder answerBuffer = new StringBuilder();
-                        Flux<ServerSentEvent<String>> answerEvents = chatModelGateway.streamChat(messages, requestedModel)
-                                .map(chunk -> {
-                                    answerBuffer.append(chunk);
-                                    return ServerSentEvent.<String>builder()
-                                            .event("token")
-                                            .data(chunk)
-                                            .build();
-                                })
-                                .concatWithValues(ServerSentEvent.<String>builder()
-                                        .event("done")
-                                        .data("[DONE]")
-                                        .build())
-                                .doOnComplete(() -> {
-                                    persistAssistantReply(
-                                            userId,
-                                            sessionId,
-                                            query,
-                                            prepared.intent(),
-                                            requestedModel,
-                                            contexts,
-                                            prepared.userMessage(),
-                                            answerBuffer.toString()
-                                    );
-                                    mcpDispatchService.dispatchAsync(
-                                            userId,
-                                            query,
-                                            prepared.intent(),
-                                            toRiskLevel(prepared.intent()),
-                                            contexts.size()
-                                    );
-                                })
-                                .onErrorResume(ex -> Flux.just(
-                                        ServerSentEvent.<String>builder()
-                                                .event("error")
-                                                .data(ex.getMessage() == null ? "chat_stream_failed" : ex.getMessage())
-                                                .build(),
-                                        ServerSentEvent.<String>builder()
-                                                .event("done")
-                                                .data("[DONE]")
-                                                .build()
-                                ));
+                        Flux<ServerSentEvent<String>> answerEvents = prepared.queryType() == QueryType.APPOINTMENT_ACTION
+                                ? toolCallingEvents(userId, sessionId, query, requestedModel, contexts, prepared, messages)
+                                : standardChatEvents(userId, sessionId, query, requestedModel, contexts, prepared, messages);
 
                         return intentEvent.concatWith(ragEvent).concatWith(answerEvents);
                     });
@@ -204,7 +169,7 @@ public class ChatOrchestrationService {
     }
 
     private boolean shouldUseRag(IntentType intent, QueryType queryType) {
-        return shouldUseRag(intent) && queryType != QueryType.OTHER;
+        return shouldUseRag(intent) && queryType != QueryType.OTHER && queryType != QueryType.APPOINTMENT_ACTION;
     }
 
     private String toRiskLevel(IntentType intent) {
@@ -221,19 +186,129 @@ public class ChatOrchestrationService {
         return shouldUseRag(intent, queryType) ? Math.max(0, 1024 + memoryProperties.getMinRagBudget()) : 1024;
     }
 
+    private Flux<ServerSentEvent<String>> standardChatEvents(Long userId,
+                                                             Long sessionId,
+                                                             String query,
+                                                             String requestedModel,
+                                                             List<String> contexts,
+                                                             PreparedChat prepared,
+                                                             List<Map<String, Object>> messages) {
+        StringBuilder answerBuffer = new StringBuilder();
+        return chatModelGateway.streamChat(messages, requestedModel)
+                .map(chunk -> {
+                    answerBuffer.append(chunk);
+                    return ServerSentEvent.<String>builder()
+                            .event("token")
+                            .data(chunk)
+                            .build();
+                })
+                .concatWithValues(ServerSentEvent.<String>builder()
+                        .event("done")
+                        .data("[DONE]")
+                        .build())
+                .doOnComplete(() -> {
+                    persistAssistantReply(
+                            userId,
+                            sessionId,
+                            query,
+                            prepared.intent(),
+                            requestedModel,
+                            contexts,
+                            prepared.userMessage(),
+                            answerBuffer.toString()
+                    );
+                    mcpDispatchService.dispatchAsync(
+                            userId,
+                            query,
+                            prepared.intent(),
+                            toRiskLevel(prepared.intent()),
+                            contexts.size()
+                    );
+                })
+                .onErrorResume(ex -> Flux.just(
+                        ServerSentEvent.<String>builder()
+                                .event("error")
+                                .data(ex.getMessage() == null ? "chat_stream_failed" : ex.getMessage())
+                                .build(),
+                        ServerSentEvent.<String>builder()
+                                .event("done")
+                                .data("[DONE]")
+                                .build()
+                ));
+    }
+
+    private Flux<ServerSentEvent<String>> toolCallingEvents(Long userId,
+                                                            Long sessionId,
+                                                            String query,
+                                                            String requestedModel,
+                                                            List<String> contexts,
+                                                            PreparedChat prepared,
+                                                            List<Map<String, Object>> messages) {
+        List<ToolExecutionView> toolExecutions = new ArrayList<>();
+        List<ToolCallback> toolCallbacks = appointmentToolCallbackFactory.createCallbacks(userId, sessionId, toolExecutions);
+        return chatModelGateway.completeWithTools(messages, toolCallbacks, requestedModel)
+                .flatMapMany(result -> {
+                    Flux<ServerSentEvent<String>> toolEvents = Flux.fromIterable(toolExecutions)
+                            .flatMap(execution -> Flux.just(
+                                    ServerSentEvent.<String>builder()
+                                            .event("tool_call_start")
+                                            .data(toJson(Map.of("toolName", execution.toolName(), "arguments", execution.arguments())))
+                                            .build(),
+                                    ServerSentEvent.<String>builder()
+                                            .event("tool_call_result")
+                                            .data(toJson(Map.of("toolName", execution.toolName(), "result", execution.result(), "status", execution.status())))
+                                            .build()
+                            ));
+                    Flux<ServerSentEvent<String>> replyEvents = Flux.just(
+                            ServerSentEvent.<String>builder().event("final_reply").data(result.answer()).build(),
+                            ServerSentEvent.<String>builder().event("token").data(result.answer()).build(),
+                            ServerSentEvent.<String>builder().event("done").data("[DONE]").build()
+                    );
+                    return toolEvents.concatWith(replyEvents)
+                            .doOnComplete(() -> persistAssistantReply(
+                                    userId,
+                                    sessionId,
+                                    query,
+                                    prepared.intent(),
+                                    requestedModel,
+                                    contexts,
+                                    prepared.userMessage(),
+                                    result.answer()
+                            ));
+                })
+                .onErrorResume(ex -> Flux.just(
+                        ServerSentEvent.<String>builder()
+                                .event("error")
+                                .data(ex.getMessage() == null ? "tool_chat_failed" : ex.getMessage())
+                                .build(),
+                        ServerSentEvent.<String>builder()
+                                .event("done")
+                                .data("[DONE]")
+                                .build()
+                ));
+    }
+
     private String buildRagEventData(RagRetrievalResult retrieval) {
         try {
-                    Map<String, Object> payload = Map.of(
-                            "queryType", retrieval.queryType().name(),
-                            "rewrittenQuery", retrieval.rewrittenQuery(),
-                            "contexts", retrieval.selectedResults().size(),
-                            "rerankTopK", retrieval.rerankResults().size(),
-                            "rerankResults", retrieval.rerankResults(),
-                            "selectedChunks", retrieval.selectedResults()
-                    );
+            Map<String, Object> payload = Map.of(
+                    "queryType", retrieval.queryType().name(),
+                    "rewrittenQuery", retrieval.rewrittenQuery(),
+                    "contexts", retrieval.selectedResults().size(),
+                    "rerankTopK", retrieval.rerankResults().size(),
+                    "rerankResults", retrieval.rerankResults(),
+                    "selectedChunks", retrieval.selectedResults()
+            );
             return objectMapper.writeValueAsString(payload);
         } catch (Exception ex) {
             return "{\"queryType\":\"" + retrieval.queryType().name() + "\",\"contexts\":" + retrieval.selectedResults().size() + "}";
+        }
+    }
+
+    private String toJson(Map<String, Object> payload) {
+        try {
+            return objectMapper.writeValueAsString(payload);
+        } catch (Exception ex) {
+            return "{}";
         }
     }
 

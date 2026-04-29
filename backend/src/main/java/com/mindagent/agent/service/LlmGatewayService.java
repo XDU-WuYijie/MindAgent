@@ -1,9 +1,9 @@
 package com.mindagent.agent.service;
 
-import com.mindagent.agent.config.LlmProviderProperties;
+import com.mindagent.agent.config.MindAgentAiProperties;
+import org.springframework.ai.tool.ToolCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -19,47 +19,70 @@ public class LlmGatewayService implements ChatModelGateway {
 
     private static final Logger log = LoggerFactory.getLogger(LlmGatewayService.class);
 
-    private final VllmChatService vllmChatService;
-    private final ObjectProvider<SpringAiChatService> springAiChatServiceProvider;
-    private final LlmProviderProperties llmProviderProperties;
+    private final DashScopeChatGateway dashScopeChatGateway;
+    private final OllamaChatGateway ollamaChatGateway;
+    private final MindAgentAiProperties aiProperties;
 
-    public LlmGatewayService(VllmChatService vllmChatService,
-                             ObjectProvider<SpringAiChatService> springAiChatServiceProvider,
-                             LlmProviderProperties llmProviderProperties) {
-        this.vllmChatService = vllmChatService;
-        this.springAiChatServiceProvider = springAiChatServiceProvider;
-        this.llmProviderProperties = llmProviderProperties;
+    public LlmGatewayService(DashScopeChatGateway dashScopeChatGateway,
+                             OllamaChatGateway ollamaChatGateway,
+                             MindAgentAiProperties aiProperties) {
+        this.dashScopeChatGateway = dashScopeChatGateway;
+        this.ollamaChatGateway = ollamaChatGateway;
+        this.aiProperties = aiProperties;
     }
 
     @Override
     public Flux<String> streamChat(List<Map<String, Object>> messages, String requestedModel) {
-        return delegate().streamChat(messages, effectiveModel(requestedModel));
+        return chatDelegate().streamChat(messages, effectiveModel(requestedModel, aiProperties.getChat().getModel()));
     }
 
     @Override
     public Mono<String> completeOnce(List<Map<String, Object>> messages, String requestedModel) {
-        return delegate().completeOnce(messages, effectiveModel(requestedModel));
+        return chatDelegate().completeOnce(messages, effectiveModel(requestedModel, aiProperties.getChat().getModel()));
     }
 
-    private ChatModelGateway delegate() {
-        String provider = llmProviderProperties.getProvider() == null
-                ? "vllm"
-                : llmProviderProperties.getProvider().trim().toLowerCase(Locale.ROOT);
+    @Override
+    public Mono<ToolChatResult> completeWithTools(List<Map<String, Object>> messages,
+                                                  List<ToolCallback> toolCallbacks,
+                                                  String requestedModel) {
+        ChatModelGateway delegate = agentDelegate();
+        if (!delegate.supportsToolCalling()) {
+            log.warn("Agent provider '{}' does not support tool calling. Falling back to DashScope.", aiProperties.getAgent().getProvider());
+            delegate = dashScopeChatGateway;
+        }
+        return delegate.completeWithTools(messages, toolCallbacks, effectiveModel(requestedModel, aiProperties.getAgent().getModel()));
+    }
 
-        if ("spring-ai".equals(provider)) {
-            SpringAiChatService springAi = springAiChatServiceProvider.getIfAvailable();
-            if (springAi != null) {
-                return springAi;
+    @Override
+    public boolean supportsToolCalling() {
+        return true;
+    }
+
+    private ChatModelGateway chatDelegate() {
+        return delegateFor(aiProperties.getChat().getProvider());
+    }
+
+    private ChatModelGateway agentDelegate() {
+        return delegateFor(aiProperties.getAgent().getProvider());
+    }
+
+    private ChatModelGateway delegateFor(String provider) {
+        String normalized = provider == null ? "dashscope" : provider.trim().toLowerCase(Locale.ROOT);
+        return switch (normalized) {
+            case "ollama" -> ollamaChatGateway;
+            case "dashscope" -> dashScopeChatGateway;
+            default -> {
+                log.warn("Unknown AI provider '{}', fallback to DashScope", provider);
+                yield dashScopeChatGateway;
             }
-            log.warn("LLM provider 'spring-ai' is configured but SpringAiChatService is unavailable. Falling back to vLLM-compatible gateway.");
-        }
-        return vllmChatService;
+        };
     }
 
-    private String effectiveModel(String requestedModel) {
-        if (!llmProviderProperties.isUseRequestedModel()) {
-            return null;
+    private String effectiveModel(String requestedModel, String fallbackModel) {
+        if (!aiProperties.isUseRequestedModel()) {
+            return fallbackModel;
         }
-        return requestedModel;
+        String normalized = requestedModel == null ? "" : requestedModel.trim();
+        return normalized.isEmpty() ? fallbackModel : normalized;
     }
 }

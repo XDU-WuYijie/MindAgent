@@ -210,7 +210,7 @@
         <div class="brand"><span class="brand-dot"></span>MindAgent 管理入口</div>
         <h1>单独的登录页面</h1>
         <p class="lead">
-          这里负责登录与身份切换。管理员登录后进入知识库管理页，普通用户可以继续进入现有业务页面。
+          这里负责登录与身份切换。管理员进入知识库管理页，老师进入预约管理页，普通用户进入聊天与预约页面。
         </p>
         <ul class="points">
           <li><span></span>管理员页专注知识库管理，数据源以 MySQL 为准。</li>
@@ -235,13 +235,13 @@
           </div>
           <div id="status" class="status">等待登录</div>
           <div class="hint">
-            默认管理员账号通常为 `admin / admin123`，普通用户账号为 `user / user123`，如果你改过初始化数据，按实际账号登录即可。登录后会按角色自动进入对应页面。
+            默认管理员账号通常为 `admin / admin123`，老师账号为 `teacher / teacher123`，普通用户账号为 `user / user123`。如果你改过初始化数据，按实际账号登录即可。
           </div>
         </div>
         <div class="metric">
           <div class="label">登录后跳转</div>
-          <div class="value">Admin / Chat</div>
-          <div class="desc">管理员自动进入知识库管理页；普通用户进入现有业务页面。</div>
+          <div class="value">Admin / Teacher / User</div>
+          <div class="desc">管理员进入 `admin.html`；老师进入 `teacher.html`；普通用户进入 `index.html`。</div>
         </div>
       </section>
     </div>
@@ -266,11 +266,16 @@
     }
 
     function redirectByRole(role) {
-      if ((role || "").toUpperCase() === "ADMIN") {
+      const normalized = (role || "").toUpperCase();
+      if (normalized === "ADMIN") {
         location.href = "admin.html";
-      } else {
-        location.href = "index.html";
+        return;
       }
+      if (normalized === "TEACHER") {
+        location.href = "teacher.html";
+        return;
+      }
+      location.href = "index.html";
     }
 
     function clearSession() {

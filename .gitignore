@@ -28,8 +28,9 @@ logs/
 *.swo
 data/
 backend/data/
-backend/storage/knowledge/*
+
 backend/storage/repo-cache/*
+docs/*
 !backend/storage/knowledge/.gitkeep
 !backend/storage/repo-cache/.gitkeep
 docker/mysql/data/*

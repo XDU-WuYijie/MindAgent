@@ -27,6 +27,13 @@ public class UserDataInitializer {
                 user.setRole("USER");
                 userRepository.save(user);
             }
+            if (!userRepository.existsByUsername("teacher")) {
+                AppUser teacher = new AppUser();
+                teacher.setUsername("teacher");
+                teacher.setPasswordHash(passwordEncoder.encode("teacher123"));
+                teacher.setRole("TEACHER");
+                userRepository.save(teacher);
+            }
         };
     }
 }

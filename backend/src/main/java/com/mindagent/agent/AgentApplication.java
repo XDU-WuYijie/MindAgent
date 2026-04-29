@@ -6,7 +6,7 @@ import com.mindagent.agent.config.VllmProperties;
 import com.mindagent.agent.config.ChatMemoryProperties;
 import com.mindagent.agent.config.McpProperties;
 import com.mindagent.agent.config.AuthProperties;
-import com.mindagent.agent.config.LlmProviderProperties;
+import com.mindagent.agent.config.MindAgentAiProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,7 +19,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
         ChatMemoryProperties.class,
         McpProperties.class,
         AuthProperties.class,
-        LlmProviderProperties.class
+        MindAgentAiProperties.class
 })
 public class AgentApplication {
 

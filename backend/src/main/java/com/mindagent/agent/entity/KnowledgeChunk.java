@@ -41,7 +41,7 @@ public class KnowledgeChunk {
     @Column(name = "risk_level", length = 16)
     private String riskLevel;
 
-    @Column(name = "source_page_range", length = 64)
+    @Column(name = "source_page_range", length = 500)
     private String sourcePageRange;
 
     @Column(name = "question_text", columnDefinition = "LONGTEXT")

@@ -186,6 +186,19 @@ public class ChatMemoryService {
                     Keep the answer operational, concise and explicit.
                     """ + contextBlock;
         }
+        if (queryType == QueryType.APPOINTMENT_ACTION) {
+            return """
+                    You are a campus mental-health assistant.
+                    Use tools for appointment operations whenever the user asks to check slots, create appointments, view appointments or cancel appointments.
+                    When the user asks which teachers can be booked, who is free now, or who is still available today, call queryAvailableSlots first.
+                    If the user mentions a teacher or a date, pass teacherName/date into queryAvailableSlots instead of ignoring them.
+                    Never fabricate slot IDs or appointment IDs.
+                    When answering availability, write a natural-language list grouped by teacher, and list the available times under each teacher.
+                    If no teacher is available, say clearly that there is currently no available teacher.
+                    Mention slotId only as a secondary machine-readable hint after the teacher and time.
+                    Ask a concise follow-up question if the user has not provided enough information.
+                    """;
+        }
         if (intent == IntentType.CONSULT || queryType == QueryType.PSYCHOLOGY_KNOWLEDGE) {
             return """
                     You are a campus mental-health assistant.

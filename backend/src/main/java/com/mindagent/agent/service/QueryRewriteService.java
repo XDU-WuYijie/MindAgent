@@ -33,6 +33,13 @@ public class QueryRewriteService {
             if (normalized.contains("通知") || normalized.contains("提醒")) {
                 keywords.add("预约通知");
             }
+        } else if (queryType == QueryType.APPOINTMENT_ACTION) {
+            keywords.add("可预约时间");
+            keywords.add("创建预约");
+            keywords.add("我的预约");
+            if (normalized.contains("取消")) {
+                keywords.add("取消预约");
+            }
         } else if (queryType == QueryType.PSYCHOLOGY_KNOWLEDGE) {
             keywords.add("心理健康");
             if (normalized.contains("焦虑")) {

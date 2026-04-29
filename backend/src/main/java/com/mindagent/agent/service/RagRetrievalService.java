@@ -38,7 +38,7 @@ public class RagRetrievalService {
     }
 
     public reactor.core.publisher.Mono<RagRetrievalResult> retrieve(IntentType intentType, QueryType queryType, String query) {
-        if (!ragProperties.isEnabled() || queryType == QueryType.OTHER) {
+        if (!ragProperties.isEnabled() || queryType == QueryType.OTHER || queryType == QueryType.APPOINTMENT_ACTION) {
             return reactor.core.publisher.Mono.just(
                     new RagRetrievalResult(intentType, queryType, query == null ? "" : query, List.of(), List.of(), List.of(), List.of(), List.of())
             );
@@ -70,7 +70,7 @@ public class RagRetrievalService {
                     Set.of(),
                     Set.of("faq", "kb", "article", "generic")
             );
-            case OTHER -> RetrievalFilter.empty();
+            case APPOINTMENT_ACTION, OTHER -> RetrievalFilter.empty();
         };
     }
 }

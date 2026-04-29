@@ -32,7 +32,7 @@
       min-height: 100vh;
     }
     .shell {
-      max-width: 1480px;
+      max-width: 1780px;
       margin: 0 auto;
       padding: 20px 18px 28px;
     }
@@ -68,13 +68,13 @@
     }
     .layout {
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 380px minmax(500px, 1fr) minmax(560px, 1.15fr);
       gap: 14px;
       align-items: start;
       animation: rise .55s ease-out both;
       animation-delay: .04s;
     }
-    @media (max-width: 1180px) {
+    @media (max-width: 1380px) {
       .layout { grid-template-columns: 1fr; }
       .hero { flex-direction: column; }
     }
@@ -324,7 +324,7 @@
     .upload-grid {
       display: grid;
       gap: 10px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
     }
     .space-card {
       border: 1px solid rgba(215,223,239,.95);
@@ -349,6 +349,111 @@
     .space-card .space-file {
       margin-top: auto;
     }
+
+    .file-upload-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-upload-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 2px dashed var(--line);
+      border-radius: 12px;
+      background: #f8fbff;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .file-upload-area:hover {
+      border-color: rgba(31,102,229,.45);
+      background: #f0f5ff;
+    }
+
+    .file-upload-area.has-file {
+      border-style: solid;
+      border-color: var(--brand);
+      background: linear-gradient(180deg, #eef3fb, #e6efff);
+    }
+
+    .file-upload-area .upload-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .file-upload-area .upload-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .file-upload-area .upload-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .file-upload-area .upload-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .file-upload-area .upload-filename {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-upload-area .upload-filesize {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .file-upload-area .upload-clear {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: all .2s;
+    }
+
+    .file-upload-area .upload-clear:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: rgba(180,35,24,.06);
+    }
+
+    .file-upload-area input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
     @media (max-width: 720px) {
       .toolbar-grid { grid-template-columns: 1fr; }
       .upload-grid { grid-template-columns: 1fr; }
@@ -401,7 +506,10 @@
           <button id="btnLogout">退出登录</button>
           <button id="btnGoLogin">返回登录页</button>
         </div>
+      </section>
 
+      <section class="card">
+        <h2>文档列表 <span class="badge">MySQL</span></h2>
         <div class="row">
           <select id="statusFilter">
             <option value="">全部状态</option>
@@ -414,23 +522,23 @@
         </div>
 
         <div id="listStatus" class="status">等待加载文档列表</div>
-        <table class="docs-table">
-          <thead>
-            <tr>
-              <th style="width:28%;">文件名</th>
-              <th style="width:14%;">类型</th>
-              <th style="width:18%;">知识库空间</th>
-              <th style="width:14%;">分类</th>
-              <th style="width:12%;">状态</th>
-              <th style="width:10%;">chunk 数量</th>
-              <th style="width:14%;">更新时间</th>
-              <th style="width:6%;">操作</th>
-            </tr>
-          </thead>
-          <tbody id="docTbody">
-            <tr><td colspan="8" class="empty">正在加载...</td></tr>
-          </tbody>
-        </table>
+        <div class="docs-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th style="width:34%;">文件名</th>
+                <th style="width:14%;">类型</th>
+                <th style="width:18%;">知识库空间</th>
+                <th style="width:12%;">状态</th>
+                <th style="width:14%;">更新时间</th>
+                <th style="width:8%;">操作</th>
+              </tr>
+            </thead>
+            <tbody id="docTbody">
+              <tr><td colspan="6" class="empty">正在加载...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section class="card">
@@ -599,6 +707,18 @@
       return `uploadFile_${spaceKey}`;
     }
 
+    function formatFileSize(bytes) {
+      if (bytes == null || bytes === 0) return "0 B";
+      const units = ["B", "KB", "MB", "GB"];
+      let i = 0;
+      let size = bytes;
+      while (size >= 1024 && i < units.length - 1) {
+        size /= 1024;
+        i++;
+      }
+      return `${size.toFixed(i > 0 ? 2 : 0)} ${units[i]}`;
+    }
+
     function renderUploadSpaces(items) {
       knowledgeSpaces = Array.isArray(items) && items.length ? items : [
         { key: "knowledge_base_1", label: "校园心理健康知识", description: "面向校园心理健康 FAQ、知识文档与合并后的科普资料。" },
@@ -609,13 +729,28 @@
         const label = space.label || spaceCardTitle(key);
         const uploadLabel = space.uploadLabel || spaceUploadLabel(key);
         const desc = space.description || "";
+        const inputId = spaceInputId(key);
+        const wrapId = `uploadWrap_${key}`;
+        const areaId = `uploadArea_${key}`;
+        const textId = `uploadText_${key}`;
+        const labelId = `uploadLabel_${key}`;
+        const hintId = `uploadHint_${key}`;
+        const clearId = `uploadClear_${key}`;
         return `
           <section class="space-card">
             <h3>${escapeHtml(label)}</h3>
             <div class="badge">${escapeHtml(key)}</div>
             <div class="space-desc">${escapeHtml(desc)}</div>
-            <div class="row space-file">
-              <input id="${escapeHtml(spaceInputId(key))}" type="file" accept=".md,.txt" />
+            <div class="file-upload-wrap space-file" id="${escapeHtml(wrapId)}">
+              <label class="file-upload-area" id="${escapeHtml(areaId)}" for="${escapeHtml(inputId)}">
+                <input id="${escapeHtml(inputId)}" type="file" accept=".md,.txt" data-space-key="${escapeHtml(key)}" />
+                <div class="upload-icon">📄</div>
+                <div class="upload-text" id="${escapeHtml(textId)}">
+                  <div class="upload-label" id="${escapeHtml(labelId)}">点击选择文件</div>
+                  <div class="upload-hint" id="${escapeHtml(hintId)}">支持 .md、.txt 格式</div>
+                </div>
+                <button type="button" class="upload-clear hidden" id="${escapeHtml(clearId)}" title="移除已选文件">×</button>
+              </label>
             </div>
             <div class="btns">
               <button class="primary" data-upload-space="${escapeHtml(key)}" data-upload-kind="faq">上传 FAQ</button>
@@ -624,11 +759,57 @@
           </section>
         `;
       }).join("");
+
+      // 绑定文件选择监听
+      uploadSpaces.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener("change", () => onFileSelected(input));
+      });
+
+      // 绑定清除按钮监听
+      uploadSpaces.querySelectorAll(".upload-clear").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const wrap = btn.closest(".file-upload-wrap");
+          const input = wrap.querySelector('input[type="file"]');
+          if (input) {
+            input.value = "";
+            onFileSelected(input);
+          }
+        });
+      });
+
       uploadSpaces.querySelectorAll("button[data-upload-space]").forEach(button => {
         button.addEventListener("click", () => uploadFile(button.dataset.uploadSpace, button.dataset.uploadKind));
       });
       if (spaceStatus) {
         setStatus(spaceStatus, `已加载 ${knowledgeSpaces.length} 个知识库空间。`, "ok");
+      }
+    }
+
+    function onFileSelected(input) {
+      const spaceKey = input.dataset.spaceKey;
+      const wrap = el(`uploadWrap_${spaceKey}`);
+      const area = el(`uploadArea_${spaceKey}`);
+      const labelEl = el(`uploadLabel_${spaceKey}`);
+      const hintEl = el(`uploadHint_${spaceKey}`);
+      const clearBtn = el(`uploadClear_${spaceKey}`);
+
+      if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        area.classList.add("has-file");
+        labelEl.className = "upload-filename";
+        labelEl.textContent = file.name;
+        hintEl.className = "upload-filesize";
+        hintEl.textContent = `${formatFileSize(file.size)} · 点击更换文件`;
+        clearBtn.classList.remove("hidden");
+      } else {
+        area.classList.remove("has-file");
+        labelEl.className = "upload-label";
+        labelEl.textContent = "点击选择文件";
+        hintEl.className = "upload-hint";
+        hintEl.textContent = "支持 .md、.txt 格式";
+        clearBtn.classList.add("hidden");
       }
     }
 
@@ -690,7 +871,7 @@
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus(listStatus, data.error || `加载失败：HTTP ${res.status}`, "danger-text");
-        docTbody.innerHTML = `<tr><td colspan="8" class="empty">加载失败</td></tr>`;
+        docTbody.innerHTML = `<tr><td colspan="6" class="empty">加载失败</td></tr>`;
         return;
       }
       documents = Array.isArray(data.items) ? data.items : [];
@@ -721,7 +902,7 @@
     function renderDocuments() {
       const items = filteredDocuments();
       if (!items.length) {
-        docTbody.innerHTML = `<tr><td colspan="8" class="empty">没有符合条件的文档</td></tr>`;
+        docTbody.innerHTML = `<tr><td colspan="6" class="empty">没有符合条件的文档</td></tr>`;
         return;
       }
       docTbody.innerHTML = items.map(item => `
@@ -736,11 +917,9 @@
           <td>
             <span class="status-badge status-default">${escapeHtml(item.knowledgeBaseLabel || spaceUploadLabel(item.knowledgeBaseKey || "knowledge_base_1"))}</span>
           </td>
-          <td>${escapeHtml(item.category || "-")}</td>
           <td>
             <span class="status-badge ${statusClass(item.status)}">${escapeHtml(item.statusLabel || statusLabel(item.status))}</span>
           </td>
-          <td>${item.chunkCount ?? 0}</td>
           <td>${escapeHtml(formatTime(item.updatedAt))}</td>
           <td><button data-act="select" data-id="${item.id}">查看</button></td>
         </tr>

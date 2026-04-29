@@ -1,4 +1,17 @@
 mindagent:
-  llm:
-    provider: vllm
+  ai:
     use-requested-model: false
+    chat:
+      provider: dashscope
+      model: qwen-plus
+      tool-calling-enabled: true
+    agent:
+      provider: dashscope
+      model: qwen-plus
+      tool-calling-enabled: true
+    embedding:
+      provider: dashscope
+      model: text-embedding-v4
+    rerank:
+      provider: dashscope
+      model: qwen3-rerank

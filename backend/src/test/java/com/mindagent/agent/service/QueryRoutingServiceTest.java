@@ -21,6 +21,13 @@ class QueryRoutingServiceTest {
     }
 
     @Test
+    void shouldRouteAppointmentActionByRule() {
+        QueryRoutingService service = new QueryRoutingService(new StubChatGateway("OTHER"));
+        QueryType queryType = service.classify("帮我预约一个心理咨询时间", null).block();
+        assertEquals(QueryType.APPOINTMENT_ACTION, queryType);
+    }
+
+    @Test
     void shouldRoutePsychologyQuestionByRule() {
         QueryRoutingService service = new QueryRoutingService(new StubChatGateway("OTHER"));
         QueryType queryType = service.classify("考试前特别焦虑怎么办", null).block();
@@ -57,6 +64,13 @@ class QueryRoutingServiceTest {
         QueryRoutingService service = new QueryRoutingService(new StubChatGateway("APPOINTMENT_PROCESS"));
         QueryType queryType = service.classify("请问怎么在系统里取消已经定好的咨询", null).block();
         assertEquals(QueryType.APPOINTMENT_PROCESS, queryType);
+    }
+
+    @Test
+    void shouldRouteViaModelToAppointmentAction() {
+        QueryRoutingService service = new QueryRoutingService(new StubChatGateway("APPOINTMENT_ACTION"));
+        QueryType queryType = service.classify("请直接替我处理一下咨询安排", null).block();
+        assertEquals(QueryType.APPOINTMENT_ACTION, queryType);
     }
 
     @Test

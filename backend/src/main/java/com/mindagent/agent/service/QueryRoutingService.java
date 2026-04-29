@@ -13,10 +13,12 @@ public class QueryRoutingService {
     private static final String QUERY_TYPE_PROMPT = """
             You are a query router for a campus mental-health assistant.
             Output only one label:
+            - APPOINTMENT_ACTION: the user wants the system to actually query available slots, create an appointment, list my appointments, or cancel my appointment.
             - APPOINTMENT_PROCESS: booking counseling, cancellation, reschedule, status, notification, appointment records or campus internal process.
             - PSYCHOLOGY_KNOWLEDGE: anxiety, stress, sleep, emotions, relationships, self-help psychoeducation.
             - OTHER: greeting, small talk, unrelated chat, or any question that is neither about mental health knowledge nor appointment process.
-            If a query mixes psychological distress and booking intent, output APPOINTMENT_PROCESS.
+            If a query asks the assistant to perform an appointment operation, output APPOINTMENT_ACTION.
+            If a query mixes psychological distress and booking process explanation, output APPOINTMENT_PROCESS.
             Output exactly one token.
             """;
 
@@ -45,12 +47,17 @@ public class QueryRoutingService {
         if (normalized.isBlank()) {
             return QueryType.OTHER;
         }
+        boolean appointmentAction = containsAny(normalized,
+                "帮我预约", "我想预约", "替我预约", "给我预约", "取消我的预约", "帮我取消", "查我的预约", "看看还有哪些时间", "查询可用时间");
         boolean appointment = containsAny(normalized,
                 "预约", "咨询预约", "预约咨询", "取消预约", "改期", "预约状态", "我的预约", "预约记录", "通知", "提醒", "时间段", "申请");
         boolean psych = containsAny(normalized,
                 "焦虑", "抑郁", "难过", "低落", "压力", "睡不着", "失眠", "情绪", "人际", "同学", "室友", "考试", "崩溃", "烦");
         boolean greeting = containsAny(normalized,
                 "你好", "hi", "hello", "在吗", "早上好", "晚上好", "谢谢", "哈哈");
+        if (appointmentAction) {
+            return QueryType.APPOINTMENT_ACTION;
+        }
         if (appointment) {
             return QueryType.APPOINTMENT_PROCESS;
         }
@@ -65,6 +72,9 @@ public class QueryRoutingService {
 
     private QueryType mapLabel(String raw) {
         String normalized = raw == null ? "" : raw.trim().toUpperCase(Locale.ROOT);
+        if (normalized.contains("APPOINTMENT_ACTION")) {
+            return QueryType.APPOINTMENT_ACTION;
+        }
         if (normalized.contains("APPOINTMENT")) {
             return QueryType.APPOINTMENT_PROCESS;
         }

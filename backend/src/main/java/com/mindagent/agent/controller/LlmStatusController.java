@@ -1,10 +1,6 @@
 package com.mindagent.agent.controller;
 
-import com.mindagent.agent.config.LlmProviderProperties;
-import com.mindagent.agent.config.VllmProperties;
-import com.mindagent.agent.service.SpringAiChatService;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Value;
+import com.mindagent.agent.config.MindAgentAiProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,50 +12,34 @@ import java.util.Map;
 @RequestMapping("/api/health")
 public class LlmStatusController {
 
-    private final LlmProviderProperties llmProviderProperties;
-    private final VllmProperties vllmProperties;
-    private final ObjectProvider<SpringAiChatService> springAiChatServiceProvider;
+    private final MindAgentAiProperties aiProperties;
 
-    @Value("${spring.ai.openai.base-url:}")
-    private String springAiBaseUrl;
-
-    @Value("${spring.ai.openai.chat.options.model:}")
-    private String springAiModel;
-
-    public LlmStatusController(LlmProviderProperties llmProviderProperties,
-                               VllmProperties vllmProperties,
-                               ObjectProvider<SpringAiChatService> springAiChatServiceProvider) {
-        this.llmProviderProperties = llmProviderProperties;
-        this.vllmProperties = vllmProperties;
-        this.springAiChatServiceProvider = springAiChatServiceProvider;
+    public LlmStatusController(MindAgentAiProperties aiProperties) {
+        this.aiProperties = aiProperties;
     }
 
     @GetMapping("/llm")
     public Map<String, Object> llmStatus() {
-        String configuredProvider = normalize(llmProviderProperties.getProvider());
-        boolean springAiAvailable = springAiChatServiceProvider.getIfAvailable() != null;
-        boolean useSpringAi = "spring-ai".equals(configuredProvider) && springAiAvailable;
-
-        String activeProvider = useSpringAi ? "spring-ai" : "vllm-compatible";
-        String baseUrl = useSpringAi ? safe(springAiBaseUrl) : safe(vllmProperties.getBaseUrl());
-        String model = useSpringAi ? safe(springAiModel) : safe(vllmProperties.getModel());
-
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("configuredProvider", configuredProvider);
-        result.put("activeProvider", activeProvider);
-        result.put("springAiAvailable", springAiAvailable);
-        result.put("useRequestedModel", llmProviderProperties.isUseRequestedModel());
-        result.put("model", model);
-        result.put("baseUrl", baseUrl);
+        result.put("chatProvider", normalize(aiProperties.getChat().getProvider()));
+        result.put("agentProvider", normalize(aiProperties.getAgent().getProvider()));
+        result.put("embeddingProvider", normalize(aiProperties.getEmbedding().getProvider()));
+        result.put("rerankProvider", normalize(aiProperties.getRerank().getProvider()));
+        result.put("toolCallingEnabled", aiProperties.getAgent().isToolCallingEnabled());
+        result.put("chatModel", safe(aiProperties.getChat().getModel()));
+        result.put("agentModel", safe(aiProperties.getAgent().getModel()));
+        result.put("embeddingModel", safe(aiProperties.getEmbedding().getModel()));
+        result.put("rerankModel", safe(aiProperties.getRerank().getModel()));
+        result.put("useRequestedModel", aiProperties.isUseRequestedModel());
         return result;
     }
 
     private String normalize(String value) {
         if (value == null) {
-            return "vllm";
+            return "dashscope";
         }
         String normalized = value.trim().toLowerCase();
-        return normalized.isEmpty() ? "vllm" : normalized;
+        return normalized.isEmpty() ? "dashscope" : normalized;
     }
 
     private String safe(String value) {

@@ -47,11 +47,24 @@ spring:
       timeout: ${REDIS_TIMEOUT:2s}
 
 mindagent:
-  llm:
-    provider: ${LLM_PROVIDER:vllm}
-    use-requested-model: ${LLM_USE_REQUESTED_MODEL:false}
+  ai:
+    use-requested-model: ${AI_USE_REQUESTED_MODEL:false}
+    chat:
+      provider: ${AI_CHAT_PROVIDER:dashscope}
+      model: ${AI_CHAT_MODEL:qwen-plus}
+      tool-calling-enabled: ${AI_CHAT_TOOL_CALLING_ENABLED:true}
+    agent:
+      provider: ${AI_AGENT_PROVIDER:dashscope}
+      model: ${AI_AGENT_MODEL:qwen-plus}
+      tool-calling-enabled: ${AI_AGENT_TOOL_CALLING_ENABLED:true}
+    embedding:
+      provider: ${AI_EMBEDDING_PROVIDER:dashscope}
+      model: ${AI_EMBEDDING_MODEL:text-embedding-v4}
+    rerank:
+      provider: ${AI_RERANK_PROVIDER:dashscope}
+      model: ${AI_RERANK_MODEL:qwen3-rerank}
   vllm:
-    # Main chat model: default to Qwen OpenAI-compatible cloud endpoint.
+    # Reserved for compatibility fallback. The current main chat and tool calling path uses Spring AI + DashScope.
     base-url: ${VLLM_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode}
     api-key: ${VLLM_API_KEY:${QWEN_API_KEY:}}
     model: ${VLLM_MODEL:qwen-plus}

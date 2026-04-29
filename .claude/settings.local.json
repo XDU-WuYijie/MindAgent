@@ -3,7 +3,18 @@
     "allow": [
       "Bash(./mvnw test:*)",
       "Bash(mvn test:*)",
-      "Bash(java -c 'import com.mindagent.agent.service.QueryRoutingService; System.out.println\\(\"你好你好你好你好你好\".length\\(\\)\\);')"
+      "Bash(java -c 'import com.mindagent.agent.service.QueryRoutingService; System.out.println\\(\"你好你好你好你好你好\".length\\(\\)\\);')",
+      "Bash(xargs grep:*)",
+      "Bash(mvn dependency:tree -pl backend)",
+      "Bash(jar tf *)",
+      "Bash(jar xf *)",
+      "Read(//tmp/META-INF/spring/**)",
+      "Bash(unzip *)",
+      "Bash(javap -p -c -constants /c/Users/Administrator/.m2/repository/org/springframework/ai/spring-ai-autoconfigure-model-openai/1.0.0/spring-ai-autoconfigure-model-openai-1.0.0.jar)",
+      "Bash(cd /tmp)",
+      "Bash(javap -verbose /tmp/org/springframework/ai/model/openai/autoconfigure/OpenAiChatAutoConfiguration.class)",
+      "Bash(javap -verbose /tmp/org/springframework/ai/model/openai/autoconfigure/OpenAiConnectionProperties.class)",
+      "Bash(javap -verbose /tmp/org/springframework/ai/model/openai/autoconfigure/OpenAiChatProperties.class)"
     ]
   }
 }
